@@ -1,14 +1,14 @@
-import { BODY_FONTS, HEADING_FONTS, ICON_LIBRARIES, NEUTRAL_PRESETS } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, lookupFontMeta } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateClaudeMd(config: StyleGuideConfig): string {
     const neutralLabel = NEUTRAL_PRESETS[config.neutralFamily].label;
     const n = NEUTRAL_PRESETS[config.neutralFamily].values;
     const iconLib = ICON_LIBRARIES.find((l) => l.id === config.iconLibrary);
-    const hf = HEADING_FONTS.find((f) => f.name === config.headingFont) || HEADING_FONTS[0];
-    const bf = BODY_FONTS.find((f) => f.name === config.bodyFont) || BODY_FONTS[0];
-    const hfFallback = hf.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
-    const bfFallback = bf.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
+    const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
+    const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
+    const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
 
     return `# Design System
 
@@ -43,8 +43,8 @@ ${Object.entries(n)
 
 ## Typography
 
-- **Heading font**: \`'${config.headingFont}', ${hfFallback}\` (${hf.category}, via Google Fonts)
-- **Body font**: \`'${config.bodyFont}', ${bfFallback}\` (${bf.category}, via Google Fonts)
+- **Heading font**: \`'${config.headingFont}', ${hfFallback}\` (${hfMeta.category}, via Google Fonts)
+- **Body font**: \`'${config.bodyFont}', ${bfFallback}\` (${bfMeta.category}, via Google Fonts)
 
 ### Usage
 - Headings (h1–h4) use the heading font at weight 700

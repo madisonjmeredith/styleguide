@@ -4,7 +4,7 @@ import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessu
 import { Menu, X } from 'lucide-react';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
 import { ConfigSidebar } from './configurator/config-sidebar';
-import { DEFAULT_CONFIG, BODY_FONTS, HEADING_FONTS, googleFontsUrl } from './configurator/data';
+import { DEFAULT_CONFIG, googleFontsUrl, lookupFontMeta } from './configurator/data';
 import { PreviewPane } from './configurator/preview-pane';
 
 type Props = {
@@ -28,11 +28,11 @@ export default function Configurator({ styleGuides }: Props) {
 
     // Load Google Fonts dynamically
     useEffect(() => {
-        const hf = HEADING_FONTS.find((f) => f.name === config.headingFont) || HEADING_FONTS[0];
-        const bf = BODY_FONTS.find((f) => f.name === config.bodyFont) || BODY_FONTS[0];
+        const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
+        const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
         const url = googleFontsUrl([
-            { name: hf.name, weights: hf.weights },
-            { name: bf.name, weights: bf.weights },
+            { name: config.headingFont, weights: hfMeta.weights },
+            { name: config.bodyFont, weights: bfMeta.weights },
         ]);
         const id = 'dynamic-fonts';
         let link = document.getElementById(id) as HTMLLinkElement | null;
@@ -43,7 +43,7 @@ export default function Configurator({ styleGuides }: Props) {
             document.head.appendChild(link);
         }
         link.href = url;
-    }, [config.headingFont, config.bodyFont]);
+    }, [config.headingFont, config.bodyFont, config.headingFontMeta, config.bodyFontMeta]);
 
     const sidebarProps = {
         config,

@@ -1,5 +1,5 @@
 import type { StyleGuideConfig } from '@/types';
-import { NEUTRAL_PRESETS, tint } from './data';
+import { NEUTRAL_PRESETS, lookupFontMeta, tint } from './data';
 
 type Props = {
     config: StyleGuideConfig;
@@ -10,8 +10,12 @@ export function PreviewPane({ config }: Props) {
     const border = config.borderEnabled ? `1px solid ${n[200]}` : 'none';
     const radius = config.radius;
     const shadow = config.shadowEnabled ? '0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05)' : 'none';
-    const headingFont = `'${config.headingFont}', Georgia, serif`;
-    const bodyFont = `'${config.bodyFont}', system-ui, sans-serif`;
+    const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
+    const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
+    const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
+    const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const headingFont = `'${config.headingFont}', ${hfFallback}`;
+    const bodyFont = `'${config.bodyFont}', ${bfFallback}`;
     const primary = config.primaryColor;
     const secondary = config.secondaryColor;
 

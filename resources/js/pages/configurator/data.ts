@@ -1,4 +1,10 @@
-import type { StyleGuideConfig } from '@/types';
+import type { FontMeta, StyleGuideConfig } from '@/types';
+
+export type GoogleFont = {
+    family: string;
+    category: string;
+    variants: string[];
+};
 
 export const NEUTRAL_PRESETS = {
     cool: {
@@ -90,12 +96,19 @@ export const RADIUS_OPTIONS = [
     { value: 16, label: '16' },
 ];
 
+export const ALL_STATIC_FONTS = [
+    ...HEADING_FONTS,
+    ...BODY_FONTS.filter((bf) => !HEADING_FONTS.some((hf) => hf.name === bf.name)),
+] as const;
+
 export const DEFAULT_CONFIG: StyleGuideConfig = {
     primaryColor: '#4f46e5',
     secondaryColor: '#d946ef',
     neutralFamily: 'cool',
     headingFont: 'Fraunces',
+    headingFontMeta: { category: 'serif', weights: '400;700' },
     bodyFont: 'DM Sans',
+    bodyFontMeta: { category: 'sans-serif', weights: '400;500;700' },
     iconLibrary: 'heroicons',
     borderEnabled: true,
     shadowEnabled: true,
@@ -141,4 +154,36 @@ export function shade(hex: string, amount: number): string {
 export function googleFontsUrl(fonts: Array<{ name: string; weights: string }>): string {
     const families = fonts.map((f) => `family=${f.name.replace(/ /g, '+')}:wght@${f.weights}`).join('&');
     return `https://fonts.googleapis.com/css2?${families}&display=swap`;
+}
+
+export function variantsToWeights(variants: string[]): string {
+    const weights = variants
+        .map((v) => {
+            if (v === 'regular') {
+                return '400';
+            }
+            const num = parseInt(v, 10);
+            return !isNaN(num) && num >= 100 && num <= 900 ? String(num) : null;
+        })
+        .filter((w): w is string => w !== null);
+    const unique = [...new Set(weights)].sort();
+    return unique.length > 0 ? unique.join(';') : '400';
+}
+
+export function fontMetaFromGoogleFont(font: GoogleFont): FontMeta {
+    return {
+        category: font.category,
+        weights: variantsToWeights(font.variants),
+    };
+}
+
+export function lookupFontMeta(fontName: string, meta?: FontMeta): { category: string; weights: string } {
+    if (meta) {
+        return meta;
+    }
+    const staticFont = ALL_STATIC_FONTS.find((f) => f.name === fontName);
+    if (staticFont) {
+        return { category: staticFont.category, weights: staticFont.weights };
+    }
+    return { category: 'sans-serif', weights: '400;700' };
 }

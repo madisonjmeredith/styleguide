@@ -1,13 +1,13 @@
-import { BODY_FONTS, HEADING_FONTS, ICON_LIBRARIES, NEUTRAL_PRESETS, googleFontsUrl } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, googleFontsUrl, lookupFontMeta } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateHTML(config: StyleGuideConfig): string {
     const n = NEUTRAL_PRESETS[config.neutralFamily].values;
-    const hf = HEADING_FONTS.find((f) => f.name === config.headingFont) || HEADING_FONTS[0];
-    const bf = BODY_FONTS.find((f) => f.name === config.bodyFont) || BODY_FONTS[0];
+    const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
+    const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
     const fontsUrl = googleFontsUrl([
-        { name: hf.name, weights: hf.weights },
-        { name: bf.name, weights: bf.weights },
+        { name: config.headingFont, weights: hfMeta.weights },
+        { name: config.bodyFont, weights: bfMeta.weights },
     ]);
     const neutralLabel = NEUTRAL_PRESETS[config.neutralFamily].label;
     const borderVal = config.borderEnabled ? '1px solid var(--color-neutral-200)' : 'none';
@@ -15,8 +15,8 @@ export function generateHTML(config: StyleGuideConfig): string {
         ? '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05)'
         : 'none';
     const iconLabel = ICON_LIBRARIES.find((l) => l.id === config.iconLibrary)?.label || 'Heroicons';
-    const hfFallback = hf.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
-    const bfFallback = bf.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
+    const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
 
     const allNeutralComments = Object.entries(NEUTRAL_PRESETS)
         .map(([, preset]) => `           ${preset.label.padEnd(14)} ${Object.values(preset.values).join(' ')}`)

@@ -15,8 +15,29 @@ class StyleGuideFactory extends Factory
      */
     public function definition(): array
     {
-        $headingFonts = ['Fraunces', 'Playfair Display', 'DM Serif Display', 'Libre Baskerville', 'Lora', 'Plus Jakarta Sans', 'Outfit', 'Sora'];
-        $bodyFonts = ['DM Sans', 'Plus Jakarta Sans', 'Nunito', 'Source Sans 3', 'Lato', 'Work Sans', 'Manrope', 'Outfit'];
+        $headingFonts = [
+            ['name' => 'Fraunces', 'category' => 'serif', 'weights' => '400;700'],
+            ['name' => 'Playfair Display', 'category' => 'serif', 'weights' => '400;700'],
+            ['name' => 'DM Serif Display', 'category' => 'serif', 'weights' => '400'],
+            ['name' => 'Libre Baskerville', 'category' => 'serif', 'weights' => '400;700'],
+            ['name' => 'Lora', 'category' => 'serif', 'weights' => '400;700'],
+            ['name' => 'Plus Jakarta Sans', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Outfit', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Sora', 'category' => 'sans-serif', 'weights' => '400;600;700'],
+        ];
+        $bodyFonts = [
+            ['name' => 'DM Sans', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Plus Jakarta Sans', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Nunito', 'category' => 'sans-serif', 'weights' => '400;600;700'],
+            ['name' => 'Source Sans 3', 'category' => 'sans-serif', 'weights' => '400;600;700'],
+            ['name' => 'Lato', 'category' => 'sans-serif', 'weights' => '400;700'],
+            ['name' => 'Work Sans', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Manrope', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+            ['name' => 'Outfit', 'category' => 'sans-serif', 'weights' => '400;500;700'],
+        ];
+
+        $hf = fake()->randomElement($headingFonts);
+        $bf = fake()->randomElement($bodyFonts);
 
         return [
             'user_id' => User::factory(),
@@ -25,8 +46,10 @@ class StyleGuideFactory extends Factory
                 'primaryColor' => fake()->hexColor(),
                 'secondaryColor' => fake()->hexColor(),
                 'neutralFamily' => fake()->randomElement(['cool', 'neutral', 'warm']),
-                'headingFont' => fake()->randomElement($headingFonts),
-                'bodyFont' => fake()->randomElement($bodyFonts),
+                'headingFont' => $hf['name'],
+                'headingFontMeta' => ['category' => $hf['category'], 'weights' => $hf['weights']],
+                'bodyFont' => $bf['name'],
+                'bodyFontMeta' => ['category' => $bf['category'], 'weights' => $bf['weights']],
                 'iconLibrary' => fake()->randomElement(['fontawesome', 'heroicons', 'feather']),
                 'borderEnabled' => fake()->boolean(),
                 'shadowEnabled' => fake()->boolean(),
