@@ -55,7 +55,7 @@ import {
     Check as LucideCheck,
     X as LucideX,
 } from 'lucide-react';
-import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
+import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, ICON_PREVIEW_SET, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
 
 const MATERIAL_SYMBOL_PATHS: Record<string, string> = {
     home: 'M220-180h150v-220q0-12.75 8.63-21.38Q387.25-430 400-430h160q12.75 0 21.38 8.62Q590-412.75 590-400v220h150v-390L480-765 220-570v390Zm-60 0v-390q0-14.25 6.38-27 6.37-12.75 17.62-21l260-195q15.68-12 35.84-12Q500-825 516-813l260 195q11.25 8.25 17.63 21 6.37 12.75 6.37 27v390q0 24.75-17.62 42.37Q764.75-120 740-120H560q-12.75 0-21.37-8.63Q530-137.25 530-150v-220H430v220q0 12.75-8.62 21.37Q412.75-120 400-120H220q-24.75 0-42.37-17.63Q160-155.25 160-180Zm320-293Z',
@@ -90,6 +90,12 @@ export function PreviewPane({ config }: Props) {
     const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
     const primary = config.primaryColor;
     const secondary = config.secondaryColor;
+    const headingFontWeight = config.headingFontWeight ?? 700;
+    const bodyFontWeight = config.bodyFontWeight ?? 400;
+    const headingLetterSpacing = HEADING_LETTER_SPACING_VALUES[config.headingLetterSpacing ?? 'normal'];
+    const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[config.bodyLineHeight ?? 'comfortable'];
+    const headingTextTransform = (config.headingTextTransform ?? 'none') as React.CSSProperties['textTransform'];
+    const buttonTextTransform = (config.buttonTextTransform ?? 'none') as React.CSSProperties['textTransform'];
 
     const linkColor = config.linkColor === 'secondary' ? secondary : primary;
     const linkHoverColor =
@@ -155,9 +161,11 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         fontFamily: headingFont,
                                         fontSize: ts.h1,
-                                        fontWeight: 700,
+                                        fontWeight: headingFontWeight,
                                         color: n[900],
                                         lineHeight: 1.2,
+                                        letterSpacing: headingLetterSpacing,
+                                        textTransform: headingTextTransform,
                                         marginBottom: 4,
                                     }}
                                 >
@@ -167,9 +175,11 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         fontFamily: headingFont,
                                         fontSize: ts.h2,
-                                        fontWeight: 700,
+                                        fontWeight: headingFontWeight,
                                         color: n[900],
                                         lineHeight: 1.25,
+                                        letterSpacing: headingLetterSpacing,
+                                        textTransform: headingTextTransform,
                                         marginBottom: 4,
                                     }}
                                 >
@@ -179,22 +189,24 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         fontFamily: headingFont,
                                         fontSize: ts.h3,
-                                        fontWeight: 700,
+                                        fontWeight: headingFontWeight,
                                         color: n[900],
                                         lineHeight: 1.3,
+                                        letterSpacing: headingLetterSpacing,
+                                        textTransform: headingTextTransform,
                                         marginBottom: 12,
                                     }}
                                 >
                                     Heading Three
                                 </h3>
-                                <p style={{ fontSize: ts.body, color: n[700], lineHeight: 1.65, marginBottom: 8 }}>
+                                <p style={{ fontSize: ts.body, fontWeight: bodyFontWeight, color: n[700], lineHeight: bodyLineHeight, marginBottom: 8 }}>
                                     This is body text using the selected body font. It demonstrates comfortable reading size, generous line
                                     height, and softened color.
                                 </p>
-                                <p style={{ fontSize: ts.secondary, color: n[500], lineHeight: 1.5, marginBottom: 8 }}>
+                                <p style={{ fontSize: ts.secondary, fontWeight: bodyFontWeight, color: n[500], lineHeight: 1.5, marginBottom: 8 }}>
                                     This is secondary text — smaller and lighter for captions and metadata.
                                 </p>
-                                <p style={{ fontSize: ts.body, color: n[700] }}>
+                                <p style={{ fontSize: ts.body, fontWeight: bodyFontWeight, color: n[700] }}>
                                     Links look{' '}
                                     <a href="#" onClick={(e) => e.preventDefault()} className="preview-link">
                                         like this
@@ -229,6 +241,7 @@ export function PreviewPane({ config }: Props) {
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -244,6 +257,7 @@ export function PreviewPane({ config }: Props) {
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -259,6 +273,7 @@ export function PreviewPane({ config }: Props) {
                                         color: n[700],
                                         border,
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -273,6 +288,7 @@ export function PreviewPane({ config }: Props) {
                                         background: 'transparent',
                                         border: 'none',
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -288,6 +304,7 @@ export function PreviewPane({ config }: Props) {
                                         color: n[400],
                                         border: 'none',
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'not-allowed',
                                     }}
                                 >
@@ -429,8 +446,10 @@ export function PreviewPane({ config }: Props) {
                                             style={{
                                                 fontFamily: headingFont,
                                                 fontSize: ts.secondary + 2,
-                                                fontWeight: 700,
+                                                fontWeight: headingFontWeight,
                                                 color: n[900],
+                                                letterSpacing: headingLetterSpacing,
+                                                textTransform: headingTextTransform,
                                                 marginBottom: 4,
                                             }}
                                         >
@@ -453,8 +472,10 @@ export function PreviewPane({ config }: Props) {
                                             style={{
                                                 fontFamily: headingFont,
                                                 fontSize: ts.secondary + 2,
-                                                fontWeight: 700,
+                                                fontWeight: headingFontWeight,
                                                 color: n[900],
+                                                letterSpacing: headingLetterSpacing,
+                                                textTransform: headingTextTransform,
                                                 marginBottom: 4,
                                             }}
                                         >
@@ -481,8 +502,10 @@ export function PreviewPane({ config }: Props) {
                                             style={{
                                                 fontFamily: headingFont,
                                                 fontSize: ts.secondary + 2,
-                                                fontWeight: 700,
+                                                fontWeight: headingFontWeight,
                                                 color: n[900],
+                                                letterSpacing: headingLetterSpacing,
+                                                textTransform: headingTextTransform,
                                                 marginBottom: 4,
                                             }}
                                         >
@@ -520,6 +543,7 @@ export function PreviewPane({ config }: Props) {
                                                 color: '#fff',
                                                 border: 'none',
                                                 borderRadius: radius,
+                                                textTransform: buttonTextTransform,
                                                 cursor: 'pointer',
                                             }}
                                         >
@@ -591,6 +615,7 @@ export function PreviewPane({ config }: Props) {
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,
+                                        textTransform: buttonTextTransform,
                                         cursor: 'pointer',
                                     }}
                                 >

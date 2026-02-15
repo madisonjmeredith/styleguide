@@ -1,4 +1,4 @@
-import type { ButtonHoverStyle, FontMeta, StyleGuideConfig, TransitionDuration, TransitionEasing, TypeScale } from '@/types';
+import type { BodyLineHeight, ButtonHoverStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TextTransform, TransitionDuration, TransitionEasing, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -184,6 +184,45 @@ export const TRANSITION_EASING_OPTIONS: Array<{ id: TransitionEasing; label: str
     { id: 'ease', label: 'Ease' },
 ];
 
+export const FONT_WEIGHT_OPTIONS: Array<{ id: number; label: string }> = [
+    { id: 300, label: '300' },
+    { id: 400, label: '400' },
+    { id: 500, label: '500' },
+    { id: 600, label: '600' },
+    { id: 700, label: '700' },
+    { id: 800, label: '800' },
+    { id: 900, label: '900' },
+];
+
+export const HEADING_LETTER_SPACING_OPTIONS: Array<{ id: HeadingLetterSpacing; label: string }> = [
+    { id: 'tight', label: 'Tight' },
+    { id: 'normal', label: 'Normal' },
+    { id: 'wide', label: 'Wide' },
+];
+
+export const HEADING_LETTER_SPACING_VALUES: Record<HeadingLetterSpacing, string> = {
+    tight: '-0.02em',
+    normal: '0',
+    wide: '0.05em',
+};
+
+export const BODY_LINE_HEIGHT_OPTIONS: Array<{ id: BodyLineHeight; label: string }> = [
+    { id: 'compact', label: 'Compact' },
+    { id: 'comfortable', label: 'Comfortable' },
+    { id: 'spacious', label: 'Spacious' },
+];
+
+export const BODY_LINE_HEIGHT_VALUES: Record<BodyLineHeight, number> = {
+    compact: 1.4,
+    comfortable: 1.6,
+    spacious: 1.8,
+};
+
+export const TEXT_TRANSFORM_OPTIONS: Array<{ id: TextTransform; label: string }> = [
+    { id: 'none', label: 'None' },
+    { id: 'uppercase', label: 'Uppercase' },
+];
+
 export const ALL_STATIC_FONTS = [
     ...HEADING_FONTS,
     ...BODY_FONTS.filter((bf) => !HEADING_FONTS.some((hf) => hf.name === bf.name)),
@@ -198,6 +237,12 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     bodyFont: 'DM Sans',
     bodyFontMeta: { category: 'sans-serif', weights: '400;500;700' },
     typeScale: 'regular',
+    headingFontWeight: 700,
+    bodyFontWeight: 400,
+    headingLetterSpacing: 'normal',
+    bodyLineHeight: 'comfortable',
+    buttonTextTransform: 'none',
+    headingTextTransform: 'none',
     iconLibrary: 'heroicons',
     borderWidth: 1,
     shadowEnabled: true,

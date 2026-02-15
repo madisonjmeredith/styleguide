@@ -7,6 +7,9 @@ export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
 export type ButtonHoverStyle = 'darker' | 'lighter' | 'glow' | 'lift';
 export type TransitionDuration = 0 | 100 | 150 | 200 | 300;
 export type TransitionEasing = 'linear' | 'ease';
+export type HeadingLetterSpacing = 'tight' | 'normal' | 'wide';
+export type BodyLineHeight = 'compact' | 'comfortable' | 'spacious';
+export type TextTransform = 'none' | 'uppercase';
 
 export type FontMeta = { category: string; weights: string };
 
@@ -27,6 +30,12 @@ export type StyleGuideConfig = {
     linkHoverColor: LinkHoverColor;
     linkUnderline: boolean;
     linkUnderlineOnHover: LinkUnderlineOnHover;
+    headingFontWeight: number;
+    bodyFontWeight: number;
+    headingLetterSpacing: HeadingLetterSpacing;
+    bodyLineHeight: BodyLineHeight;
+    buttonTextTransform: TextTransform;
+    headingTextTransform: TextTransform;
     buttonHoverStyle: ButtonHoverStyle;
     transitionDuration: TransitionDuration;
     transitionEasing: TransitionEasing;

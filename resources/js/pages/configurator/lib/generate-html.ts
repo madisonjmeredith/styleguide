@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta, shade, tint } from '../data';
+import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta, shade, tint } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateHTML(config: StyleGuideConfig): string {
@@ -19,6 +19,13 @@ export function generateHTML(config: StyleGuideConfig): string {
     const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+
+    const headingFontWeight = config.headingFontWeight ?? 700;
+    const bodyFontWeight = config.bodyFontWeight ?? 400;
+    const headingLetterSpacing = HEADING_LETTER_SPACING_VALUES[config.headingLetterSpacing ?? 'normal'];
+    const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[config.bodyLineHeight ?? 'comfortable'];
+    const headingTextTransform = config.headingTextTransform ?? 'none';
+    const buttonTextTransform = config.buttonTextTransform ?? 'none';
 
     const linkBaseColor = config.linkColor === 'secondary' ? config.secondaryColor : config.primaryColor;
     const linkHoverColor =
@@ -69,6 +76,11 @@ ${allNeutralComments} */
       --font-size-secondary: ${ts.secondary}px;
       --font-size-small: ${ts.small}px;
 
+      --font-weight-heading: ${headingFontWeight};
+      --font-weight-body: ${bodyFontWeight};
+      --letter-spacing-heading: ${headingLetterSpacing};
+      --line-height-body: ${bodyLineHeight};
+
       --border: ${borderVal};
       --radius: ${config.radius}px;
       --shadow: ${shadowVal};
@@ -95,18 +107,19 @@ ${allNeutralComments} */
     body {
       font-family: var(--font-body);
       font-size: var(--font-size-body);
+      font-weight: var(--font-weight-body);
       color: var(--color-neutral-800);
       background: var(--color-neutral-50);
-      line-height: 1.6;
+      line-height: var(--line-height-body);
     }
 
     .guide { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
     .guide-header { margin-bottom: 56px; padding-bottom: 32px; border-bottom: 2px solid var(--color-neutral-900); }
-    .guide-header h1 { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 8px; }
+    .guide-header h1 { font-family: var(--font-heading); font-size: 2rem; font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); margin-bottom: 8px; }
     .guide-header p { color: var(--color-neutral-500); font-size: 0.95rem; }
 
     .section { margin-bottom: 56px; }
-    .section-title { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 8px; }
+    .section-title { font-family: var(--font-heading); font-size: 1.35rem; font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); margin-bottom: 8px; }
     .section-desc { color: var(--color-neutral-500); font-size: 0.875rem; margin-bottom: 24px; }
     .section-desc code { background: var(--color-neutral-100); padding: 1px 5px; border-radius: 3px; font-size: 0.8rem; }
     .subsection { margin-bottom: 32px; }
@@ -135,7 +148,7 @@ ${allNeutralComments} */
     .component-stage { background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: 8px; padding: 32px; margin-bottom: 16px; }
     .component-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; transition: all var(--transition-duration) var(--transition-easing); text-decoration: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; text-transform: ${buttonTextTransform}; transition: all var(--transition-duration) var(--transition-easing); text-decoration: none; }
     .btn-primary { background: var(--color-primary); color: var(--color-white); }
     .btn-secondary { background: var(--color-secondary); color: var(--color-white); }
     .btn-outline { background: transparent; color: var(--color-neutral-700); border: var(--border); }
@@ -156,7 +169,7 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
 
     .card { background: var(--color-white); border: var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
     .card-body { padding: 20px; }
-    .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--color-neutral-900); margin-bottom: 6px; }
+    .card-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); margin-bottom: 6px; }
     .card-text { color: var(--color-neutral-600); font-size: 0.875rem; line-height: 1.5; }
     .card-image { width: 100%; height: 160px; background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 30%, white), color-mix(in srgb, var(--color-secondary) 30%, white)); }
     .card-actions { padding: 12px 20px; border-top: var(--border); display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
@@ -239,22 +252,22 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
       <div class="subsection">
         <h3 class="subsection-title">Headings</h3>
         <div class="type-specimen">
-          <h1 style="font-family: var(--font-heading); font-size: var(--font-size-h1); font-weight: 700; color: var(--color-neutral-900); line-height: 1.2; margin-bottom: 12px;">Heading One</h1>
-          <h2 style="font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 700; color: var(--color-neutral-900); line-height: 1.25; margin-bottom: 12px;">Heading Two</h2>
-          <h3 style="font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 700; color: var(--color-neutral-900); line-height: 1.3; margin-bottom: 12px;">Heading Three</h3>
-          <h4 style="font-family: var(--font-heading); font-size: var(--font-size-secondary); font-weight: 700; color: var(--color-neutral-800); line-height: 1.35;">Heading Four</h4>
+          <h1 style="font-family: var(--font-heading); font-size: var(--font-size-h1); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); line-height: 1.2; margin-bottom: 12px;">Heading One</h1>
+          <h2 style="font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); line-height: 1.25; margin-bottom: 12px;">Heading Two</h2>
+          <h3 style="font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-900); line-height: 1.3; margin-bottom: 12px;">Heading Three</h3>
+          <h4 style="font-family: var(--font-heading); font-size: var(--font-size-secondary); font-weight: var(--font-weight-heading); letter-spacing: var(--letter-spacing-heading); text-transform: ${headingTextTransform}; color: var(--color-neutral-800); line-height: 1.35;">Heading Four</h4>
         </div>
       </div>
       <div class="subsection">
         <h3 class="subsection-title">Body Text &amp; Links</h3>
         <div class="type-specimen">
-          <p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-neutral-700); line-height: 1.65; margin-bottom: 16px;">
+          <p style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-body); color: var(--color-neutral-700); line-height: var(--line-height-body); margin-bottom: 16px;">
             This is a standard paragraph. Body text uses the <code style="background: var(--color-neutral-100); padding: 1px 5px; border-radius: 3px; font-size: var(--font-size-small);">--font-body</code> family at a comfortable reading size.
           </p>
-          <p style="font-family: var(--font-body); font-size: var(--font-size-secondary); color: var(--color-neutral-500); line-height: 1.5; margin-bottom: 16px;">
+          <p style="font-family: var(--font-body); font-size: var(--font-size-secondary); font-weight: var(--font-weight-body); color: var(--color-neutral-500); line-height: 1.5; margin-bottom: 16px;">
             This is smaller secondary text, useful for captions, metadata, and supporting content.
           </p>
-          <p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-neutral-700); line-height: 1.65;">
+          <p style="font-family: var(--font-body); font-size: var(--font-size-body); font-weight: var(--font-weight-body); color: var(--color-neutral-700); line-height: var(--line-height-body);">
             Links look like <a href="#">this when inline</a> in body text.
           </p>
         </div>

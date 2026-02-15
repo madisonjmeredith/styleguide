@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from '../data';
+import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateClaudeMd(config: StyleGuideConfig): string {
@@ -11,6 +11,15 @@ export function generateClaudeMd(config: StyleGuideConfig): string {
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
     const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
     const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
+
+    const headingFontWeight = config.headingFontWeight ?? 700;
+    const bodyFontWeight = config.bodyFontWeight ?? 400;
+    const headingLetterSpacingLabel = config.headingLetterSpacing ?? 'normal';
+    const headingLetterSpacing = HEADING_LETTER_SPACING_VALUES[headingLetterSpacingLabel];
+    const bodyLineHeightLabel = config.bodyLineHeight ?? 'comfortable';
+    const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[bodyLineHeightLabel];
+    const headingTextTransform = config.headingTextTransform ?? 'none';
+    const buttonTextTransform = config.buttonTextTransform ?? 'none';
 
     const linkBaseColor = config.linkColor === 'secondary' ? config.secondaryColor : config.primaryColor;
     const linkColorLabel = config.linkColor === 'secondary' ? 'secondary' : 'primary';
@@ -54,6 +63,11 @@ ${Object.entries(n)
 - **Heading font**: \`'${config.headingFont}', ${hfFallback}\` (${hfMeta.category}, via Google Fonts)
 - **Body font**: \`'${config.bodyFont}', ${bfFallback}\` (${bfMeta.category}, via Google Fonts)
 - **Type scale**: ${typeScaleLabel}
+- **Heading font weight**: \`${headingFontWeight}\`
+- **Body font weight**: \`${bodyFontWeight}\`
+- **Heading letter spacing**: ${headingLetterSpacingLabel} (\`${headingLetterSpacing}\`)
+- **Body line height**: ${bodyLineHeightLabel} (\`${bodyLineHeight}\`)
+- **Heading text transform**: \`${headingTextTransform}\`
 
 ### Font Sizes
 | Element | Size |
@@ -66,8 +80,8 @@ ${Object.entries(n)
 | Small | \`${ts.small}px\` |
 
 ### Usage
-- Headings (h1–h4) use the heading font at weight 700
-- Body text uses the body font at weight 400, with 500/600 for emphasis
+- Headings (h1–h4) use the heading font at weight ${headingFontWeight}${headingLetterSpacing !== '0' ? `, letter-spacing \`${headingLetterSpacing}\`` : ''}${headingTextTransform !== 'none' ? `, text-transform \`${headingTextTransform}\`` : ''}
+- Body text uses the body font at weight ${bodyFontWeight}, line-height \`${bodyLineHeight}\`
 - Body text color: neutral-700 (\`${n[700]}\`)
 - Heading color: neutral-900 (\`${n[900]}\`)
 - Secondary/caption text: neutral-500 (\`${n[500]}\`)
@@ -118,6 +132,7 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - **Outline**: Transparent background, neutral-700 text, border from \`--border\`
 - **Text/Link**: No background, link color text, uses link decoration settings
 - **Disabled**: Background neutral-200, neutral-400 text, \`cursor: not-allowed\`
+- **Text transform**: \`${buttonTextTransform}\`
 - **Hover style**: ${config.buttonHoverStyle === 'darker' ? `Darken — primary hover: \`${shade(config.primaryColor, 0.15)}\`, secondary hover: \`${shade(config.secondaryColor, 0.15)}\`` : config.buttonHoverStyle === 'lighter' ? `Lighten — primary hover: \`${tint(config.primaryColor, 0.2)}\`, secondary hover: \`${tint(config.secondaryColor, 0.2)}\`` : config.buttonHoverStyle === 'glow' ? `Glow — colored \`box-shadow: 0 0 0 4px\` ring using tinted variant of button color` : `Lift — \`transform: translateY(-2px)\` with \`box-shadow: 0 4px 12px rgba(0,0,0,0.15)\``}
 - Sizes: sm (6px 14px), default (10px 20px), lg (14px 28px)
 
