@@ -27,7 +27,9 @@ export function generateClaudeMd(config: StyleGuideConfig): string {
         config.linkHoverColor === 'darker' ? shade(linkBaseColor, 0.25) : config.linkHoverColor === 'lighter' ? tint(linkBaseColor, 0.3) : linkBaseColor;
     const linkUnderline = config.linkUnderline !== false;
 
-    return `# Design System
+    const title = config.name ? config.name : 'Design System';
+
+    return `# ${title}
 
 ## Colors
 

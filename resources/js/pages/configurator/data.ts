@@ -203,6 +203,7 @@ export const ALL_STATIC_FONTS = [
 ] as const;
 
 export const DEFAULT_CONFIG: StyleGuideConfig = {
+    name: '',
     primaryColor: '#4f46e5',
     secondaryColor: '#d946ef',
     neutralFamily: 'cool',

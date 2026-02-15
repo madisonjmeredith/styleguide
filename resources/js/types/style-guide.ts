@@ -13,6 +13,7 @@ export type TextTransform = 'none' | 'uppercase';
 export type FontMeta = { category: string; weights: string };
 
 export type StyleGuideConfig = {
+    name: string;
     primaryColor: string;
     secondaryColor: string;
     neutralFamily: NeutralFamily;

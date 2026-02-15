@@ -149,6 +149,23 @@ export function PreviewPane({ config }: Props) {
                             overflowY: 'auto',
                         }}
                     >
+                        {/* Style Guide Name */}
+                        {config.name && (
+                            <h1
+                                style={{
+                                    fontFamily: headingFont,
+                                    fontSize: ts.h1 + 8,
+                                    fontWeight: headingFontWeight,
+                                    color: n[900],
+                                    lineHeight: 1.2,
+                                    letterSpacing: headingLetterSpacing,
+                                    marginBottom: 24,
+                                }}
+                            >
+                                {config.name}
+                            </h1>
+                        )}
+
                         {/* Typography */}
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Typography</div>

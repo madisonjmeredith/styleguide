@@ -30,6 +30,21 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                 <div className="text-base font-semibold text-gray-900">Style Guide</div>
             </div>
 
+            {/* Name */}
+            <div className="py-4">
+                <label htmlFor="styleguide-name" className="mb-1.5 block text-xs font-medium text-gray-500">
+                    Name
+                </label>
+                <input
+                    id="styleguide-name"
+                    type="text"
+                    value={config.name}
+                    onChange={(e) => onUpdate('name', e.target.value)}
+                    placeholder="My Style Guide"
+                    className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none"
+                />
+            </div>
+
             {/* Config Sections */}
             <nav className="flex flex-1 flex-col divide-y divide-gray-200">
                 <ColorSection config={config} onUpdate={onUpdate} />
