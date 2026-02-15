@@ -30,10 +30,7 @@ export function IconSection({ config, onUpdate }: Props) {
                         >
                             {config.iconLibrary === lib.id && <div className="size-2 rounded-full bg-green-600" />}
                         </div>
-                        <div>
-                            <div className="text-sm/6 font-medium text-gray-700">{lib.label}</div>
-                            <div className="text-xs text-gray-500">{lib.note}</div>
-                        </div>
+                        <div className="text-sm/6 font-medium text-gray-700">{lib.label}</div>
                         <input
                             type="radio"
                             name="iconLibrary"

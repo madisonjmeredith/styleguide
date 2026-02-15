@@ -1,5 +1,5 @@
 export type NeutralFamily = 'cool' | 'neutral' | 'warm';
-export type IconLibrary = 'fontawesome' | 'fontawesome-outline' | 'heroicons' | 'feather' | 'lucide';
+export type IconLibrary = 'fontawesome-regular' | 'fontawesome-solid' | 'heroicons' | 'lucide' | 'material-symbols';
 export type TypeScale = 'small' | 'regular' | 'large' | 'extra-large';
 
 export type FontMeta = { category: string; weights: string };

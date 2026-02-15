@@ -83,11 +83,11 @@ export const BODY_FONTS = [
 ] as const;
 
 export const ICON_LIBRARIES = [
-    { id: 'fontawesome' as const, label: 'Font Awesome', note: 'CSS classes · fa-solid fa-icon' },
-    { id: 'fontawesome-outline' as const, label: 'Font Awesome Outline', note: 'CSS classes · fa-regular fa-icon' },
-    { id: 'heroicons' as const, label: 'Heroicons', note: 'Inline SVGs · Tailwind team' },
-    { id: 'feather' as const, label: 'Feather Icons', note: 'data-feather attr · lightweight' },
-    { id: 'lucide' as const, label: 'Lucide', note: 'Inline SVGs · Fork of Feather' },
+    { id: 'fontawesome-regular' as const, label: 'Font Awesome Regular' },
+    { id: 'fontawesome-solid' as const, label: 'Font Awesome Solid' },
+    { id: 'heroicons' as const, label: 'Heroicons' },
+    { id: 'lucide' as const, label: 'Lucide' },
+    { id: 'material-symbols' as const, label: 'Material Symbols' },
 ];
 
 export const ICON_PREVIEW_SET = [

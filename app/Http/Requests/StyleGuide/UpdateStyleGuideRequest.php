@@ -24,7 +24,7 @@ class UpdateStyleGuideRequest extends FormRequest
             'configuration.neutralFamily' => ['required', 'string', 'in:cool,neutral,warm'],
             'configuration.headingFont' => ['required', 'string', 'max:100'],
             'configuration.bodyFont' => ['required', 'string', 'max:100'],
-            'configuration.iconLibrary' => ['required', 'string', 'in:fontawesome,heroicons,feather'],
+            'configuration.iconLibrary' => ['required', 'string', 'in:fontawesome-regular,fontawesome-solid,heroicons,lucide,material-symbols'],
             'configuration.headingFontMeta' => ['sometimes', 'array'],
             'configuration.headingFontMeta.category' => ['required_with:configuration.headingFontMeta', 'string', 'max:50'],
             'configuration.headingFontMeta.weights' => ['required_with:configuration.headingFontMeta', 'string', 'max:100'],
