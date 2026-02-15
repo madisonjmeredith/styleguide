@@ -3,17 +3,6 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import { Check, ChevronsUpDown } from 'lucide-react';
 import type { GoogleFont } from './data';
 
-const CATEGORIES = ['all', 'sans-serif', 'serif', 'display', 'handwriting', 'monospace'] as const;
-
-const CATEGORY_LABELS: Record<string, string> = {
-    all: 'All',
-    'sans-serif': 'Sans Serif',
-    serif: 'Serif',
-    display: 'Display',
-    handwriting: 'Handwriting',
-    monospace: 'Monospace',
-};
-
 type Props = {
     fonts: GoogleFont[];
     value: string;
@@ -22,44 +11,21 @@ type Props = {
 
 export function FontCombobox({ fonts, value, onChange }: Props) {
     const [query, setQuery] = useState('');
-    const [category, setCategory] = useState<string>('all');
 
     const filtered = useMemo(() => {
-        let results = fonts;
-
-        if (category !== 'all') {
-            results = results.filter((f) => f.category === category);
+        if (!query) {
+            return fonts.slice(0, 50);
         }
 
-        if (query) {
-            const lower = query.toLowerCase();
-            results = results.filter((f) => f.family.toLowerCase().includes(lower));
-        }
+        const lower = query.toLowerCase();
 
-        return results.slice(0, 50);
-    }, [fonts, query, category]);
+        return fonts.filter((f) => f.family.toLowerCase().includes(lower)).slice(0, 50);
+    }, [fonts, query]);
 
     const selectedFont = fonts.find((f) => f.family === value);
 
     return (
         <div>
-            <div className="flex flex-wrap gap-1 mb-1.5">
-                {CATEGORIES.map((cat) => (
-                    <button
-                        key={cat}
-                        type="button"
-                        onClick={() => setCategory(cat)}
-                        className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
-                            category === cat
-                                ? 'bg-gray-900 text-white'
-                                : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                        }`}
-                    >
-                        {CATEGORY_LABELS[cat]}
-                    </button>
-                ))}
-            </div>
-
             <Combobox
                 value={value}
                 onChange={(family) => {
@@ -101,9 +67,6 @@ export function FontCombobox({ fonts, value, onChange }: Props) {
                                 <span className="block truncate group-data-[selected]:font-semibold">
                                     {font.family}
                                 </span>
-                                <span className="ml-1 text-[11px] text-gray-400">
-                                    {font.category}
-                                </span>
                                 <span className="absolute inset-y-0 left-0 hidden items-center pl-2 group-data-[selected]:flex">
                                     <Check className="size-3.5 text-gray-600" />
                                 </span>
@@ -113,11 +76,6 @@ export function FontCombobox({ fonts, value, onChange }: Props) {
                 </ComboboxOptions>
             </Combobox>
 
-            {selectedFont && (
-                <div className="mt-1 text-[11px] text-gray-400">
-                    {selectedFont.category}
-                </div>
-            )}
         </div>
     );
 }
