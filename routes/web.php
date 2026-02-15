@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StyleGuideController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -13,5 +14,13 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('configurator', [StyleGuideController::class, 'index'])->name('configurator');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('configurator', [StyleGuideController::class, 'store'])->name('configurator.store');
+    Route::put('configurator/{styleGuide}', [StyleGuideController::class, 'update'])->name('configurator.update');
+    Route::delete('configurator/{styleGuide}', [StyleGuideController::class, 'destroy'])->name('configurator.destroy');
+});
 
 require __DIR__.'/settings.php';
