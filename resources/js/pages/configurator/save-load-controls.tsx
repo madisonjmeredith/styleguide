@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
-import { Save, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
 type Props = {
     styleGuides: StyleGuideData[];
@@ -62,24 +62,18 @@ export function SaveLoadControls({ styleGuides, config, activeGuideId, onLoadGui
 
     return (
         <div className="space-y-2">
-            <div className="flex gap-1.5">
+            <Button onClick={() => setSaveDialogOpen(true)} className="w-full">
+                Save Style Guide
+            </Button>
+            {activeGuideId && (
                 <button
-                    onClick={() => setSaveDialogOpen(true)}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 text-sm/6 font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 rounded-md cursor-pointer transition-colors"
+                    onClick={handleUpdate}
+                    disabled={saving}
+                    className="flex w-full items-center justify-center gap-1.5 py-2 text-sm/6 font-medium text-green-600 bg-green-50 hover:bg-green-100 border border-green-200 rounded-md cursor-pointer transition-colors disabled:opacity-50"
                 >
-                    <Save className="size-4" />
-                    Save New
+                    {saving ? 'Saving...' : 'Update Current'}
                 </button>
-                {activeGuideId && (
-                    <button
-                        onClick={handleUpdate}
-                        disabled={saving}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2 text-sm/6 font-medium text-green-600 bg-green-50 hover:bg-green-100 border border-green-200 rounded-md cursor-pointer transition-colors disabled:opacity-50"
-                    >
-                        {saving ? 'Saving...' : 'Update'}
-                    </button>
-                )}
-            </div>
+            )}
 
             {styleGuides.length > 0 && (
                 <div className="space-y-1">
