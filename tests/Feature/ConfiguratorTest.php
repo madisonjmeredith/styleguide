@@ -26,7 +26,7 @@ $validConfig = [
 ];
 
 test('configurator page is accessible to guests', function () {
-    $this->get(route('configurator'))
+    $this->get(route('home'))
         ->assertSuccessful()
         ->assertInertia(fn ($page) => $page
             ->component('configurator')
@@ -39,7 +39,7 @@ test('configurator page shows saved guides for authenticated users', function ()
     StyleGuide::factory()->count(3)->for($user)->create();
 
     $this->actingAs($user)
-        ->get(route('configurator'))
+        ->get(route('home'))
         ->assertSuccessful()
         ->assertInertia(fn ($page) => $page
             ->component('configurator')

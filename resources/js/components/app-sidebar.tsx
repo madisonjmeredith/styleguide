@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/sidebar';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
-import { configurator, dashboard } from '@/routes';
+import { home, dashboard } from '@/routes';
 
 const mainNavItems: NavItem[] = [
     {
@@ -24,7 +24,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Configurator',
-        href: configurator(),
+        href: home(),
         icon: Palette,
     },
 ];
