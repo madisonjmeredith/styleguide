@@ -7,6 +7,7 @@ import { IconSection } from './sections/icon-section';
 import { ButtonSection } from './sections/button-section';
 import { LinkSection } from './sections/link-section';
 import { SurfaceSection } from './sections/surface-section';
+import { TransitionSection } from './sections/transition-section';
 import { TypographySection } from './sections/typography-section';
 
 type Props = {
@@ -38,6 +39,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                 <SurfaceSection config={config} onUpdate={onUpdate} />
                 <ButtonSection config={config} onUpdate={onUpdate} />
                 <LinkSection config={config} onUpdate={onUpdate} />
+                <TransitionSection config={config} onUpdate={onUpdate} />
             </nav>
 
             {/* Save & Export */}

@@ -35,6 +35,8 @@ class UpdateStyleGuideRequest extends FormRequest
             'configuration.borderWidth' => ['required', 'integer', 'in:0,1,2'],
             'configuration.shadowEnabled' => ['required', 'boolean'],
             'configuration.radius' => ['required', 'integer', 'in:0,4,8,12,16'],
+            'configuration.transitionDuration' => ['required', 'integer', 'in:0,100,150,200,300'],
+            'configuration.transitionEasing' => ['required', 'string', 'in:linear,ease'],
         ];
     }
 }

@@ -55,6 +55,8 @@ class StyleGuideFactory extends Factory
                 'borderWidth' => fake()->randomElement([0, 1, 2]),
                 'shadowEnabled' => fake()->boolean(),
                 'radius' => fake()->randomElement([0, 4, 8, 12, 16]),
+                'transitionDuration' => fake()->randomElement([0, 100, 150, 200, 300]),
+                'transitionEasing' => fake()->randomElement(['linear', 'ease']),
             ],
         ];
     }

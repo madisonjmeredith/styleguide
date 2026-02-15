@@ -5,6 +5,8 @@ export type LinkColor = 'primary' | 'secondary';
 export type LinkHoverColor = 'darker' | 'lighter' | 'none';
 export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
 export type ButtonHoverStyle = 'darker' | 'lighter' | 'glow' | 'lift';
+export type TransitionDuration = 0 | 100 | 150 | 200 | 300;
+export type TransitionEasing = 'linear' | 'ease';
 
 export type FontMeta = { category: string; weights: string };
 
@@ -26,6 +28,8 @@ export type StyleGuideConfig = {
     linkUnderline: boolean;
     linkUnderlineOnHover: LinkUnderlineOnHover;
     buttonHoverStyle: ButtonHoverStyle;
+    transitionDuration: TransitionDuration;
+    transitionEasing: TransitionEasing;
 };
 
 export type StyleGuideData = {

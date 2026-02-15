@@ -98,6 +98,18 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 --link-hover-decoration: ${config.linkUnderlineOnHover === 'show' ? 'underline' : config.linkUnderlineOnHover === 'remove' ? 'none' : linkUnderline ? 'underline' : 'none'};
 \`\`\`
 
+## Transitions
+
+- **Duration**: \`${config.transitionDuration}ms\`
+- **Easing**: \`${config.transitionEasing}\`
+- Apply to all interactive state changes (hover, focus, active): \`transition: all ${config.transitionDuration}ms ${config.transitionEasing}\`
+
+### CSS Custom Properties
+\`\`\`css
+--transition-duration: ${config.transitionDuration}ms;
+--transition-easing: ${config.transitionEasing};
+\`\`\`
+
 ## Component Patterns
 
 ### Buttons

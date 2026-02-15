@@ -83,6 +83,10 @@ ${allNeutralComments} */
       --btn-primary-hover-bg: ${config.buttonHoverStyle === 'darker' ? shade(config.primaryColor, 0.15) : config.buttonHoverStyle === 'lighter' ? tint(config.primaryColor, 0.2) : config.primaryColor};
       --btn-secondary-hover-bg: ${config.buttonHoverStyle === 'darker' ? shade(config.secondaryColor, 0.15) : config.buttonHoverStyle === 'lighter' ? tint(config.secondaryColor, 0.2) : config.secondaryColor};
 
+      /* Transitions */
+      --transition-duration: ${config.transitionDuration}ms;
+      --transition-easing: ${config.transitionEasing};
+
       /* Icon library: ${iconLabel} */
     }
 
@@ -131,7 +135,7 @@ ${allNeutralComments} */
     .component-stage { background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: 8px; padding: 32px; margin-bottom: 16px; }
     .component-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; transition: all var(--transition-duration) var(--transition-easing); text-decoration: none; }
     .btn-primary { background: var(--color-primary); color: var(--color-white); }
     .btn-secondary { background: var(--color-secondary); color: var(--color-white); }
     .btn-outline { background: transparent; color: var(--color-neutral-700); border: var(--border); }
@@ -142,7 +146,7 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
     .btn-outline:hover { background: var(--color-neutral-50); }` : ''}${config.buttonHoverStyle === 'glow' ? `    .btn-primary:hover { box-shadow: 0 0 0 4px ${tint(config.primaryColor, 0.65)}; }
     .btn-secondary:hover { box-shadow: 0 0 0 4px ${tint(config.secondaryColor, 0.65)}; }
     .btn-outline:hover { box-shadow: 0 0 0 4px ${n[200]}; }` : ''}${config.buttonHoverStyle === 'lift' ? `    .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
-    a { color: var(--link-color); text-decoration: var(--link-decoration); text-underline-offset: 2px; transition: color 0.15s ease; }
+    a { color: var(--link-color); text-decoration: var(--link-decoration); text-underline-offset: 2px; transition: color var(--transition-duration) var(--transition-easing); }
     a:hover { color: var(--link-hover-color); text-decoration: var(--link-hover-decoration); }
     .btn-text { background: transparent; color: var(--link-color); padding: 10px 8px; text-decoration: var(--link-decoration); text-underline-offset: 2px; }
     .btn-text:hover { color: var(--link-hover-color); text-decoration: var(--link-hover-decoration); }
@@ -160,7 +164,7 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
 
     .form-group { margin-bottom: 16px; }
     .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--color-neutral-700); margin-bottom: 6px; }
-    .form-input, .form-select, .form-textarea { width: 100%; padding: 10px 12px; font-family: var(--font-body); font-size: 0.875rem; color: var(--color-neutral-800); background: var(--color-white); border: var(--border); border-radius: var(--radius); transition: border-color 0.15s ease, box-shadow 0.15s ease; outline: none; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 10px 12px; font-family: var(--font-body); font-size: 0.875rem; color: var(--color-neutral-800); background: var(--color-white); border: var(--border); border-radius: var(--radius); transition: border-color var(--transition-duration) var(--transition-easing), box-shadow var(--transition-duration) var(--transition-easing); outline: none; }
     .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent); }
     .form-input::placeholder { color: var(--color-neutral-400); }
     .form-textarea { resize: vertical; min-height: 80px; }

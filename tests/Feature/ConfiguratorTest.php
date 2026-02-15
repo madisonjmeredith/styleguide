@@ -16,6 +16,8 @@ $validConfig = [
     'borderWidth' => 1,
     'shadowEnabled' => true,
     'radius' => 8,
+    'transitionDuration' => 150,
+    'transitionEasing' => 'ease',
 ];
 
 test('configurator page is accessible to guests', function () {
@@ -118,6 +120,30 @@ test('users cannot delete other users style guides', function () {
     $this->actingAs($user)
         ->delete(route('configurator.destroy', $guide))
         ->assertForbidden();
+});
+
+test('style guide validation rejects invalid transition configuration', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->post(route('configurator.store'), [
+            'name' => 'Test Guide',
+            'configuration' => [
+                'primaryColor' => '#4f46e5',
+                'secondaryColor' => '#d946ef',
+                'neutralFamily' => 'cool',
+                'headingFont' => 'Fraunces',
+                'bodyFont' => 'DM Sans',
+                'typeScale' => 'regular',
+                'iconLibrary' => 'heroicons',
+                'borderWidth' => 1,
+                'shadowEnabled' => true,
+                'radius' => 8,
+                'transitionDuration' => 999,
+                'transitionEasing' => 'invalid',
+            ],
+        ])
+        ->assertSessionHasErrors(['configuration.transitionDuration', 'configuration.transitionEasing']);
 });
 
 test('guests cannot delete style guides', function () {

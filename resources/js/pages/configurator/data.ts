@@ -1,4 +1,4 @@
-import type { ButtonHoverStyle, FontMeta, StyleGuideConfig, TypeScale } from '@/types';
+import type { ButtonHoverStyle, FontMeta, StyleGuideConfig, TransitionDuration, TransitionEasing, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -171,6 +171,19 @@ export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: st
     { id: 'lift', label: 'Lift' },
 ];
 
+export const TRANSITION_DURATION_OPTIONS: Array<{ id: TransitionDuration; label: string }> = [
+    { id: 0, label: 'None' },
+    { id: 100, label: '100ms' },
+    { id: 150, label: '150ms' },
+    { id: 200, label: '200ms' },
+    { id: 300, label: '300ms' },
+];
+
+export const TRANSITION_EASING_OPTIONS: Array<{ id: TransitionEasing; label: string }> = [
+    { id: 'linear', label: 'Linear' },
+    { id: 'ease', label: 'Ease' },
+];
+
 export const ALL_STATIC_FONTS = [
     ...HEADING_FONTS,
     ...BODY_FONTS.filter((bf) => !HEADING_FONTS.some((hf) => hf.name === bf.name)),
@@ -194,6 +207,8 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     linkUnderline: true,
     linkUnderlineOnHover: 'none',
     buttonHoverStyle: 'darker',
+    transitionDuration: 150,
+    transitionEasing: 'ease',
 };
 
 // Color helpers
