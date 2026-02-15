@@ -10,9 +10,10 @@ import { downloadFile } from './lib/download-file';
 
 type Props = {
     config: StyleGuideConfig;
+    trigger?: React.ReactNode;
 };
 
-export function ExportDialog({ config }: Props) {
+export function ExportDialog({ config, trigger }: Props) {
     const [activeTab, setActiveTab] = useState<'html' | 'claude'>('html');
     const [copiedText, copy] = useClipboard();
     const [htmlDownloaded, setHtmlDownloaded] = useState(false);
@@ -36,9 +37,11 @@ export function ExportDialog({ config }: Props) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200">
-                    Export Style Guide
-                </button>
+                {trigger ?? (
+                    <button className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200">
+                        Export Style Guide
+                    </button>
+                )}
             </DialogTrigger>
             <DialogContent className="sm:max-w-lg">
                 <DialogHeader>

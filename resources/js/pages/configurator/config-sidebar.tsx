@@ -3,7 +3,7 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { login, register } from '@/routes';
 import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
-import { CheckCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2, TriangleAlert } from 'lucide-react';
 import { ExportDialog } from './export-dialog';
 import { SaveLoadControls } from './save-load-controls';
 import { ColorSection } from './sections/color-section';
@@ -45,6 +45,23 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                         <p className="text-xs text-green-600">Edits are automatically saved</p>
                     </div>
                     {saveStatus === 'saving' && <Loader2 className="ml-auto size-3.5 shrink-0 animate-spin text-green-600" />}
+                </div>
+            )}
+
+            {/* Unsaved warn banner */}
+            {!isEditing && (
+                <div className="-mx-6 flex items-center gap-2.5 border-b border-amber-100 bg-amber-50/60 px-6 py-3">
+                    <TriangleAlert className="size-4 shrink-0 text-amber-600" />
+                    <div className="min-w-0">
+                        <p className="text-sm font-medium text-amber-800">Style guide not saved</p>
+                        <p className="text-xs text-amber-600">
+                            {user ? (
+                                'Save your style guide to keep your changes'
+                            ) : (
+                                <><TextLink href={register()}>Create an account</TextLink> to save your work</>
+                            )}
+                        </p>
+                    </div>
                 </div>
             )}
 
