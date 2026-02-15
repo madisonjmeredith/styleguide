@@ -11,6 +11,7 @@ $validConfig = [
     'headingFontMeta' => ['category' => 'serif', 'weights' => '400;700'],
     'bodyFont' => 'DM Sans',
     'bodyFontMeta' => ['category' => 'sans-serif', 'weights' => '400;500;700'],
+    'typeScale' => 'regular',
     'iconLibrary' => 'heroicons',
     'borderEnabled' => true,
     'shadowEnabled' => true,

@@ -69,7 +69,7 @@ import {
     Check as LucideCheck,
     X as LucideX,
 } from 'lucide-react';
-import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, lookupFontMeta, tint } from './data';
+import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, tint } from './data';
 
 type Props = {
     config: StyleGuideConfig;
@@ -86,6 +86,7 @@ export function PreviewPane({ config }: Props) {
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
     const headingFont = `'${config.headingFont}', ${hfFallback}`;
     const bodyFont = `'${config.bodyFont}', ${bfFallback}`;
+    const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
     const primary = config.primaryColor;
     const secondary = config.secondaryColor;
 
@@ -123,7 +124,7 @@ export function PreviewPane({ config }: Props) {
                                 <h1
                                     style={{
                                         fontFamily: headingFont,
-                                        fontSize: 28,
+                                        fontSize: ts.h1,
                                         fontWeight: 700,
                                         color: n[900],
                                         lineHeight: 1.2,
@@ -135,7 +136,7 @@ export function PreviewPane({ config }: Props) {
                                 <h2
                                     style={{
                                         fontFamily: headingFont,
-                                        fontSize: 22,
+                                        fontSize: ts.h2,
                                         fontWeight: 700,
                                         color: n[900],
                                         lineHeight: 1.25,
@@ -147,7 +148,7 @@ export function PreviewPane({ config }: Props) {
                                 <h3
                                     style={{
                                         fontFamily: headingFont,
-                                        fontSize: 18,
+                                        fontSize: ts.h3,
                                         fontWeight: 700,
                                         color: n[900],
                                         lineHeight: 1.3,
@@ -156,14 +157,14 @@ export function PreviewPane({ config }: Props) {
                                 >
                                     Heading Three
                                 </h3>
-                                <p style={{ fontSize: 14, color: n[700], lineHeight: 1.65, marginBottom: 8 }}>
+                                <p style={{ fontSize: ts.body, color: n[700], lineHeight: 1.65, marginBottom: 8 }}>
                                     This is body text using the selected body font. It demonstrates comfortable reading size, generous line
                                     height, and softened color.
                                 </p>
-                                <p style={{ fontSize: 13, color: n[500], lineHeight: 1.5, marginBottom: 8 }}>
+                                <p style={{ fontSize: ts.secondary, color: n[500], lineHeight: 1.5, marginBottom: 8 }}>
                                     This is secondary text — smaller and lighter for captions and metadata.
                                 </p>
-                                <p style={{ fontSize: 14, color: n[700] }}>
+                                <p style={{ fontSize: ts.body, color: n[700] }}>
                                     Links look{' '}
                                     <a
                                         href="#"
@@ -195,7 +196,7 @@ export function PreviewPane({ config }: Props) {
                                 <button
                                     style={{
                                         padding: '9px 18px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: primary,
@@ -210,7 +211,7 @@ export function PreviewPane({ config }: Props) {
                                 <button
                                     style={{
                                         padding: '9px 18px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: secondary,
@@ -225,7 +226,7 @@ export function PreviewPane({ config }: Props) {
                                 <button
                                     style={{
                                         padding: '9px 18px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: 'transparent',
@@ -240,7 +241,7 @@ export function PreviewPane({ config }: Props) {
                                 <button
                                     style={{
                                         padding: '9px 8px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: 'transparent',
@@ -257,7 +258,7 @@ export function PreviewPane({ config }: Props) {
                                 <button
                                     style={{
                                         padding: '9px 18px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: n[200],
@@ -402,7 +403,7 @@ export function PreviewPane({ config }: Props) {
                                                 }
                                             })()}
                                         </div>
-                                        <div style={{ fontSize: 10, color: n[500], fontFamily: bodyFont }}>{icon.label}</div>
+                                        <div style={{ fontSize: ts.small - 2, color: n[500], fontFamily: bodyFont }}>{icon.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -417,7 +418,7 @@ export function PreviewPane({ config }: Props) {
                                         <div
                                             style={{
                                                 fontFamily: headingFont,
-                                                fontSize: 15,
+                                                fontSize: ts.secondary + 2,
                                                 fontWeight: 700,
                                                 color: n[900],
                                                 marginBottom: 4,
@@ -425,7 +426,7 @@ export function PreviewPane({ config }: Props) {
                                         >
                                             Basic Card
                                         </div>
-                                        <div style={{ fontSize: 12, color: n[600], lineHeight: 1.5 }}>
+                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>
                                             A simple card with title and body text.
                                         </div>
                                     </div>
@@ -441,7 +442,7 @@ export function PreviewPane({ config }: Props) {
                                         <div
                                             style={{
                                                 fontFamily: headingFont,
-                                                fontSize: 15,
+                                                fontSize: ts.secondary + 2,
                                                 fontWeight: 700,
                                                 color: n[900],
                                                 marginBottom: 4,
@@ -449,7 +450,7 @@ export function PreviewPane({ config }: Props) {
                                         >
                                             With Image
                                         </div>
-                                        <div style={{ fontSize: 12, color: n[600], lineHeight: 1.5 }}>
+                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>
                                             Card with a header image area.
                                         </div>
                                     </div>
@@ -469,7 +470,7 @@ export function PreviewPane({ config }: Props) {
                                         <div
                                             style={{
                                                 fontFamily: headingFont,
-                                                fontSize: 15,
+                                                fontSize: ts.secondary + 2,
                                                 fontWeight: 700,
                                                 color: n[900],
                                                 marginBottom: 4,
@@ -477,7 +478,7 @@ export function PreviewPane({ config }: Props) {
                                         >
                                             With Actions
                                         </div>
-                                        <div style={{ fontSize: 12, color: n[600], lineHeight: 1.5 }}>Card with footer actions.</div>
+                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>Card with footer actions.</div>
                                     </div>
                                     <div
                                         style={{
@@ -491,7 +492,7 @@ export function PreviewPane({ config }: Props) {
                                         <button
                                             style={{
                                                 padding: '4px 6px',
-                                                fontSize: 11,
+                                                fontSize: ts.small,
                                                 fontFamily: bodyFont,
                                                 background: 'transparent',
                                                 color: primary,
@@ -506,7 +507,7 @@ export function PreviewPane({ config }: Props) {
                                         <button
                                             style={{
                                                 padding: '4px 12px',
-                                                fontSize: 11,
+                                                fontSize: ts.small,
                                                 fontFamily: bodyFont,
                                                 background: primary,
                                                 color: '#fff',
@@ -528,7 +529,7 @@ export function PreviewPane({ config }: Props) {
                             <div style={{ background: '#fff', border, borderRadius: radius, padding: 20, maxWidth: 360 }}>
                                 <div style={{ marginBottom: 12 }}>
                                     <label
-                                        style={{ display: 'block', fontSize: 12, fontWeight: 600, color: n[700], marginBottom: 4 }}
+                                        style={{ display: 'block', fontSize: ts.small, fontWeight: 600, color: n[700], marginBottom: 4 }}
                                     >
                                         Email
                                     </label>
@@ -539,7 +540,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             width: '100%',
                                             padding: '8px 10px',
-                                            fontSize: 13,
+                                            fontSize: ts.secondary,
                                             fontFamily: bodyFont,
                                             color: n[800],
                                             background: '#fff',
@@ -548,11 +549,11 @@ export function PreviewPane({ config }: Props) {
                                             outline: 'none',
                                         }}
                                     />
-                                    <div style={{ fontSize: 11, color: n[400], marginTop: 3 }}>We'll never share your email.</div>
+                                    <div style={{ fontSize: ts.small - 1, color: n[400], marginTop: 3 }}>We'll never share your email.</div>
                                 </div>
                                 <div style={{ marginBottom: 12 }}>
                                     <label
-                                        style={{ display: 'block', fontSize: 12, fontWeight: 600, color: n[700], marginBottom: 4 }}
+                                        style={{ display: 'block', fontSize: ts.small, fontWeight: 600, color: n[700], marginBottom: 4 }}
                                     >
                                         Category
                                     </label>
@@ -560,7 +561,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             width: '100%',
                                             padding: '8px 10px',
-                                            fontSize: 13,
+                                            fontSize: ts.secondary,
                                             fontFamily: bodyFont,
                                             color: n[800],
                                             background: '#fff',
@@ -576,7 +577,7 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         width: '100%',
                                         padding: '9px 18px',
-                                        fontSize: 13,
+                                        fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: primary,
@@ -609,7 +610,7 @@ export function PreviewPane({ config }: Props) {
                                     <span
                                         style={{
                                             padding: '2px 10px',
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             fontWeight: 600,
                                             borderRadius: 9999,
                                             background: '#f0fdf4',
@@ -621,7 +622,7 @@ export function PreviewPane({ config }: Props) {
                                     <span
                                         style={{
                                             padding: '2px 10px',
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             fontWeight: 600,
                                             borderRadius: 9999,
                                             background: '#fffbeb',
@@ -633,7 +634,7 @@ export function PreviewPane({ config }: Props) {
                                     <span
                                         style={{
                                             padding: '2px 10px',
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             fontWeight: 600,
                                             borderRadius: 9999,
                                             background: '#fef2f2',
@@ -651,7 +652,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             padding: '10px 14px',
                                             borderRadius: radius,
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             borderLeft: '4px solid #22c55e',
                                             background: '#f0fdf4',
                                             color: '#166534',
@@ -663,7 +664,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             padding: '10px 14px',
                                             borderRadius: radius,
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             borderLeft: '4px solid #f59e0b',
                                             background: '#fffbeb',
                                             color: '#92400e',
@@ -675,7 +676,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             padding: '10px 14px',
                                             borderRadius: radius,
-                                            fontSize: 12,
+                                            fontSize: ts.small,
                                             borderLeft: '4px solid #ef4444',
                                             background: '#fef2f2',
                                             color: '#991b1b',
@@ -691,7 +692,7 @@ export function PreviewPane({ config }: Props) {
                         <div>
                             <div style={labelStyle}>Table</div>
                             <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden' }}>
-                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.secondary }}>
                                     <thead>
                                         <tr>
                                             {['Name', 'Role', 'Status'].map((th) => (
@@ -700,7 +701,7 @@ export function PreviewPane({ config }: Props) {
                                                     style={{
                                                         textAlign: 'left',
                                                         padding: '8px 14px',
-                                                        fontSize: 11,
+                                                        fontSize: ts.small - 1,
                                                         fontWeight: 600,
                                                         textTransform: 'uppercase',
                                                         letterSpacing: '0.05em',
@@ -751,7 +752,7 @@ export function PreviewPane({ config }: Props) {
                                                     <span
                                                         style={{
                                                             padding: '2px 10px',
-                                                            fontSize: 11,
+                                                            fontSize: ts.small - 1,
                                                             fontWeight: 600,
                                                             borderRadius: 9999,
                                                             background:

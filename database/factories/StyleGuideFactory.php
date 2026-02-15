@@ -50,6 +50,7 @@ class StyleGuideFactory extends Factory
                 'headingFontMeta' => ['category' => $hf['category'], 'weights' => $hf['weights']],
                 'bodyFont' => $bf['name'],
                 'bodyFontMeta' => ['category' => $bf['category'], 'weights' => $bf['weights']],
+                'typeScale' => fake()->randomElement(['small', 'regular', 'large', 'extra-large']),
                 'iconLibrary' => fake()->randomElement(['fontawesome', 'heroicons', 'feather']),
                 'borderEnabled' => fake()->boolean(),
                 'shadowEnabled' => fake()->boolean(),

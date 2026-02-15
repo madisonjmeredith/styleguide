@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, googleFontsUrl, lookupFontMeta } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateHTML(config: StyleGuideConfig): string {
@@ -15,6 +15,8 @@ export function generateHTML(config: StyleGuideConfig): string {
         ? '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05)'
         : 'none';
     const iconLabel = ICON_LIBRARIES.find((l) => l.id === config.iconLibrary)?.label || 'Heroicons';
+    const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
+    const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
 
@@ -53,6 +55,14 @@ ${allNeutralComments} */
       --font-heading: '${config.headingFont}', ${hfFallback};
       --font-body: '${config.bodyFont}', ${bfFallback};
 
+      /* Type scale: ${typeScaleLabel} */
+      --font-size-h1: ${ts.h1}px;
+      --font-size-h2: ${ts.h2}px;
+      --font-size-h3: ${ts.h3}px;
+      --font-size-body: ${ts.body}px;
+      --font-size-secondary: ${ts.secondary}px;
+      --font-size-small: ${ts.small}px;
+
       --border: ${borderVal};
       --radius: ${config.radius}px;
       --shadow: ${shadowVal};
@@ -64,6 +74,7 @@ ${allNeutralComments} */
 
     body {
       font-family: var(--font-body);
+      font-size: var(--font-size-body);
       color: var(--color-neutral-800);
       background: var(--color-neutral-50);
       line-height: 1.6;
@@ -201,22 +212,22 @@ ${allNeutralComments} */
       <div class="subsection">
         <h3 class="subsection-title">Headings</h3>
         <div class="type-specimen">
-          <h1 style="font-family: var(--font-heading); font-size: 2.5rem; font-weight: 700; color: var(--color-neutral-900); line-height: 1.2; margin-bottom: 12px;">Heading One</h1>
-          <h2 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--color-neutral-900); line-height: 1.25; margin-bottom: 12px;">Heading Two</h2>
-          <h3 style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--color-neutral-900); line-height: 1.3; margin-bottom: 12px;">Heading Three</h3>
-          <h4 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--color-neutral-800); line-height: 1.35;">Heading Four</h4>
+          <h1 style="font-family: var(--font-heading); font-size: var(--font-size-h1); font-weight: 700; color: var(--color-neutral-900); line-height: 1.2; margin-bottom: 12px;">Heading One</h1>
+          <h2 style="font-family: var(--font-heading); font-size: var(--font-size-h2); font-weight: 700; color: var(--color-neutral-900); line-height: 1.25; margin-bottom: 12px;">Heading Two</h2>
+          <h3 style="font-family: var(--font-heading); font-size: var(--font-size-h3); font-weight: 700; color: var(--color-neutral-900); line-height: 1.3; margin-bottom: 12px;">Heading Three</h3>
+          <h4 style="font-family: var(--font-heading); font-size: var(--font-size-secondary); font-weight: 700; color: var(--color-neutral-800); line-height: 1.35;">Heading Four</h4>
         </div>
       </div>
       <div class="subsection">
         <h3 class="subsection-title">Body Text &amp; Links</h3>
         <div class="type-specimen">
-          <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-neutral-700); line-height: 1.65; margin-bottom: 16px;">
-            This is a standard paragraph. Body text uses the <code style="background: var(--color-neutral-100); padding: 1px 5px; border-radius: 3px; font-size: 0.85rem;">--font-body</code> family at a comfortable reading size.
+          <p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-neutral-700); line-height: 1.65; margin-bottom: 16px;">
+            This is a standard paragraph. Body text uses the <code style="background: var(--color-neutral-100); padding: 1px 5px; border-radius: 3px; font-size: var(--font-size-small);">--font-body</code> family at a comfortable reading size.
           </p>
-          <p style="font-family: var(--font-body); font-size: 0.875rem; color: var(--color-neutral-500); line-height: 1.5; margin-bottom: 16px;">
+          <p style="font-family: var(--font-body); font-size: var(--font-size-secondary); color: var(--color-neutral-500); line-height: 1.5; margin-bottom: 16px;">
             This is smaller secondary text, useful for captions, metadata, and supporting content.
           </p>
-          <p style="font-family: var(--font-body); font-size: 1rem; color: var(--color-neutral-700); line-height: 1.65;">
+          <p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-neutral-700); line-height: 1.65;">
             Links look like <a href="#" style="color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px;">this when inline</a> in body text.
           </p>
         </div>

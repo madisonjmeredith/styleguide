@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
 import type { StyleGuideConfig } from '@/types';
 import type { GoogleFont } from '../data';
-import { ALL_STATIC_FONTS, fontMetaFromGoogleFont } from '../data';
+import { ALL_STATIC_FONTS, TYPE_SCALE_OPTIONS, fontMetaFromGoogleFont } from '../data';
 import { FontCombobox } from '../font-combobox';
 
 type Props = {
@@ -66,6 +66,26 @@ export function TypographySection({ config, onUpdate }: Props) {
                     value={config.bodyFont}
                     onChange={handleBodyChange}
                 />
+            </div>
+
+            <div className="mt-2">
+                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Type Scale</div>
+                <div className="flex gap-1">
+                    {TYPE_SCALE_OPTIONS.map((opt) => (
+                        <button
+                            key={opt.id}
+                            onClick={() => onUpdate('typeScale', opt.id)}
+                            title={opt.description}
+                            className={`flex-1 py-1.5 text-xs cursor-pointer rounded-md border transition-all duration-150 ${
+                                config.typeScale === opt.id
+                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
+                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                            }`}
+                        >
+                            {opt.label}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );

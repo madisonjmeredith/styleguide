@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, lookupFontMeta } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, lookupFontMeta } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateClaudeMd(config: StyleGuideConfig): string {
@@ -9,6 +9,8 @@ export function generateClaudeMd(config: StyleGuideConfig): string {
     const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
+    const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
 
     return `# Design System
 
@@ -45,6 +47,17 @@ ${Object.entries(n)
 
 - **Heading font**: \`'${config.headingFont}', ${hfFallback}\` (${hfMeta.category}, via Google Fonts)
 - **Body font**: \`'${config.bodyFont}', ${bfFallback}\` (${bfMeta.category}, via Google Fonts)
+- **Type scale**: ${typeScaleLabel}
+
+### Font Sizes
+| Element | Size |
+|---------|------|
+| H1 | \`${ts.h1}px\` |
+| H2 | \`${ts.h2}px\` |
+| H3 | \`${ts.h3}px\` |
+| Body | \`${ts.body}px\` |
+| Secondary | \`${ts.secondary}px\` |
+| Small | \`${ts.small}px\` |
 
 ### Usage
 - Headings (h1–h4) use the heading font at weight 700

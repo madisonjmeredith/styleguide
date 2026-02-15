@@ -1,4 +1,4 @@
-import type { FontMeta, StyleGuideConfig } from '@/types';
+import type { FontMeta, StyleGuideConfig, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -105,6 +105,29 @@ export const ICON_PREVIEW_SET = [
     { key: 'close', label: 'Close' },
 ] as const;
 
+export const TYPE_SCALE_OPTIONS: Array<{ id: TypeScale; label: string; description: string }> = [
+    { id: 'small', label: 'Small', description: 'Compact UI, dense layouts' },
+    { id: 'regular', label: 'Regular', description: 'Balanced default' },
+    { id: 'large', label: 'Large', description: 'Roomy, readable' },
+    { id: 'extra-large', label: 'Extra Large', description: 'Bold, editorial feel' },
+];
+
+export type TypeScaleSizes = {
+    h1: number;
+    h2: number;
+    h3: number;
+    body: number;
+    secondary: number;
+    small: number;
+};
+
+export const TYPE_SCALE_SIZES: Record<TypeScale, TypeScaleSizes> = {
+    small: { h1: 28, h2: 22, h3: 18, body: 14, secondary: 13, small: 12 },
+    regular: { h1: 32, h2: 25, h3: 20, body: 16, secondary: 14, small: 13 },
+    large: { h1: 36, h2: 28, h3: 22, body: 18, secondary: 16, small: 14 },
+    'extra-large': { h1: 42, h2: 32, h3: 25, body: 20, secondary: 18, small: 16 },
+};
+
 export const RADIUS_OPTIONS = [
     { value: 0, label: '0' },
     { value: 4, label: '4' },
@@ -126,6 +149,7 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     headingFontMeta: { category: 'serif', weights: '400;700' },
     bodyFont: 'DM Sans',
     bodyFontMeta: { category: 'sans-serif', weights: '400;500;700' },
+    typeScale: 'regular',
     iconLibrary: 'heroicons',
     borderEnabled: true,
     shadowEnabled: true,
