@@ -18,7 +18,7 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
     const { auth, flash } = usePage().props;
     const [config, setConfig] = useState<StyleGuideConfig>(() => {
         if (activeGuide) {
-            return { ...DEFAULT_CONFIG, ...activeGuide.configuration };
+            return { ...DEFAULT_CONFIG, ...activeGuide.configuration, name: activeGuide.configuration.name || activeGuide.name };
         }
 
         try {

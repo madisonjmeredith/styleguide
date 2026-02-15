@@ -32,23 +32,21 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
             {/* Header */}
             <div className="-mx-6 flex shrink-0 items-center justify-between bg-gray-50 px-6 py-4">
                 <div className="text-base font-semibold text-gray-900">Style Guide</div>
-                {isEditing && (
-                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                        {saveStatus === 'saving' && (
-                            <>
-                                <Loader2 className="size-3 animate-spin" />
-                                Saving...
-                            </>
-                        )}
-                        {saveStatus === 'saved' && (
-                            <>
-                                <CheckCircle className="size-3 text-green-500" />
-                                <span className="text-green-600">Saved</span>
-                            </>
-                        )}
-                    </div>
-                )}
             </div>
+
+            {/* Saved guide banner */}
+            {isEditing && (
+                <div className="-mx-6 flex items-center gap-2.5 border-b border-green-100 bg-green-50/60 px-6 py-3">
+                    <CheckCircle className="size-4 shrink-0 text-green-600" />
+                    <div className="min-w-0">
+                        <p className="text-sm font-medium text-green-800">
+                            {saveStatus === 'saving' ? 'Saving changes…' : 'Style guide saved'}
+                        </p>
+                        <p className="text-xs text-green-600">Edits are automatically saved</p>
+                    </div>
+                    {saveStatus === 'saving' && <Loader2 className="ml-auto size-3.5 shrink-0 animate-spin text-green-600" />}
+                </div>
+            )}
 
             {/* Name */}
             <div className="py-4">
