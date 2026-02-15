@@ -9,15 +9,15 @@ type Props = {
 
 export function IconSection({ config, onUpdate }: Props) {
     return (
-        <div>
-            <Label className="text-xs/6 font-semibold text-gray-400 mb-3 mt-6 block">
+        <div className="py-6">
+            <Label className="text-base font-semibold text-gray-900 mb-4 block">
                 Icon Library
             </Label>
             <div className="flex flex-col gap-1">
                 {ICON_LIBRARIES.map((lib) => (
                     <label
                         key={lib.id}
-                        className={`flex items-center gap-2.5 py-2 px-2.5 rounded-md cursor-pointer transition-all duration-150 ${
+                        className={`flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer transition-all duration-150 ${
                             config.iconLibrary === lib.id
                                 ? 'bg-gray-50 border border-gray-200'
                                 : 'border border-transparent hover:bg-gray-50'

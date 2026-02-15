@@ -18,7 +18,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
                     <button
                         type="button"
                         onClick={() => setMode('preset')}
-                        className={`px-2 py-0.5 text-[11px] rounded cursor-pointer transition-colors ${
+                        className={`px-2.5 py-1 text-xs rounded cursor-pointer transition-colors ${
                             mode === 'preset'
                                 ? 'bg-white text-gray-700 shadow-xs font-medium'
                                 : 'text-gray-400 hover:text-gray-500'
@@ -29,7 +29,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
                     <button
                         type="button"
                         onClick={() => setMode('custom')}
-                        className={`px-2 py-0.5 text-[11px] rounded cursor-pointer transition-colors ${
+                        className={`px-2.5 py-1 text-xs rounded cursor-pointer transition-colors ${
                             mode === 'custom'
                                 ? 'bg-white text-gray-700 shadow-xs font-medium'
                                 : 'text-gray-400 hover:text-gray-500'
@@ -45,7 +45,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
                     value={matchedPreset ? value : undefined}
                     onValueChange={(v) => onChange(v)}
                 >
-                    <SelectTrigger className="h-8 text-xs">
+                    <SelectTrigger className="h-9 text-sm">
                         <SelectValue placeholder="Pick a color">
                             {matchedPreset && (
                                 <span className="flex items-center gap-2">
@@ -106,8 +106,8 @@ type Props = {
 
 export function ColorSection({ config, onUpdate }: Props) {
     return (
-        <div>
-            <Label className="text-xs/6 font-semibold text-gray-400 mb-3 mt-6 block">
+        <div className="py-6">
+            <Label className="text-base font-semibold text-gray-900 mb-4 block">
                 Colors
             </Label>
             <ColorPicker label="Primary" value={config.primaryColor} onChange={(v) => onUpdate('primaryColor', v)} />
@@ -121,7 +121,7 @@ export function ColorSection({ config, onUpdate }: Props) {
                             <button
                                 key={key}
                                 onClick={() => onUpdate('neutralFamily', key)}
-                                className={`flex-1 py-1.5 px-1 text-xs cursor-pointer rounded-md border transition-all duration-150 ${
+                                className={`flex-1 py-2 px-1.5 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
                                     config.neutralFamily === key
                                         ? 'border-green-600 bg-green-50 text-green-600 font-medium'
                                         : 'border-gray-200 bg-white text-gray-500 hover:bg-gray-50'

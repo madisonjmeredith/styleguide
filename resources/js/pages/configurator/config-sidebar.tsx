@@ -1,4 +1,3 @@
-import { Link } from '@inertiajs/react';
 import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
 import { ExportDialog } from './export-dialog';
 import { SaveLoadControls } from './save-load-controls';
@@ -23,16 +22,12 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
     return (
         <div className="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Header */}
-            <div className="flex h-16 shrink-0 items-center border-b border-gray-200">
-                <Link href="/" className="block no-underline">
-                    <div className="text-sm/6 font-semibold text-gray-900">
-                        <span className="text-green-600">&#9670;</span> Style Guide
-                    </div>
-                </Link>
+            <div className="-mx-6 flex shrink-0 items-center bg-gray-50 px-6 py-4">
+                <div className="text-base font-semibold text-gray-900">Style Guide</div>
             </div>
 
             {/* Config Sections */}
-            <nav className="flex flex-1 flex-col pt-2">
+            <nav className="flex flex-1 flex-col divide-y divide-gray-200">
                 <ColorSection config={config} onUpdate={onUpdate} />
                 <TypographySection config={config} onUpdate={onUpdate} />
                 <IconSection config={config} onUpdate={onUpdate} />

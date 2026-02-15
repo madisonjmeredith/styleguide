@@ -96,7 +96,7 @@ export function SaveLoadControls({ user, styleGuides, config, activeGuideId, onL
 
             {styleGuides.length > 0 && (
                 <div className="space-y-1">
-                    <div className="text-xs/6 font-semibold text-gray-400 mt-2">
+                    <div className="text-sm font-semibold text-gray-900 mt-2">
                         Saved Guides
                     </div>
                     {styleGuides.map((guide) => (

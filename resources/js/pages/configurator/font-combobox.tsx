@@ -49,7 +49,7 @@ export function FontCombobox({ fonts, value, onChange }: Props) {
                         key={cat}
                         type="button"
                         onClick={() => setCategory(cat)}
-                        className={`px-2 py-0.5 text-[11px] font-medium rounded-full transition-colors ${
+                        className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
                             category === cat
                                 ? 'bg-gray-900 text-white'
                                 : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
@@ -75,7 +75,7 @@ export function FontCombobox({ fonts, value, onChange }: Props) {
             >
                 <div className="relative">
                     <ComboboxInput
-                        className="w-full rounded-md border border-gray-300 bg-white py-1.5 pl-3 pr-8 text-sm text-gray-900 shadow-xs outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
+                        className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-900 shadow-xs outline-none focus:border-gray-400 focus:ring-1 focus:ring-gray-400"
                         displayValue={() => value}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search fonts..."

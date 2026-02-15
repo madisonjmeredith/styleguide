@@ -116,10 +116,6 @@ export function PreviewPane({ config }: Props) {
 
     return (
         <div className="flex-1 flex flex-col bg-neutral-100 overflow-hidden">
-            <div className="py-2.5 px-5 bg-white border-b border-neutral-200 flex items-center justify-between shrink-0">
-                <div className="text-xs font-semibold text-neutral-700">Live Preview</div>
-                <div className="text-[11px] text-neutral-400">Updates in real time</div>
-            </div>
             <div className="flex-1 overflow-auto p-5">
                 <div className="max-w-[800px] mx-auto bg-white rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.04)] overflow-hidden">
                     <style>{`

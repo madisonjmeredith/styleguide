@@ -68,7 +68,7 @@ export default function Configurator({ styleGuides }: Props) {
                     <div className="fixed inset-0 flex">
                         <DialogPanel
                             transition
-                            className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full"
+                            className="relative mr-16 flex w-full max-w-sm flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full"
                         >
                             <TransitionChild>
                                 <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-closed:opacity-0">
@@ -85,7 +85,7 @@ export default function Configurator({ styleGuides }: Props) {
                 </Dialog>
 
                 {/* Desktop static sidebar */}
-                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-80 lg:flex-col">
+                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
                     <ConfigSidebar {...sidebarProps} />
                 </div>
 
@@ -99,13 +99,11 @@ export default function Configurator({ styleGuides }: Props) {
                         <span className="sr-only">Open sidebar</span>
                         <Menu aria-hidden="true" className="size-6" />
                     </button>
-                    <div className="text-sm/6 font-semibold text-gray-900">
-                        <span className="text-green-600">&#9670;</span> Style Guide
-                    </div>
+                    <div className="text-base font-semibold text-gray-900">Style Guide</div>
                 </div>
 
                 {/* Main content */}
-                <div className="flex flex-1 flex-col overflow-hidden lg:pl-80">
+                <div className="flex flex-1 flex-col overflow-hidden lg:pl-96">
                     <PreviewPane config={config} />
                 </div>
             </div>
