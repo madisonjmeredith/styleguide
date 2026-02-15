@@ -84,9 +84,26 @@ export const BODY_FONTS = [
 
 export const ICON_LIBRARIES = [
     { id: 'fontawesome' as const, label: 'Font Awesome', note: 'CSS classes · fa-solid fa-icon' },
+    { id: 'fontawesome-outline' as const, label: 'Font Awesome Outline', note: 'CSS classes · fa-regular fa-icon' },
     { id: 'heroicons' as const, label: 'Heroicons', note: 'Inline SVGs · Tailwind team' },
     { id: 'feather' as const, label: 'Feather Icons', note: 'data-feather attr · lightweight' },
+    { id: 'lucide' as const, label: 'Lucide', note: 'Inline SVGs · Fork of Feather' },
 ];
+
+export const ICON_PREVIEW_SET = [
+    { key: 'home', label: 'Home' },
+    { key: 'search', label: 'Search' },
+    { key: 'user', label: 'User' },
+    { key: 'heart', label: 'Heart' },
+    { key: 'settings', label: 'Settings' },
+    { key: 'mail', label: 'Mail' },
+    { key: 'bell', label: 'Bell' },
+    { key: 'star', label: 'Star' },
+    { key: 'plus', label: 'Plus' },
+    { key: 'arrow-right', label: 'Arrow' },
+    { key: 'check', label: 'Check' },
+    { key: 'close', label: 'Close' },
+] as const;
 
 export const RADIUS_OPTIONS = [
     { value: 0, label: '0' },

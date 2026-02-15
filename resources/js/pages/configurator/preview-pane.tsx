@@ -1,5 +1,75 @@
 import type { StyleGuideConfig } from '@/types';
-import { NEUTRAL_PRESETS, lookupFontMeta, tint } from './data';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faHome,
+    faMagnifyingGlass,
+    faUser,
+    faHeart,
+    faGear,
+    faEnvelope,
+    faBell,
+    faStar,
+    faPlus,
+    faArrowRight,
+    faCheck,
+    faXmark,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+    faHouse as farHouse,
+    faUser as farUser,
+    faHeart as farHeart,
+    faSun as farSun,
+    faEnvelope as farEnvelope,
+    faBell as farBell,
+    faStar as farStar,
+    faSquarePlus as farSquarePlus,
+    faCircleRight as farCircleRight,
+    faCircleCheck as farCircleCheck,
+    faCircleXmark as farCircleXmark,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+    HomeIcon,
+    MagnifyingGlassIcon,
+    UserIcon,
+    HeartIcon,
+    Cog6ToothIcon,
+    EnvelopeIcon,
+    BellIcon,
+    StarIcon,
+    PlusIcon,
+    ArrowRightIcon,
+    CheckIcon,
+    XMarkIcon,
+} from '@heroicons/react/24/outline';
+import {
+    Home,
+    Search,
+    User,
+    Heart,
+    Settings,
+    Mail,
+    Bell,
+    Star,
+    Plus,
+    ArrowRight,
+    Check,
+    X,
+} from 'react-feather';
+import {
+    Home as LucideHome,
+    Search as LucideSearch,
+    User as LucideUser,
+    Heart as LucideHeart,
+    Settings as LucideSettings,
+    Mail as LucideMail,
+    Bell as LucideBell,
+    Star as LucideStar,
+    Plus as LucidePlus,
+    ArrowRight as LucideArrowRight,
+    Check as LucideCheck,
+    X as LucideX,
+} from 'lucide-react';
+import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, lookupFontMeta, tint } from './data';
 
 type Props = {
     config: StyleGuideConfig;
@@ -199,6 +269,142 @@ export function PreviewPane({ config }: Props) {
                                 >
                                     Disabled
                                 </button>
+                            </div>
+                        </div>
+
+                        {/* Icons */}
+                        <div style={{ marginBottom: 32 }}>
+                            <div style={labelStyle}>Icons</div>
+                            <div style={{ fontSize: 10, color: n[400], marginBottom: 8, marginTop: -6, fontFamily: bodyFont }}>
+                                {config.iconLibrary === 'fontawesome'
+                                    ? 'Font Awesome · Solid'
+                                    : config.iconLibrary === 'fontawesome-outline'
+                                      ? 'Font Awesome · Regular'
+                                      : config.iconLibrary === 'heroicons'
+                                        ? 'Heroicons · Outline'
+                                        : config.iconLibrary === 'lucide'
+                                          ? 'Lucide Icons'
+                                          : 'Feather Icons'}
+                            </div>
+                            <div
+                                style={{
+                                    background: '#fff',
+                                    border,
+                                    borderRadius: radius,
+                                    boxShadow: shadow,
+                                    padding: 20,
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(6, 1fr)',
+                                    gap: 12,
+                                }}
+                            >
+                                {ICON_PREVIEW_SET.map((icon) => (
+                                    <div
+                                        key={icon.key}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            gap: 6,
+                                        }}
+                                    >
+                                        <div style={{ color: n[700], width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                            {config.iconLibrary === 'fontawesome' && (
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        icon.key === 'home' ? faHome
+                                                            : icon.key === 'search' ? faMagnifyingGlass
+                                                            : icon.key === 'user' ? faUser
+                                                            : icon.key === 'heart' ? faHeart
+                                                            : icon.key === 'settings' ? faGear
+                                                            : icon.key === 'mail' ? faEnvelope
+                                                            : icon.key === 'bell' ? faBell
+                                                            : icon.key === 'star' ? faStar
+                                                            : icon.key === 'plus' ? faPlus
+                                                            : icon.key === 'arrow-right' ? faArrowRight
+                                                            : icon.key === 'check' ? faCheck
+                                                            : faXmark
+                                                    }
+                                                    style={{ width: 20, height: 20 }}
+                                                />
+                                            )}
+                                            {config.iconLibrary === 'heroicons' && (() => {
+                                                const iconProps = { style: { width: 22, height: 22 } };
+                                                switch (icon.key) {
+                                                    case 'home': return <HomeIcon {...iconProps} />;
+                                                    case 'search': return <MagnifyingGlassIcon {...iconProps} />;
+                                                    case 'user': return <UserIcon {...iconProps} />;
+                                                    case 'heart': return <HeartIcon {...iconProps} />;
+                                                    case 'settings': return <Cog6ToothIcon {...iconProps} />;
+                                                    case 'mail': return <EnvelopeIcon {...iconProps} />;
+                                                    case 'bell': return <BellIcon {...iconProps} />;
+                                                    case 'star': return <StarIcon {...iconProps} />;
+                                                    case 'plus': return <PlusIcon {...iconProps} />;
+                                                    case 'arrow-right': return <ArrowRightIcon {...iconProps} />;
+                                                    case 'check': return <CheckIcon {...iconProps} />;
+                                                    case 'close': return <XMarkIcon {...iconProps} />;
+                                                    default: return null;
+                                                }
+                                            })()}
+                                            {config.iconLibrary === 'fontawesome-outline' && (
+                                                <FontAwesomeIcon
+                                                    icon={
+                                                        icon.key === 'home' ? farHouse
+                                                            : icon.key === 'search' ? faMagnifyingGlass
+                                                            : icon.key === 'user' ? farUser
+                                                            : icon.key === 'heart' ? farHeart
+                                                            : icon.key === 'settings' ? farSun
+                                                            : icon.key === 'mail' ? farEnvelope
+                                                            : icon.key === 'bell' ? farBell
+                                                            : icon.key === 'star' ? farStar
+                                                            : icon.key === 'plus' ? farSquarePlus
+                                                            : icon.key === 'arrow-right' ? farCircleRight
+                                                            : icon.key === 'check' ? farCircleCheck
+                                                            : farCircleXmark
+                                                    }
+                                                    style={{ width: 20, height: 20 }}
+                                                />
+                                            )}
+                                            {config.iconLibrary === 'feather' && (() => {
+                                                const iconProps = { size: 20, strokeWidth: 1.5 };
+                                                switch (icon.key) {
+                                                    case 'home': return <Home {...iconProps} />;
+                                                    case 'search': return <Search {...iconProps} />;
+                                                    case 'user': return <User {...iconProps} />;
+                                                    case 'heart': return <Heart {...iconProps} />;
+                                                    case 'settings': return <Settings {...iconProps} />;
+                                                    case 'mail': return <Mail {...iconProps} />;
+                                                    case 'bell': return <Bell {...iconProps} />;
+                                                    case 'star': return <Star {...iconProps} />;
+                                                    case 'plus': return <Plus {...iconProps} />;
+                                                    case 'arrow-right': return <ArrowRight {...iconProps} />;
+                                                    case 'check': return <Check {...iconProps} />;
+                                                    case 'close': return <X {...iconProps} />;
+                                                    default: return null;
+                                                }
+                                            })()}
+                                            {config.iconLibrary === 'lucide' && (() => {
+                                                const iconProps = { size: 20, strokeWidth: 1.5 };
+                                                switch (icon.key) {
+                                                    case 'home': return <LucideHome {...iconProps} />;
+                                                    case 'search': return <LucideSearch {...iconProps} />;
+                                                    case 'user': return <LucideUser {...iconProps} />;
+                                                    case 'heart': return <LucideHeart {...iconProps} />;
+                                                    case 'settings': return <LucideSettings {...iconProps} />;
+                                                    case 'mail': return <LucideMail {...iconProps} />;
+                                                    case 'bell': return <LucideBell {...iconProps} />;
+                                                    case 'star': return <LucideStar {...iconProps} />;
+                                                    case 'plus': return <LucidePlus {...iconProps} />;
+                                                    case 'arrow-right': return <LucideArrowRight {...iconProps} />;
+                                                    case 'check': return <LucideCheck {...iconProps} />;
+                                                    case 'close': return <LucideX {...iconProps} />;
+                                                    default: return null;
+                                                }
+                                            })()}
+                                        </div>
+                                        <div style={{ fontSize: 10, color: n[500], fontFamily: bodyFont }}>{icon.label}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
