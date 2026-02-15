@@ -3,6 +3,7 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { login, register } from '@/routes';
 import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
+import { CheckCircle, Loader2 } from 'lucide-react';
 import { ExportDialog } from './export-dialog';
 import { SaveLoadControls } from './save-load-controls';
 import { ColorSection } from './sections/color-section';
@@ -13,21 +14,40 @@ import { SurfaceSection } from './sections/surface-section';
 import { TransitionSection } from './sections/transition-section';
 import { TypographySection } from './sections/typography-section';
 
+type SaveStatus = 'idle' | 'saving' | 'saved';
+
 type Props = {
     config: StyleGuideConfig;
     onUpdate: <K extends keyof StyleGuideConfig>(key: K, value: StyleGuideConfig[K]) => void;
     user: User | null;
     styleGuides: StyleGuideData[];
     activeGuideId: number | null;
-    onLoadGuide: (guide: StyleGuideData) => void;
+    isEditing: boolean;
+    saveStatus: SaveStatus;
 };
 
-export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuideId, onLoadGuide }: Props) {
+export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuideId, isEditing, saveStatus }: Props) {
     return (
         <div className="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Header */}
-            <div className="-mx-6 flex shrink-0 items-center bg-gray-50 px-6 py-4">
+            <div className="-mx-6 flex shrink-0 items-center justify-between bg-gray-50 px-6 py-4">
                 <div className="text-base font-semibold text-gray-900">Style Guide</div>
+                {isEditing && (
+                    <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                        {saveStatus === 'saving' && (
+                            <>
+                                <Loader2 className="size-3 animate-spin" />
+                                Saving...
+                            </>
+                        )}
+                        {saveStatus === 'saved' && (
+                            <>
+                                <CheckCircle className="size-3 text-green-500" />
+                                <span className="text-green-600">Saved</span>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Name */}
@@ -58,7 +78,9 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
 
             {/* Save & Export */}
             <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
-                {user ? (
+                {isEditing ? (
+                    <ExportDialog config={config} />
+                ) : user ? (
                     <>
                         <ExportDialog config={config} />
 
@@ -79,7 +101,6 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                             styleGuides={styleGuides}
                             config={config}
                             activeGuideId={activeGuideId}
-                            onLoadGuide={onLoadGuide}
                         />
                     </>
                 ) : (

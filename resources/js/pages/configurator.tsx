@@ -1,19 +1,26 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Head, usePage } from '@inertiajs/react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
-import { Menu, X } from 'lucide-react';
+import { CheckCircle, Menu, X } from 'lucide-react';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
 import { ConfigSidebar } from './configurator/config-sidebar';
 import { DEFAULT_CONFIG, googleFontsUrl, lookupFontMeta } from './configurator/data';
 import { PreviewPane } from './configurator/preview-pane';
 
+type SaveStatus = 'idle' | 'saving' | 'saved';
+
 type Props = {
     styleGuides: StyleGuideData[];
+    activeGuide?: StyleGuideData;
 };
 
-export default function Configurator({ styleGuides }: Props) {
-    const { auth } = usePage().props;
+export default function Configurator({ styleGuides, activeGuide }: Props) {
+    const { auth, flash } = usePage().props;
     const [config, setConfig] = useState<StyleGuideConfig>(() => {
+        if (activeGuide) {
+            return { ...DEFAULT_CONFIG, ...activeGuide.configuration };
+        }
+
         try {
             const saved = sessionStorage.getItem('styleguide:draft-config');
             return saved ? { ...DEFAULT_CONFIG, ...JSON.parse(saved) } : DEFAULT_CONFIG;
@@ -21,21 +28,73 @@ export default function Configurator({ styleGuides }: Props) {
             return DEFAULT_CONFIG;
         }
     });
-    const [activeGuideId, setActiveGuideId] = useState<number | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
+    const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
+    const isInitialRender = useRef(true);
+    const autosaveTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+    const savedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-    // Persist config to localStorage so it survives the login round-trip
+    const isEditing = !!activeGuide;
+
+    // Show success flash when it arrives (for initial save redirect)
     useEffect(() => {
-        sessionStorage.setItem('styleguide:draft-config', JSON.stringify(config));
-    }, [config]);
+        if (flash.success) {
+            setShowSuccess(true);
+            const timer = setTimeout(() => setShowSuccess(false), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [flash.success]);
+
+    // Persist config to sessionStorage (only when not editing a saved guide)
+    useEffect(() => {
+        if (!isEditing) {
+            sessionStorage.setItem('styleguide:draft-config', JSON.stringify(config));
+        }
+    }, [config, isEditing]);
+
+    // Debounced autosave when editing an existing guide
+    useEffect(() => {
+        if (!isEditing) {
+            return;
+        }
+
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
+            return;
+        }
+
+        clearTimeout(autosaveTimer.current);
+        clearTimeout(savedTimer.current);
+
+        autosaveTimer.current = setTimeout(() => {
+            setSaveStatus('saving');
+            router.put(
+                `/configurator/${activeGuide.id}`,
+                { name: config.name || activeGuide.name, configuration: config },
+                {
+                    preserveScroll: true,
+                    preserveState: true,
+                    showProgress: false,
+                    only: ['styleGuides'],
+                    onSuccess: () => {
+                        setSaveStatus('saved');
+                        savedTimer.current = setTimeout(() => setSaveStatus('idle'), 2000);
+                    },
+                    onError: () => {
+                        setSaveStatus('idle');
+                    },
+                },
+            );
+        }, 1000);
+
+        return () => {
+            clearTimeout(autosaveTimer.current);
+        };
+    }, [config]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleUpdate = useCallback(<K extends keyof StyleGuideConfig>(key: K, value: StyleGuideConfig[K]) => {
         setConfig((prev) => ({ ...prev, [key]: value }));
-    }, []);
-
-    const handleLoadGuide = useCallback((guide: StyleGuideData) => {
-        setConfig({ ...DEFAULT_CONFIG, ...guide.configuration });
-        setActiveGuideId(guide.id);
     }, []);
 
     // Load Google Fonts dynamically
@@ -62,14 +121,23 @@ export default function Configurator({ styleGuides }: Props) {
         onUpdate: handleUpdate,
         user: auth.user,
         styleGuides,
-        activeGuideId,
-        onLoadGuide: handleLoadGuide,
+        activeGuideId: activeGuide?.id ?? null,
+        isEditing,
+        saveStatus,
     };
 
     return (
         <>
             <Head title="Style Guide Configurator" />
             <div className="flex h-screen flex-col">
+                {/* Success toast */}
+                {showSuccess && (
+                    <div className="fixed top-4 right-4 z-[100] flex items-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-medium text-white shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
+                        <CheckCircle className="size-4 shrink-0" />
+                        {flash.success}
+                    </div>
+                )}
+
                 {/* Mobile sidebar dialog */}
                 <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
                     <DialogBackdrop

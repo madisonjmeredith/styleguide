@@ -17,7 +17,7 @@ class StoreStyleGuideRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
             'configuration' => ['required', 'array'],
             'configuration.primaryColor' => ['required', 'string', 'max:20'],
             'configuration.secondaryColor' => ['required', 'string', 'max:20'],
