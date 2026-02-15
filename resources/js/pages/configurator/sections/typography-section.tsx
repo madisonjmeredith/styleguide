@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-import type { StyleGuideConfig, TypeScale } from '@/types';
+import type { FontMeta, StyleGuideConfig, TypeScale } from '@/types';
 import type { GoogleFont } from '../data';
-import { ALL_STATIC_FONTS, BODY_LINE_HEIGHT_OPTIONS, FONT_WEIGHT_MAX, FONT_WEIGHT_MIN, FONT_WEIGHT_STEP, HEADING_LETTER_SPACING_OPTIONS, TYPE_SCALE_OPTIONS, fontMetaFromGoogleFont } from '../data';
+import { ALL_STATIC_FONTS, BODY_LINE_HEIGHT_OPTIONS, HEADING_LETTER_SPACING_OPTIONS, TYPE_SCALE_OPTIONS, fontMetaFromGoogleFont } from '../data';
 import { FontCombobox } from '../font-combobox';
 
 type Props = {
@@ -19,6 +18,27 @@ function staticToGoogleFonts(): GoogleFont[] {
         variants: f.weights.split(';').map((w) => (w === '400' ? 'regular' : w)),
     }));
 }
+
+function parseWeights(meta?: FontMeta): number[] {
+    const str = meta?.weights ?? '400;700';
+    return str.split(';').map(Number).sort((a, b) => a - b);
+}
+
+function nearestWeight(available: number[], target: number): number {
+    return available.reduce((prev, curr) => (Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev));
+}
+
+const WEIGHT_LABELS: Record<number, string> = {
+    100: 'Thin',
+    200: 'Extra Light',
+    300: 'Light',
+    400: 'Regular',
+    500: 'Medium',
+    600: 'Semibold',
+    700: 'Bold',
+    800: 'Extra Bold',
+    900: 'Black',
+};
 
 export function TypographySection({ config, onUpdate }: Props) {
     const [fonts, setFonts] = useState<GoogleFont[]>(staticToGoogleFonts);
@@ -36,14 +56,29 @@ export function TypographySection({ config, onUpdate }: Props) {
             });
     }, []);
 
+    const headingWeights = parseWeights(config.headingFontMeta);
+    const bodyWeights = parseWeights(config.bodyFontMeta);
+
     const handleHeadingChange = (font: GoogleFont) => {
+        const meta = fontMetaFromGoogleFont(font);
         onUpdate('headingFont', font.family);
-        onUpdate('headingFontMeta', fontMetaFromGoogleFont(font));
+        onUpdate('headingFontMeta', meta);
+
+        const available = parseWeights(meta);
+        if (!available.includes(config.headingFontWeight)) {
+            onUpdate('headingFontWeight', nearestWeight(available, config.headingFontWeight));
+        }
     };
 
     const handleBodyChange = (font: GoogleFont) => {
+        const meta = fontMetaFromGoogleFont(font);
         onUpdate('bodyFont', font.family);
-        onUpdate('bodyFontMeta', fontMetaFromGoogleFont(font));
+        onUpdate('bodyFontMeta', meta);
+
+        const available = parseWeights(meta);
+        if (!available.includes(config.bodyFontWeight)) {
+            onUpdate('bodyFontWeight', nearestWeight(available, config.bodyFontWeight));
+        }
     };
 
     return (
@@ -104,31 +139,33 @@ export function TypographySection({ config, onUpdate }: Props) {
             </div>
 
             <div className="mt-4">
-                <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm/6 font-medium text-gray-700">Heading Font Weight</span>
-                    <span className="text-sm font-mono text-gray-500">{config.headingFontWeight}</span>
-                </div>
-                <Slider
-                    min={FONT_WEIGHT_MIN}
-                    max={FONT_WEIGHT_MAX}
-                    step={FONT_WEIGHT_STEP}
-                    value={[config.headingFontWeight]}
-                    onValueChange={([v]) => onUpdate('headingFontWeight', v)}
-                />
+                <div className="text-sm/6 font-medium text-gray-700 mb-1">Heading Font Weight</div>
+                <select
+                    value={config.headingFontWeight}
+                    onChange={(e) => onUpdate('headingFontWeight', Number(e.target.value))}
+                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-xs outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"
+                >
+                    {headingWeights.map((w) => (
+                        <option key={w} value={w}>
+                            {w} — {WEIGHT_LABELS[w] ?? w}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="mt-4">
-                <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm/6 font-medium text-gray-700">Body Font Weight</span>
-                    <span className="text-sm font-mono text-gray-500">{config.bodyFontWeight}</span>
-                </div>
-                <Slider
-                    min={FONT_WEIGHT_MIN}
-                    max={FONT_WEIGHT_MAX}
-                    step={FONT_WEIGHT_STEP}
-                    value={[config.bodyFontWeight]}
-                    onValueChange={([v]) => onUpdate('bodyFontWeight', v)}
-                />
+                <div className="text-sm/6 font-medium text-gray-700 mb-1">Body Font Weight</div>
+                <select
+                    value={config.bodyFontWeight}
+                    onChange={(e) => onUpdate('bodyFontWeight', Number(e.target.value))}
+                    className="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-xs outline-none focus:border-green-600 focus:ring-1 focus:ring-green-600"
+                >
+                    {bodyWeights.map((w) => (
+                        <option key={w} value={w}>
+                            {w} — {WEIGHT_LABELS[w] ?? w}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="mt-2">
