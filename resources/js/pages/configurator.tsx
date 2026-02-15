@@ -22,7 +22,7 @@ export default function Configurator({ styleGuides }: Props) {
     }, []);
 
     const handleLoadGuide = useCallback((guide: StyleGuideData) => {
-        setConfig(guide.configuration);
+        setConfig({ ...DEFAULT_CONFIG, ...guide.configuration });
         setActiveGuideId(guide.id);
     }, []);
 

@@ -182,6 +182,10 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     borderWidth: 1,
     shadowEnabled: true,
     radius: 8,
+    linkColor: 'primary',
+    linkHoverColor: 'darker',
+    linkUnderline: true,
+    linkUnderlineOnHover: 'none',
 };
 
 // Color helpers

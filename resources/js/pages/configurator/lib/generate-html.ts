@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta, shade, tint } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateHTML(config: StyleGuideConfig): string {
@@ -19,6 +19,12 @@ export function generateHTML(config: StyleGuideConfig): string {
     const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+
+    const linkBaseColor = config.linkColor === 'secondary' ? config.secondaryColor : config.primaryColor;
+    const linkHoverColor =
+        config.linkHoverColor === 'darker' ? shade(linkBaseColor, 0.25) : config.linkHoverColor === 'lighter' ? tint(linkBaseColor, 0.3) : linkBaseColor;
+    const linkUnderline = config.linkUnderline !== false;
+    const linkHoverUnderline = config.linkUnderlineOnHover ?? 'none';
 
     const allNeutralComments = Object.entries(NEUTRAL_PRESETS)
         .map(([, preset]) => `           ${preset.label.padEnd(14)} ${Object.values(preset.values).join(' ')}`)
@@ -66,6 +72,12 @@ ${allNeutralComments} */
       --border: ${borderVal};
       --radius: ${config.radius}px;
       --shadow: ${shadowVal};
+
+      /* Links */
+      --link-color: ${linkBaseColor};
+      --link-hover-color: ${linkHoverColor};
+      --link-decoration: ${linkUnderline ? 'underline' : 'none'};
+      --link-hover-decoration: ${linkHoverUnderline === 'show' ? 'underline' : linkHoverUnderline === 'remove' ? 'none' : `var(--link-decoration)`};
 
       /* Icon library: ${iconLabel} */
     }
@@ -122,7 +134,10 @@ ${allNeutralComments} */
     .btn-secondary:hover { filter: brightness(0.9); }
     .btn-outline { background: transparent; color: var(--color-neutral-700); border: var(--border); }
     .btn-outline:hover { background: var(--color-neutral-100); }
-    .btn-text { background: transparent; color: var(--color-primary); padding: 10px 8px; text-decoration: underline; text-underline-offset: 2px; }
+    a { color: var(--link-color); text-decoration: var(--link-decoration); text-underline-offset: 2px; transition: color 0.15s ease; }
+    a:hover { color: var(--link-hover-color); text-decoration: var(--link-hover-decoration); }
+    .btn-text { background: transparent; color: var(--link-color); padding: 10px 8px; text-decoration: var(--link-decoration); text-underline-offset: 2px; }
+    .btn-text:hover { color: var(--link-hover-color); text-decoration: var(--link-hover-decoration); }
     .btn-disabled { background: var(--color-neutral-200); color: var(--color-neutral-400); cursor: not-allowed; }
     .btn-sm { padding: 6px 14px; font-size: 0.8rem; }
     .btn-lg { padding: 14px 28px; font-size: 1rem; }
@@ -228,7 +243,7 @@ ${allNeutralComments} */
             This is smaller secondary text, useful for captions, metadata, and supporting content.
           </p>
           <p style="font-family: var(--font-body); font-size: var(--font-size-body); color: var(--color-neutral-700); line-height: 1.65;">
-            Links look like <a href="#" style="color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px;">this when inline</a> in body text.
+            Links look like <a href="#">this when inline</a> in body text.
           </p>
         </div>
       </div>

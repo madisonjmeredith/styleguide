@@ -1,4 +1,4 @@
-import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, lookupFontMeta } from '../data';
+import { ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 export function generateClaudeMd(config: StyleGuideConfig): string {
@@ -11,6 +11,12 @@ export function generateClaudeMd(config: StyleGuideConfig): string {
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
     const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
     const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
+
+    const linkBaseColor = config.linkColor === 'secondary' ? config.secondaryColor : config.primaryColor;
+    const linkColorLabel = config.linkColor === 'secondary' ? 'secondary' : 'primary';
+    const linkHoverColor =
+        config.linkHoverColor === 'darker' ? shade(linkBaseColor, 0.25) : config.linkHoverColor === 'lighter' ? tint(linkBaseColor, 0.3) : linkBaseColor;
+    const linkUnderline = config.linkUnderline !== false;
 
     return `# Design System
 
@@ -77,13 +83,28 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - **Shadows**: ${config.shadowEnabled ? 'Enabled — `0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05)`' : 'Disabled — flat design, no elevation'}
 - **Border radius**: \`${config.radius}px\` on all components (buttons, cards, inputs, alerts). Fully-rounded elements (pills, avatars, badges) always use \`9999px\`.
 
+## Links
+
+- **Color**: \`${linkBaseColor}\` (${linkColorLabel})
+- **Hover color**: \`${linkHoverColor}\`${config.linkHoverColor === 'none' ? ' (no change)' : ` (${config.linkHoverColor})`}
+- **Underline**: ${linkUnderline ? 'Yes' : 'No'}
+- **Underline on hover**: ${config.linkUnderlineOnHover === 'show' ? 'Show underline' : config.linkUnderlineOnHover === 'remove' ? 'Remove underline' : 'No change'}
+
+### CSS Custom Properties
+\`\`\`css
+--link-color: ${linkBaseColor};
+--link-hover-color: ${linkHoverColor};
+--link-decoration: ${linkUnderline ? 'underline' : 'none'};
+--link-hover-decoration: ${config.linkUnderlineOnHover === 'show' ? 'underline' : config.linkUnderlineOnHover === 'remove' ? 'none' : linkUnderline ? 'underline' : 'none'};
+\`\`\`
+
 ## Component Patterns
 
 ### Buttons
 - **Primary**: Background \`--color-primary\`, white text, \`--radius\` corners
 - **Secondary**: Background \`--color-secondary\`, white text
 - **Outline**: Transparent background, neutral-700 text, border from \`--border\`
-- **Text/Link**: No background, primary color text, underline with 2px offset
+- **Text/Link**: No background, link color text, uses link decoration settings
 - **Disabled**: Background neutral-200, neutral-400 text, \`cursor: not-allowed\`
 - Sizes: sm (6px 14px), default (10px 20px), lg (14px 28px)
 

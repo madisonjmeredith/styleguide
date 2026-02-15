@@ -1,6 +1,9 @@
 export type NeutralFamily = 'cool' | 'neutral' | 'warm';
 export type IconLibrary = 'fontawesome-regular' | 'fontawesome-solid' | 'heroicons' | 'lucide' | 'material-symbols';
 export type TypeScale = 'small' | 'regular' | 'large' | 'extra-large';
+export type LinkColor = 'primary' | 'secondary';
+export type LinkHoverColor = 'darker' | 'lighter' | 'none';
+export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
 
 export type FontMeta = { category: string; weights: string };
 
@@ -17,6 +20,10 @@ export type StyleGuideConfig = {
     borderWidth: number;
     shadowEnabled: boolean;
     radius: number;
+    linkColor: LinkColor;
+    linkHoverColor: LinkHoverColor;
+    linkUnderline: boolean;
+    linkUnderlineOnHover: LinkUnderlineOnHover;
 };
 
 export type StyleGuideData = {

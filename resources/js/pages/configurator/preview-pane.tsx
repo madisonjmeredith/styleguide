@@ -55,7 +55,7 @@ import {
     Check as LucideCheck,
     X as LucideX,
 } from 'lucide-react';
-import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, tint } from './data';
+import { ICON_PREVIEW_SET, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
 
 const MATERIAL_SYMBOL_PATHS: Record<string, string> = {
     home: 'M220-180h150v-220q0-12.75 8.63-21.38Q387.25-430 400-430h160q12.75 0 21.38 8.62Q590-412.75 590-400v220h150v-390L480-765 220-570v390Zm-60 0v-390q0-14.25 6.38-27 6.37-12.75 17.62-21l260-195q15.68-12 35.84-12Q500-825 516-813l260 195q11.25 8.25 17.63 21 6.37 12.75 6.37 27v390q0 24.75-17.62 42.37Q764.75-120 740-120H560q-12.75 0-21.37-8.63Q530-137.25 530-150v-220H430v220q0 12.75-8.62 21.37Q412.75-120 400-120H220q-24.75 0-42.37-17.63Q160-155.25 160-180Zm320-293Z',
@@ -91,6 +91,13 @@ export function PreviewPane({ config }: Props) {
     const primary = config.primaryColor;
     const secondary = config.secondaryColor;
 
+    const linkColor = config.linkColor === 'secondary' ? secondary : primary;
+    const linkHoverColor =
+        config.linkHoverColor === 'darker' ? shade(linkColor, 0.25) : config.linkHoverColor === 'lighter' ? tint(linkColor, 0.3) : linkColor;
+    const linkUnderline = config.linkUnderline !== false;
+    const linkHoverUnderline =
+        config.linkUnderlineOnHover === 'show' ? 'underline' : config.linkUnderlineOnHover === 'remove' ? 'none' : undefined;
+
     const labelStyle: React.CSSProperties = {
         fontSize: 10,
         fontWeight: 700,
@@ -109,6 +116,18 @@ export function PreviewPane({ config }: Props) {
             </div>
             <div className="flex-1 overflow-auto p-5">
                 <div className="max-w-[800px] mx-auto bg-white rounded-xl shadow-[0_1px_3px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.04)] overflow-hidden">
+                    <style>{`
+                        .preview-link {
+                            color: ${linkColor};
+                            text-decoration: ${linkUnderline ? 'underline' : 'none'};
+                            text-underline-offset: 2px;
+                            transition: color 0.15s ease, text-decoration-color 0.15s ease;
+                        }
+                        .preview-link:hover {
+                            color: ${linkHoverColor};
+                            ${linkHoverUnderline ? `text-decoration: ${linkHoverUnderline}; text-underline-offset: 2px;` : ''}
+                        }
+                    `}</style>
                     <div
                         style={{
                             fontFamily: bodyFont,
@@ -167,11 +186,7 @@ export function PreviewPane({ config }: Props) {
                                 </p>
                                 <p style={{ fontSize: ts.body, color: n[700] }}>
                                     Links look{' '}
-                                    <a
-                                        href="#"
-                                        onClick={(e) => e.preventDefault()}
-                                        style={{ color: primary, textDecoration: 'underline', textUnderlineOffset: 2 }}
-                                    >
+                                    <a href="#" onClick={(e) => e.preventDefault()} className="preview-link">
                                         like this
                                     </a>{' '}
                                     inline.
@@ -239,19 +254,16 @@ export function PreviewPane({ config }: Props) {
                                 >
                                     Outline
                                 </button>
-                                <button
+                                <button className="preview-link"
                                     style={{
                                         padding: '9px 8px',
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
                                         background: 'transparent',
-                                        color: primary,
                                         border: 'none',
                                         borderRadius: radius,
                                         cursor: 'pointer',
-                                        textDecoration: 'underline',
-                                        textUnderlineOffset: 2,
                                     }}
                                 >
                                     Text link
@@ -477,17 +489,14 @@ export function PreviewPane({ config }: Props) {
                                             gap: 6,
                                         }}
                                     >
-                                        <button
+                                        <button className="preview-link"
                                             style={{
                                                 padding: '4px 6px',
                                                 fontSize: ts.small,
                                                 fontFamily: bodyFont,
                                                 background: 'transparent',
-                                                color: primary,
                                                 border: 'none',
                                                 cursor: 'pointer',
-                                                textDecoration: 'underline',
-                                                textUnderlineOffset: 2,
                                             }}
                                         >
                                             Cancel
