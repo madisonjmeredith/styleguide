@@ -127,6 +127,16 @@ export function PreviewPane({ config }: Props) {
                             color: ${linkHoverColor};
                             ${linkHoverUnderline ? `text-decoration: ${linkHoverUnderline}; text-underline-offset: 2px;` : ''}
                         }
+                        .preview-btn {
+                            transition: all 0.2s ease;
+                        }
+                        .preview-btn-primary { background: ${primary}; }
+                        .preview-btn-secondary { background: ${secondary}; }
+                        .preview-btn-outline { background: transparent; }
+                        ${config.buttonHoverStyle === 'darker' ? `.preview-btn-primary:hover { background: ${shade(primary, 0.15)}; } .preview-btn-secondary:hover { background: ${shade(secondary, 0.15)}; } .preview-btn-outline:hover { background: ${n[100]}; }` : ''}
+                        ${config.buttonHoverStyle === 'lighter' ? `.preview-btn-primary:hover { background: ${tint(primary, 0.2)}; } .preview-btn-secondary:hover { background: ${tint(secondary, 0.2)}; } .preview-btn-outline:hover { background: ${n[50]}; }` : ''}
+                        ${config.buttonHoverStyle === 'glow' ? `.preview-btn-primary:hover { box-shadow: 0 0 0 4px ${tint(primary, 0.65)}; } .preview-btn-secondary:hover { box-shadow: 0 0 0 4px ${tint(secondary, 0.65)}; } .preview-btn-outline:hover { box-shadow: 0 0 0 4px ${n[200]}; }` : ''}
+                        ${config.buttonHoverStyle === 'lift' ? `.preview-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
                     `}</style>
                     <div
                         style={{
@@ -210,12 +220,12 @@ export function PreviewPane({ config }: Props) {
                                 }}
                             >
                                 <button
+                                    className="preview-btn preview-btn-primary"
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        background: primary,
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,
@@ -225,12 +235,12 @@ export function PreviewPane({ config }: Props) {
                                     Primary
                                 </button>
                                 <button
+                                    className="preview-btn preview-btn-secondary"
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        background: secondary,
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,
@@ -240,12 +250,12 @@ export function PreviewPane({ config }: Props) {
                                     Secondary
                                 </button>
                                 <button
+                                    className="preview-btn preview-btn-outline"
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        background: 'transparent',
                                         color: n[700],
                                         border,
                                         borderRadius: radius,
@@ -502,11 +512,11 @@ export function PreviewPane({ config }: Props) {
                                             Cancel
                                         </button>
                                         <button
+                                            className="preview-btn preview-btn-primary"
                                             style={{
                                                 padding: '4px 12px',
                                                 fontSize: ts.small,
                                                 fontFamily: bodyFont,
-                                                background: primary,
                                                 color: '#fff',
                                                 border: 'none',
                                                 borderRadius: radius,
@@ -571,13 +581,13 @@ export function PreviewPane({ config }: Props) {
                                     </select>
                                 </div>
                                 <button
+                                    className="preview-btn preview-btn-primary"
                                     style={{
                                         width: '100%',
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        background: primary,
                                         color: '#fff',
                                         border: 'none',
                                         borderRadius: radius,

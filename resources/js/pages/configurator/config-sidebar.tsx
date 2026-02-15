@@ -4,6 +4,7 @@ import { ExportDialog } from './export-dialog';
 import { SaveLoadControls } from './save-load-controls';
 import { ColorSection } from './sections/color-section';
 import { IconSection } from './sections/icon-section';
+import { ButtonSection } from './sections/button-section';
 import { LinkSection } from './sections/link-section';
 import { SurfaceSection } from './sections/surface-section';
 import { TypographySection } from './sections/typography-section';
@@ -35,6 +36,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                 <TypographySection config={config} onUpdate={onUpdate} />
                 <IconSection config={config} onUpdate={onUpdate} />
                 <SurfaceSection config={config} onUpdate={onUpdate} />
+                <ButtonSection config={config} onUpdate={onUpdate} />
                 <LinkSection config={config} onUpdate={onUpdate} />
             </nav>
 

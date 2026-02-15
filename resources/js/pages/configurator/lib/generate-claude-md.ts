@@ -106,6 +106,7 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - **Outline**: Transparent background, neutral-700 text, border from \`--border\`
 - **Text/Link**: No background, link color text, uses link decoration settings
 - **Disabled**: Background neutral-200, neutral-400 text, \`cursor: not-allowed\`
+- **Hover style**: ${config.buttonHoverStyle === 'darker' ? `Darken — primary hover: \`${shade(config.primaryColor, 0.15)}\`, secondary hover: \`${shade(config.secondaryColor, 0.15)}\`` : config.buttonHoverStyle === 'lighter' ? `Lighten — primary hover: \`${tint(config.primaryColor, 0.2)}\`, secondary hover: \`${tint(config.secondaryColor, 0.2)}\`` : config.buttonHoverStyle === 'glow' ? `Glow — colored \`box-shadow: 0 0 0 4px\` ring using tinted variant of button color` : `Lift — \`transform: translateY(-2px)\` with \`box-shadow: 0 4px 12px rgba(0,0,0,0.15)\``}
 - Sizes: sm (6px 14px), default (10px 20px), lg (14px 28px)
 
 ### Cards

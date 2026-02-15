@@ -1,4 +1,4 @@
-import type { FontMeta, StyleGuideConfig, TypeScale } from '@/types';
+import type { ButtonHoverStyle, FontMeta, StyleGuideConfig, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -164,6 +164,13 @@ export const RADIUS_OPTIONS = [
     { value: 32, label: '32' },
 ];
 
+export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string }> = [
+    { id: 'darker', label: 'Darker' },
+    { id: 'lighter', label: 'Lighter' },
+    { id: 'glow', label: 'Glow' },
+    { id: 'lift', label: 'Lift' },
+];
+
 export const ALL_STATIC_FONTS = [
     ...HEADING_FONTS,
     ...BODY_FONTS.filter((bf) => !HEADING_FONTS.some((hf) => hf.name === bf.name)),
@@ -186,6 +193,7 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     linkHoverColor: 'darker',
     linkUnderline: true,
     linkUnderlineOnHover: 'none',
+    buttonHoverStyle: 'darker',
 };
 
 // Color helpers

@@ -4,6 +4,7 @@ export type TypeScale = 'small' | 'regular' | 'large' | 'extra-large';
 export type LinkColor = 'primary' | 'secondary';
 export type LinkHoverColor = 'darker' | 'lighter' | 'none';
 export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
+export type ButtonHoverStyle = 'darker' | 'lighter' | 'glow' | 'lift';
 
 export type FontMeta = { category: string; weights: string };
 
@@ -24,6 +25,7 @@ export type StyleGuideConfig = {
     linkHoverColor: LinkHoverColor;
     linkUnderline: boolean;
     linkUnderlineOnHover: LinkUnderlineOnHover;
+    buttonHoverStyle: ButtonHoverStyle;
 };
 
 export type StyleGuideData = {
