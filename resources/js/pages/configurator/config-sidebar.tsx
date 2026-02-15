@@ -18,29 +18,26 @@ type Props = {
 
 export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuideId, onLoadGuide }: Props) {
     return (
-        <div className="w-80 shrink-0 bg-neutral-950 text-neutral-200 overflow-y-auto flex flex-col border-r border-white/[0.06]"
-            style={{ padding: '20px 16px' }}
-        >
+        <div className="flex grow flex-col overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {/* Header */}
-            <div className="mb-5 pb-4 border-b border-white/[0.06]">
+            <div className="flex h-16 shrink-0 items-center border-b border-gray-200">
                 <Link href="/" className="block no-underline">
-                    <div className="text-[15px] font-bold text-white tracking-tight">
-                        <span className="text-indigo-400">&#9670;</span> Style Guide
+                    <div className="text-sm/6 font-semibold text-gray-900">
+                        <span className="text-green-600">&#9670;</span> Style Guide
                     </div>
                 </Link>
-                <div className="text-[11px] text-neutral-500 mt-0.5">Configure your design tokens</div>
             </div>
 
             {/* Config Sections */}
-            <div className="flex-1">
+            <nav className="flex flex-1 flex-col pt-2">
                 <ColorSection config={config} onUpdate={onUpdate} />
                 <TypographySection config={config} onUpdate={onUpdate} />
                 <IconSection config={config} onUpdate={onUpdate} />
                 <SurfaceSection config={config} onUpdate={onUpdate} />
-            </div>
+            </nav>
 
             {/* Save & Export */}
-            <div className="pt-4 mt-4 border-t border-white/[0.06] space-y-3">
+            <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
                 <SaveLoadControls
                     user={user}
                     styleGuides={styleGuides}
@@ -49,7 +46,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                     onLoadGuide={onLoadGuide}
                 />
                 <ExportDialog config={config} />
-                <div className="text-[10px] text-neutral-500 text-center">
+                <div className="text-xs text-gray-400 text-center">
                     Downloads a self-contained style guide
                 </div>
             </div>

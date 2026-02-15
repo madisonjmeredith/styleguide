@@ -10,29 +10,29 @@ type Props = {
 export function IconSection({ config, onUpdate }: Props) {
     return (
         <div>
-            <Label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2.5 mt-6 block font-mono">
+            <Label className="text-xs/6 font-semibold text-gray-400 mb-3 mt-6 block">
                 Icon Library
             </Label>
             <div className="flex flex-col gap-1">
                 {ICON_LIBRARIES.map((lib) => (
                     <label
                         key={lib.id}
-                        className={`flex items-center gap-2 py-1.5 px-2 rounded-md cursor-pointer transition-all duration-150 ${
+                        className={`flex items-center gap-2.5 py-2 px-2.5 rounded-md cursor-pointer transition-all duration-150 ${
                             config.iconLibrary === lib.id
-                                ? 'bg-white/[0.06] border border-white/10'
-                                : 'border border-transparent'
+                                ? 'bg-gray-50 border border-gray-200'
+                                : 'border border-transparent hover:bg-gray-50'
                         }`}
                     >
                         <div
-                            className={`size-3.5 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                                config.iconLibrary === lib.id ? 'border-indigo-400' : 'border-white/20'
+                            className={`size-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                                config.iconLibrary === lib.id ? 'border-green-600' : 'border-gray-300'
                             }`}
                         >
-                            {config.iconLibrary === lib.id && <div className="size-1.5 rounded-full bg-indigo-400" />}
+                            {config.iconLibrary === lib.id && <div className="size-2 rounded-full bg-green-600" />}
                         </div>
                         <div>
-                            <div className="text-xs font-medium text-neutral-200">{lib.label}</div>
-                            <div className="text-[10px] text-neutral-500 mt-px">{lib.note}</div>
+                            <div className="text-sm/6 font-medium text-gray-700">{lib.label}</div>
+                            <div className="text-xs text-gray-500">{lib.note}</div>
                         </div>
                         <input
                             type="radio"

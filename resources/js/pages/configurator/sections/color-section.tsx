@@ -5,7 +5,7 @@ import { NEUTRAL_PRESETS } from '../data';
 function ColorPicker({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
     return (
         <div className="flex items-center gap-2.5 mb-2">
-            <div className="relative size-8 shrink-0 overflow-hidden rounded-md border-2 border-white/10">
+            <div className="relative size-8 shrink-0 overflow-hidden rounded-md border border-gray-200 shadow-xs">
                 <div className="size-full" style={{ background: value }} />
                 <input
                     type="color"
@@ -15,7 +15,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
                 />
             </div>
             <div className="flex-1">
-                <div className="text-xs font-medium text-neutral-200 mb-0.5">{label}</div>
+                <div className="text-sm/6 font-medium text-gray-700">{label}</div>
                 <input
                     type="text"
                     value={value}
@@ -24,7 +24,7 @@ function ColorPicker({ label, value, onChange }: { label: string; value: string;
                             onChange(e.target.value);
                         }
                     }}
-                    className="text-[11px] font-mono text-neutral-400 bg-transparent border-none outline-none p-0 w-20"
+                    className="text-xs font-mono text-gray-400 bg-transparent border-none outline-none p-0 w-20"
                 />
             </div>
         </div>
@@ -39,24 +39,24 @@ type Props = {
 export function ColorSection({ config, onUpdate }: Props) {
     return (
         <div>
-            <Label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2.5 mt-6 block font-mono">
+            <Label className="text-xs/6 font-semibold text-gray-400 mb-3 mt-6 block">
                 Colors
             </Label>
             <ColorPicker label="Primary" value={config.primaryColor} onChange={(v) => onUpdate('primaryColor', v)} />
             <ColorPicker label="Secondary" value={config.secondaryColor} onChange={(v) => onUpdate('secondaryColor', v)} />
 
             <div className="mt-3 mb-1">
-                <div className="text-xs font-medium text-neutral-200 mb-1.5">Neutral Family</div>
+                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Neutral Family</div>
                 <div className="flex gap-1">
                     {(Object.entries(NEUTRAL_PRESETS) as [NeutralFamily, (typeof NEUTRAL_PRESETS)[NeutralFamily]][]).map(
                         ([key, preset]) => (
                             <button
                                 key={key}
                                 onClick={() => onUpdate('neutralFamily', key)}
-                                className={`flex-1 py-1.5 px-1 text-[11px] cursor-pointer rounded-[5px] border transition-all duration-150 ${
+                                className={`flex-1 py-1.5 px-1 text-xs cursor-pointer rounded-md border transition-all duration-150 ${
                                     config.neutralFamily === key
-                                        ? 'border-indigo-400 bg-indigo-400/15 text-indigo-300'
-                                        : 'border-white/[0.08] bg-transparent text-neutral-400'
+                                        ? 'border-green-600 bg-green-50 text-green-600 font-medium'
+                                        : 'border-gray-200 bg-white text-gray-500 hover:bg-gray-50'
                                 }`}
                             >
                                 {preset.label.replace(' Gray', '')}

@@ -36,7 +36,7 @@ export function ExportDialog({ config }: Props) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <button className="w-full py-2.5 text-[13px] font-semibold bg-indigo-400 hover:bg-indigo-500 text-white border-none rounded-lg cursor-pointer transition-all duration-200 tracking-tight">
+                <button className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200">
                     Export Style Guide
                 </button>
             </DialogTrigger>

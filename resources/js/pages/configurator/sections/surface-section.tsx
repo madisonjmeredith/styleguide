@@ -11,31 +11,31 @@ type Props = {
 export function SurfaceSection({ config, onUpdate }: Props) {
     return (
         <div>
-            <Label className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2.5 mt-6 block font-mono">
+            <Label className="text-xs/6 font-semibold text-gray-400 mb-3 mt-6 block">
                 Surface & Shape
             </Label>
 
-            <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-neutral-200">Borders</span>
+            <div className="flex items-center justify-between mb-2.5">
+                <span className="text-sm/6 font-medium text-gray-700">Borders</span>
                 <Switch checked={config.borderEnabled} onCheckedChange={(v) => onUpdate('borderEnabled', v)} />
             </div>
 
-            <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-neutral-200">Shadows</span>
+            <div className="flex items-center justify-between mb-2.5">
+                <span className="text-sm/6 font-medium text-gray-700">Shadows</span>
                 <Switch checked={config.shadowEnabled} onCheckedChange={(v) => onUpdate('shadowEnabled', v)} />
             </div>
 
             <div className="mt-2">
-                <div className="text-xs font-medium text-neutral-200 mb-1.5">Border Radius</div>
+                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Border Radius</div>
                 <div className="flex gap-1">
                     {RADIUS_OPTIONS.map((opt) => (
                         <button
                             key={opt.value}
                             onClick={() => onUpdate('radius', opt.value)}
-                            className={`flex-1 py-1.5 text-[11px] font-mono cursor-pointer rounded-[5px] border transition-all duration-150 ${
+                            className={`flex-1 py-1.5 text-xs font-mono cursor-pointer rounded-md border transition-all duration-150 ${
                                 config.radius === opt.value
-                                    ? 'bg-indigo-400/15 border-indigo-400 text-indigo-300'
-                                    : 'bg-transparent border-white/[0.08] text-neutral-400'
+                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
+                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
                             }`}
                         >
                             {opt.label}

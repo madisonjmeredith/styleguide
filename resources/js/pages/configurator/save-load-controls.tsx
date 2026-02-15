@@ -24,9 +24,9 @@ export function SaveLoadControls({ user, styleGuides, config, activeGuideId, onL
         return (
             <a
                 href="/login"
-                className="flex items-center justify-center gap-1.5 w-full py-2 text-xs text-neutral-400 hover:text-neutral-200 transition-colors"
+                className="flex items-center justify-center gap-1.5 w-full py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
-                <LogIn className="size-3.5" />
+                <LogIn className="size-4" />
                 Log in to save guides
             </a>
         );
@@ -78,16 +78,16 @@ export function SaveLoadControls({ user, styleGuides, config, activeGuideId, onL
             <div className="flex gap-1.5">
                 <button
                     onClick={() => setSaveDialogOpen(true)}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium text-neutral-200 bg-white/[0.06] hover:bg-white/10 border border-white/[0.08] rounded-md cursor-pointer transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2 text-sm/6 font-medium text-gray-700 bg-white hover:bg-gray-50 border border-gray-200 rounded-md cursor-pointer transition-colors"
                 >
-                    <Save className="size-3.5" />
+                    <Save className="size-4" />
                     Save New
                 </button>
                 {activeGuideId && (
                     <button
                         onClick={handleUpdate}
                         disabled={saving}
-                        className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-medium text-indigo-300 bg-indigo-400/10 hover:bg-indigo-400/20 border border-indigo-400/30 rounded-md cursor-pointer transition-colors disabled:opacity-50"
+                        className="flex-1 flex items-center justify-center gap-1.5 py-2 text-sm/6 font-medium text-green-600 bg-green-50 hover:bg-green-100 border border-green-200 rounded-md cursor-pointer transition-colors disabled:opacity-50"
                     >
                         {saving ? 'Saving...' : 'Update'}
                     </button>
@@ -96,29 +96,29 @@ export function SaveLoadControls({ user, styleGuides, config, activeGuideId, onL
 
             {styleGuides.length > 0 && (
                 <div className="space-y-1">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mt-2 font-mono">
+                    <div className="text-xs/6 font-semibold text-gray-400 mt-2">
                         Saved Guides
                     </div>
                     {styleGuides.map((guide) => (
                         <div
                             key={guide.id}
-                            className={`flex items-center gap-2 py-1.5 px-2 rounded-md text-xs group ${
+                            className={`flex items-center gap-2 py-1.5 px-2.5 rounded-md text-sm group ${
                                 activeGuideId === guide.id
-                                    ? 'bg-indigo-400/10 border border-indigo-400/30'
-                                    : 'hover:bg-white/[0.04] border border-transparent'
+                                    ? 'bg-green-50 border border-green-200'
+                                    : 'hover:bg-gray-50 border border-transparent'
                             }`}
                         >
                             <button
                                 onClick={() => onLoadGuide(guide)}
-                                className="flex-1 text-left text-neutral-200 truncate cursor-pointer bg-transparent border-none p-0 text-xs"
+                                className="flex-1 text-left text-gray-700 truncate cursor-pointer bg-transparent border-none p-0 text-sm"
                             >
                                 {guide.name}
                             </button>
                             <button
                                 onClick={() => handleDelete(guide.id)}
-                                className="opacity-0 group-hover:opacity-100 text-neutral-500 hover:text-red-400 cursor-pointer bg-transparent border-none p-0.5 transition-opacity"
+                                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 cursor-pointer bg-transparent border-none p-0.5 transition-opacity"
                             >
-                                <Trash2 className="size-3" />
+                                <Trash2 className="size-3.5" />
                             </button>
                         </div>
                     ))}

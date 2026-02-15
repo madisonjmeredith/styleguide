@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Head, usePage } from '@inertiajs/react';
+import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
+import { Menu, X } from 'lucide-react';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
 import { ConfigSidebar } from './configurator/config-sidebar';
 import { DEFAULT_CONFIG, BODY_FONTS, HEADING_FONTS, googleFontsUrl } from './configurator/data';
@@ -13,6 +15,7 @@ export default function Configurator({ styleGuides }: Props) {
     const { auth } = usePage().props;
     const [config, setConfig] = useState<StyleGuideConfig>(DEFAULT_CONFIG);
     const [activeGuideId, setActiveGuideId] = useState<number | null>(null);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const handleUpdate = useCallback(<K extends keyof StyleGuideConfig>(key: K, value: StyleGuideConfig[K]) => {
         setConfig((prev) => ({ ...prev, [key]: value }));
@@ -42,19 +45,69 @@ export default function Configurator({ styleGuides }: Props) {
         link.href = url;
     }, [config.headingFont, config.bodyFont]);
 
+    const sidebarProps = {
+        config,
+        onUpdate: handleUpdate,
+        user: auth.user,
+        styleGuides,
+        activeGuideId,
+        onLoadGuide: handleLoadGuide,
+    };
+
     return (
         <>
             <Head title="Style Guide Configurator" />
-            <div className="flex h-screen overflow-hidden" style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>
-                <ConfigSidebar
-                    config={config}
-                    onUpdate={handleUpdate}
-                    user={auth.user}
-                    styleGuides={styleGuides}
-                    activeGuideId={activeGuideId}
-                    onLoadGuide={handleLoadGuide}
-                />
-                <PreviewPane config={config} />
+            <div className="flex h-screen flex-col">
+                {/* Mobile sidebar dialog */}
+                <Dialog open={sidebarOpen} onClose={setSidebarOpen} className="relative z-50 lg:hidden">
+                    <DialogBackdrop
+                        transition
+                        className="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-closed:opacity-0"
+                    />
+
+                    <div className="fixed inset-0 flex">
+                        <DialogPanel
+                            transition
+                            className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-closed:-translate-x-full"
+                        >
+                            <TransitionChild>
+                                <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-closed:opacity-0">
+                                    <button type="button" onClick={() => setSidebarOpen(false)} className="-m-2.5 p-2.5">
+                                        <span className="sr-only">Close sidebar</span>
+                                        <X aria-hidden="true" className="size-6 text-white" />
+                                    </button>
+                                </div>
+                            </TransitionChild>
+
+                            <ConfigSidebar {...sidebarProps} />
+                        </DialogPanel>
+                    </div>
+                </Dialog>
+
+                {/* Desktop static sidebar */}
+                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-80 lg:flex-col">
+                    <ConfigSidebar {...sidebarProps} />
+                </div>
+
+                {/* Mobile top bar */}
+                <div className="flex shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 py-3 shadow-xs lg:hidden">
+                    <button
+                        type="button"
+                        onClick={() => setSidebarOpen(true)}
+                        className="-m-2.5 p-2.5 text-gray-500 hover:text-gray-900"
+                    >
+                        <span className="sr-only">Open sidebar</span>
+                        <Menu aria-hidden="true" className="size-6" />
+                    </button>
+                    <div className="text-sm/6 font-semibold text-gray-900">
+                        <span className="text-green-600">&#9670;</span> Style Guide
+                    </div>
+                </div>
+
+                {/* Main content */}
+                <div className="flex flex-1 flex-col overflow-hidden lg:pl-80">
+                    <PreviewPane config={config} />
+                </div>
             </div>
         </>
     );
