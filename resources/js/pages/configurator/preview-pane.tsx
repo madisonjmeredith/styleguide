@@ -123,14 +123,14 @@ export function PreviewPane({ config }: Props) {
                             color: ${linkColor};
                             text-decoration: ${linkUnderline ? 'underline' : 'none'};
                             text-underline-offset: 2px;
-                            transition: color ${config.transitionDuration}ms ${config.transitionEasing}, text-decoration-color ${config.transitionDuration}ms ${config.transitionEasing};
+                            transition: color ${config.transitionDuration}ms ease, text-decoration-color ${config.transitionDuration}ms ease;
                         }
                         .preview-link:hover {
                             color: ${linkHoverColor};
                             ${linkHoverUnderline ? `text-decoration: ${linkHoverUnderline}; text-underline-offset: 2px;` : ''}
                         }
                         .preview-btn {
-                            transition: all ${config.transitionDuration}ms ${config.transitionEasing};
+                            transition: all ${config.transitionDuration}ms ease;
                         }
                         .preview-btn-primary { background: ${primary}; }
                         .preview-btn-secondary { background: ${secondary}; }

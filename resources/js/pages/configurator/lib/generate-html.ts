@@ -97,7 +97,7 @@ ${allNeutralComments} */
 
       /* Transitions */
       --transition-duration: ${config.transitionDuration}ms;
-      --transition-easing: ${config.transitionEasing};
+      --transition-easing: ease;
 
       /* Icon library: ${iconLabel} */
     }

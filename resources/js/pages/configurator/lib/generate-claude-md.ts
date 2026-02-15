@@ -115,13 +115,13 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 ## Transitions
 
 - **Duration**: \`${config.transitionDuration}ms\`
-- **Easing**: \`${config.transitionEasing}\`
-- Apply to all interactive state changes (hover, focus, active): \`transition: all ${config.transitionDuration}ms ${config.transitionEasing}\`
+- **Easing**: \`ease\`
+- Apply to all interactive state changes (hover, focus, active): \`transition: all ${config.transitionDuration}ms ease\`
 
 ### CSS Custom Properties
 \`\`\`css
 --transition-duration: ${config.transitionDuration}ms;
---transition-easing: ${config.transitionEasing};
+--transition-easing: ease;
 \`\`\`
 
 ## Component Patterns

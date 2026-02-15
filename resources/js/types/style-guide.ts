@@ -5,8 +5,7 @@ export type LinkColor = 'primary' | 'secondary';
 export type LinkHoverColor = 'darker' | 'lighter' | 'none';
 export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
 export type ButtonHoverStyle = 'darker' | 'lighter' | 'glow' | 'lift';
-export type TransitionDuration = 0 | 100 | 150 | 200 | 300;
-export type TransitionEasing = 'linear' | 'ease';
+export type TransitionDuration = number;
 export type HeadingLetterSpacing = 'tight' | 'normal' | 'wide';
 export type BodyLineHeight = 'compact' | 'comfortable' | 'spacious';
 export type TextTransform = 'none' | 'uppercase';
@@ -38,7 +37,7 @@ export type StyleGuideConfig = {
     headingTextTransform: TextTransform;
     buttonHoverStyle: ButtonHoverStyle;
     transitionDuration: TransitionDuration;
-    transitionEasing: TransitionEasing;
+    transitionEasing?: string;
 };
 
 export type StyleGuideData = {

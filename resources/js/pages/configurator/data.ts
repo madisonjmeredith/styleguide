@@ -1,4 +1,4 @@
-import type { BodyLineHeight, ButtonHoverStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TextTransform, TransitionDuration, TransitionEasing, TypeScale } from '@/types';
+import type { BodyLineHeight, ButtonHoverStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -154,15 +154,9 @@ export const BORDER_WIDTH_OPTIONS = [
     { value: 2, label: '2' },
 ];
 
-export const RADIUS_OPTIONS = [
-    { value: 0, label: '0' },
-    { value: 3, label: '3' },
-    { value: 4, label: '4' },
-    { value: 8, label: '8' },
-    { value: 12, label: '12' },
-    { value: 16, label: '16' },
-    { value: 32, label: '32' },
-];
+export const RADIUS_MIN = 0;
+export const RADIUS_MAX = 32;
+export const RADIUS_STEP = 1;
 
 export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string }> = [
     { id: 'darker', label: 'Darker' },
@@ -171,28 +165,13 @@ export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: st
     { id: 'lift', label: 'Lift' },
 ];
 
-export const TRANSITION_DURATION_OPTIONS: Array<{ id: TransitionDuration; label: string }> = [
-    { id: 0, label: 'None' },
-    { id: 100, label: '100ms' },
-    { id: 150, label: '150ms' },
-    { id: 200, label: '200ms' },
-    { id: 300, label: '300ms' },
-];
+export const TRANSITION_DURATION_MIN = 0;
+export const TRANSITION_DURATION_MAX = 300;
+export const TRANSITION_DURATION_STEP = 50;
 
-export const TRANSITION_EASING_OPTIONS: Array<{ id: TransitionEasing; label: string }> = [
-    { id: 'linear', label: 'Linear' },
-    { id: 'ease', label: 'Ease' },
-];
-
-export const FONT_WEIGHT_OPTIONS: Array<{ id: number; label: string }> = [
-    { id: 300, label: '300' },
-    { id: 400, label: '400' },
-    { id: 500, label: '500' },
-    { id: 600, label: '600' },
-    { id: 700, label: '700' },
-    { id: 800, label: '800' },
-    { id: 900, label: '900' },
-];
+export const FONT_WEIGHT_MIN = 300;
+export const FONT_WEIGHT_MAX = 900;
+export const FONT_WEIGHT_STEP = 100;
 
 export const HEADING_LETTER_SPACING_OPTIONS: Array<{ id: HeadingLetterSpacing; label: string }> = [
     { id: 'tight', label: 'Tight' },
@@ -217,11 +196,6 @@ export const BODY_LINE_HEIGHT_VALUES: Record<BodyLineHeight, number> = {
     comfortable: 1.6,
     spacious: 1.8,
 };
-
-export const TEXT_TRANSFORM_OPTIONS: Array<{ id: TextTransform; label: string }> = [
-    { id: 'none', label: 'None' },
-    { id: 'uppercase', label: 'Uppercase' },
-];
 
 export const ALL_STATIC_FONTS = [
     ...HEADING_FONTS,
@@ -253,7 +227,6 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     linkUnderlineOnHover: 'none',
     buttonHoverStyle: 'darker',
     transitionDuration: 150,
-    transitionEasing: 'ease',
 };
 
 // Color helpers

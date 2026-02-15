@@ -1,5 +1,6 @@
 import { Label } from '@/components/ui/label';
-import type { LinkColor, LinkHoverColor, LinkUnderlineOnHover, StyleGuideConfig } from '@/types';
+import { Switch } from '@/components/ui/switch';
+import type { LinkColor, LinkHoverColor, StyleGuideConfig } from '@/types';
 
 type Props = {
     config: StyleGuideConfig;
@@ -17,18 +18,24 @@ const LINK_HOVER_COLOR_OPTIONS: Array<{ id: LinkHoverColor; label: string }> = [
     { id: 'none', label: 'No change' },
 ];
 
-const LINK_UNDERLINE_OPTIONS: Array<{ value: boolean; label: string }> = [
-    { value: true, label: 'Yes' },
-    { value: false, label: 'No' },
-];
-
-const LINK_UNDERLINE_HOVER_OPTIONS: Array<{ id: LinkUnderlineOnHover; label: string }> = [
-    { id: 'show', label: 'Show' },
-    { id: 'remove', label: 'Remove' },
-    { id: 'none', label: 'No change' },
-];
-
 export function LinkSection({ config, onUpdate }: Props) {
+    const isHoverToggle = config.linkUnderlineOnHover !== 'none';
+
+    const handleUnderlineChange = (checked: boolean) => {
+        onUpdate('linkUnderline', checked);
+        if (isHoverToggle) {
+            onUpdate('linkUnderlineOnHover', checked ? 'remove' : 'show');
+        }
+    };
+
+    const handleHoverToggle = (checked: boolean) => {
+        if (checked) {
+            onUpdate('linkUnderlineOnHover', config.linkUnderline ? 'remove' : 'show');
+        } else {
+            onUpdate('linkUnderlineOnHover', 'none');
+        }
+    };
+
     return (
         <div className="py-6">
             <Label className="text-base font-semibold text-gray-900 mb-4 block">Links</Label>
@@ -71,42 +78,20 @@ export function LinkSection({ config, onUpdate }: Props) {
                 </div>
             </div>
 
-            <div className="mb-2.5">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Underline</div>
-                <div className="flex gap-1">
-                    {LINK_UNDERLINE_OPTIONS.map((opt) => (
-                        <button
-                            key={String(opt.value)}
-                            onClick={() => onUpdate('linkUnderline', opt.value)}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.linkUnderline === opt.value
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
-                </div>
+            <div className="mb-2.5 flex items-center justify-between">
+                <span className="text-sm/6 font-medium text-gray-700">Underline</span>
+                <Switch
+                    checked={config.linkUnderline}
+                    onCheckedChange={handleUnderlineChange}
+                />
             </div>
 
-            <div>
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Underline on Hover</div>
-                <div className="flex gap-1">
-                    {LINK_UNDERLINE_HOVER_OPTIONS.map((opt) => (
-                        <button
-                            key={opt.id}
-                            onClick={() => onUpdate('linkUnderlineOnHover', opt.id)}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.linkUnderlineOnHover === opt.id
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
-                </div>
+            <div className="flex items-center justify-between">
+                <span className="text-sm/6 font-medium text-gray-700">Toggle underline on hover</span>
+                <Switch
+                    checked={isHoverToggle}
+                    onCheckedChange={handleHoverToggle}
+                />
             </div>
         </div>
     );

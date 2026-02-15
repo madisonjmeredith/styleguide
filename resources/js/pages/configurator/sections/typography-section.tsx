@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Label } from '@/components/ui/label';
-import type { StyleGuideConfig } from '@/types';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import type { StyleGuideConfig, TypeScale } from '@/types';
 import type { GoogleFont } from '../data';
-import { ALL_STATIC_FONTS, BODY_LINE_HEIGHT_OPTIONS, FONT_WEIGHT_OPTIONS, HEADING_LETTER_SPACING_OPTIONS, TEXT_TRANSFORM_OPTIONS, TYPE_SCALE_OPTIONS, fontMetaFromGoogleFont } from '../data';
+import { ALL_STATIC_FONTS, BODY_LINE_HEIGHT_OPTIONS, FONT_WEIGHT_MAX, FONT_WEIGHT_MIN, FONT_WEIGHT_STEP, HEADING_LETTER_SPACING_OPTIONS, TYPE_SCALE_OPTIONS, fontMetaFromGoogleFont } from '../data';
 import { FontCombobox } from '../font-combobox';
 
 type Props = {
@@ -70,60 +72,63 @@ export function TypographySection({ config, onUpdate }: Props) {
 
             <div className="mt-2">
                 <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Type Scale</div>
-                <div className="flex gap-1">
+                <div className="flex flex-col gap-1">
                     {TYPE_SCALE_OPTIONS.map((opt) => (
-                        <button
+                        <label
                             key={opt.id}
-                            onClick={() => onUpdate('typeScale', opt.id)}
-                            title={opt.description}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
+                            className={`flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer transition-all duration-150 ${
                                 config.typeScale === opt.id
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                                    ? 'bg-gray-50 border border-gray-200'
+                                    : 'border border-transparent hover:bg-gray-50'
                             }`}
                         >
-                            {opt.label}
-                        </button>
+                            <div
+                                className={`size-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                                    config.typeScale === opt.id ? 'border-green-600' : 'border-gray-300'
+                                }`}
+                            >
+                                {config.typeScale === opt.id && <div className="size-2 rounded-full bg-green-600" />}
+                            </div>
+                            <div className="text-sm/6 font-medium text-gray-700">{opt.label}</div>
+                            <input
+                                type="radio"
+                                name="typeScale"
+                                value={opt.id}
+                                checked={config.typeScale === opt.id}
+                                onChange={() => onUpdate('typeScale', opt.id as TypeScale)}
+                                className="sr-only"
+                            />
+                        </label>
                     ))}
                 </div>
             </div>
 
-            <div className="mt-2">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Heading Font Weight</div>
-                <div className="flex gap-1">
-                    {FONT_WEIGHT_OPTIONS.map((opt) => (
-                        <button
-                            key={opt.id}
-                            onClick={() => onUpdate('headingFontWeight', opt.id)}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.headingFontWeight === opt.id
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
+            <div className="mt-4">
+                <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-sm/6 font-medium text-gray-700">Heading Font Weight</span>
+                    <span className="text-sm font-mono text-gray-500">{config.headingFontWeight}</span>
                 </div>
+                <Slider
+                    min={FONT_WEIGHT_MIN}
+                    max={FONT_WEIGHT_MAX}
+                    step={FONT_WEIGHT_STEP}
+                    value={[config.headingFontWeight]}
+                    onValueChange={([v]) => onUpdate('headingFontWeight', v)}
+                />
             </div>
 
-            <div className="mt-2">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Body Font Weight</div>
-                <div className="flex gap-1">
-                    {FONT_WEIGHT_OPTIONS.map((opt) => (
-                        <button
-                            key={opt.id}
-                            onClick={() => onUpdate('bodyFontWeight', opt.id)}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.bodyFontWeight === opt.id
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
+            <div className="mt-4">
+                <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-sm/6 font-medium text-gray-700">Body Font Weight</span>
+                    <span className="text-sm font-mono text-gray-500">{config.bodyFontWeight}</span>
                 </div>
+                <Slider
+                    min={FONT_WEIGHT_MIN}
+                    max={FONT_WEIGHT_MAX}
+                    step={FONT_WEIGHT_STEP}
+                    value={[config.bodyFontWeight]}
+                    onValueChange={([v]) => onUpdate('bodyFontWeight', v)}
+                />
             </div>
 
             <div className="mt-2">
@@ -164,23 +169,12 @@ export function TypographySection({ config, onUpdate }: Props) {
                 </div>
             </div>
 
-            <div className="mt-2">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Heading Text Transform</div>
-                <div className="flex gap-1">
-                    {TEXT_TRANSFORM_OPTIONS.map((opt) => (
-                        <button
-                            key={opt.id}
-                            onClick={() => onUpdate('headingTextTransform', opt.id)}
-                            className={`flex-1 py-2 text-sm cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.headingTextTransform === opt.id
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
-                </div>
+            <div className="mt-3 flex items-center justify-between">
+                <span className="text-sm/6 font-medium text-gray-700">All-caps headings</span>
+                <Switch
+                    checked={config.headingTextTransform === 'uppercase'}
+                    onCheckedChange={(v) => onUpdate('headingTextTransform', v ? 'uppercase' : 'none')}
+                />
             </div>
         </div>
     );

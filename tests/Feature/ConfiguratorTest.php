@@ -23,7 +23,6 @@ $validConfig = [
     'shadowEnabled' => true,
     'radius' => 8,
     'transitionDuration' => 150,
-    'transitionEasing' => 'ease',
 ];
 
 test('configurator page is accessible to guests', function () {
@@ -146,10 +145,9 @@ test('style guide validation rejects invalid transition configuration', function
                 'shadowEnabled' => true,
                 'radius' => 8,
                 'transitionDuration' => 999,
-                'transitionEasing' => 'invalid',
             ],
         ])
-        ->assertSessionHasErrors(['configuration.transitionDuration', 'configuration.transitionEasing']);
+        ->assertSessionHasErrors(['configuration.transitionDuration']);
 });
 
 test('guests cannot delete style guides', function () {

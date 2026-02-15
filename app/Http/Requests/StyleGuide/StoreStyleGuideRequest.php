@@ -40,9 +40,9 @@ class StoreStyleGuideRequest extends FormRequest
             'configuration.headingTextTransform' => ['required', 'string', 'in:none,uppercase'],
             'configuration.borderWidth' => ['required', 'integer', 'in:0,1,2'],
             'configuration.shadowEnabled' => ['required', 'boolean'],
-            'configuration.radius' => ['required', 'integer', 'in:0,4,8,12,16'],
-            'configuration.transitionDuration' => ['required', 'integer', 'in:0,100,150,200,300'],
-            'configuration.transitionEasing' => ['required', 'string', 'in:linear,ease'],
+            'configuration.radius' => ['required', 'integer', 'min:0', 'max:32'],
+            'configuration.transitionDuration' => ['required', 'integer', 'min:0', 'max:300'],
+            'configuration.transitionEasing' => ['sometimes', 'string', 'in:linear,ease'],
         ];
     }
 }
