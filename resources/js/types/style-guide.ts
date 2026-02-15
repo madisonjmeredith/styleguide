@@ -14,7 +14,7 @@ export type StyleGuideConfig = {
     bodyFontMeta?: FontMeta;
     typeScale: TypeScale;
     iconLibrary: IconLibrary;
-    borderEnabled: boolean;
+    borderWidth: number;
     shadowEnabled: boolean;
     radius: number;
 };

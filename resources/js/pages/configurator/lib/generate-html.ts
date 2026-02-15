@@ -10,7 +10,7 @@ export function generateHTML(config: StyleGuideConfig): string {
         { name: config.bodyFont, weights: bfMeta.weights },
     ]);
     const neutralLabel = NEUTRAL_PRESETS[config.neutralFamily].label;
-    const borderVal = config.borderEnabled ? '1px solid var(--color-neutral-200)' : 'none';
+    const borderVal = config.borderWidth === 0 ? '1px solid transparent' : `${config.borderWidth}px solid var(--color-neutral-200)`;
     const shadowVal = config.shadowEnabled
         ? '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05)'
         : 'none';
@@ -243,7 +243,7 @@ ${allNeutralComments} */
           <div style="width: 64px; height: 40px; border: var(--border); border-radius: var(--radius);"></div>
           <div>
             <div class="token-demo-label">Border</div>
-            <div class="token-demo-value">--border · ${config.borderEnabled ? '1px solid neutral-200' : 'none'}</div>
+            <div class="token-demo-value">--border · ${config.borderWidth === 0 ? 'transparent (0px)' : `${config.borderWidth}px solid neutral-200`}</div>
           </div>
         </div>
         <div class="token-demo">

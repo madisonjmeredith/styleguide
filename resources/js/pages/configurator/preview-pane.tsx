@@ -77,7 +77,7 @@ type Props = {
 
 export function PreviewPane({ config }: Props) {
     const n = NEUTRAL_PRESETS[config.neutralFamily].values;
-    const border = config.borderEnabled ? `1px solid ${n[200]}` : 'none';
+    const border = config.borderWidth === 0 ? `1px solid transparent` : `${config.borderWidth}px solid ${n[200]}`;
     const radius = config.radius;
     const shadow = config.shadowEnabled ? '0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05)' : 'none';
     const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);

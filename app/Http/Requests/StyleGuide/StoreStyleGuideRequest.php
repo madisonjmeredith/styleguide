@@ -32,7 +32,7 @@ class StoreStyleGuideRequest extends FormRequest
             'configuration.bodyFontMeta.category' => ['required_with:configuration.bodyFontMeta', 'string', 'max:50'],
             'configuration.bodyFontMeta.weights' => ['required_with:configuration.bodyFontMeta', 'string', 'max:100'],
             'configuration.typeScale' => ['required', 'string', 'in:small,regular,large,extra-large'],
-            'configuration.borderEnabled' => ['required', 'boolean'],
+            'configuration.borderWidth' => ['required', 'integer', 'in:0,1,2'],
             'configuration.shadowEnabled' => ['required', 'boolean'],
             'configuration.radius' => ['required', 'integer', 'in:0,4,8,12,16'],
         ];

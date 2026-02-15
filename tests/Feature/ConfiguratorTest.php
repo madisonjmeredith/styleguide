@@ -13,7 +13,7 @@ $validConfig = [
     'bodyFontMeta' => ['category' => 'sans-serif', 'weights' => '400;500;700'],
     'typeScale' => 'regular',
     'iconLibrary' => 'heroicons',
-    'borderEnabled' => true,
+    'borderWidth' => 1,
     'shadowEnabled' => true,
     'radius' => 8,
 ];

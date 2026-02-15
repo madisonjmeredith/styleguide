@@ -73,7 +73,7 @@ ${config.iconLibrary === 'fontawesome' ? '- Use CSS classes: `fa-solid fa-icon-n
 
 ## Surface & Shape
 
-- **Borders**: ${config.borderEnabled ? `Enabled — \`1px solid ${n[200]}\`` : 'Disabled — borderless/flat design'}
+- **Borders**: ${config.borderWidth === 0 ? 'None — borderless/flat design (transparent borders for layout stability)' : `\`${config.borderWidth}px solid ${n[200]}\``}
 - **Shadows**: ${config.shadowEnabled ? 'Enabled — `0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05)`' : 'Disabled — flat design, no elevation'}
 - **Border radius**: \`${config.radius}px\` on all components (buttons, cards, inputs, alerts). Fully-rounded elements (pills, avatars, badges) always use \`9999px\`.
 

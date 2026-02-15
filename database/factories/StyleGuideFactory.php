@@ -52,7 +52,7 @@ class StyleGuideFactory extends Factory
                 'bodyFontMeta' => ['category' => $bf['category'], 'weights' => $bf['weights']],
                 'typeScale' => fake()->randomElement(['small', 'regular', 'large', 'extra-large']),
                 'iconLibrary' => fake()->randomElement(['fontawesome', 'heroicons', 'feather']),
-                'borderEnabled' => fake()->boolean(),
+                'borderWidth' => fake()->randomElement([0, 1, 2]),
                 'shadowEnabled' => fake()->boolean(),
                 'radius' => fake()->randomElement([0, 4, 8, 12, 16]),
             ],

@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import type { StyleGuideConfig } from '@/types';
-import { RADIUS_OPTIONS } from '../data';
+import { BORDER_WIDTH_OPTIONS, RADIUS_OPTIONS } from '../data';
 
 type Props = {
     config: StyleGuideConfig;
@@ -15,9 +15,23 @@ export function SurfaceSection({ config, onUpdate }: Props) {
                 Surface & Shape
             </Label>
 
-            <div className="flex items-center justify-between mb-2.5">
-                <span className="text-sm/6 font-medium text-gray-700">Borders</span>
-                <Switch checked={config.borderEnabled} onCheckedChange={(v) => onUpdate('borderEnabled', v)} />
+            <div className="mb-2.5">
+                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Border Width</div>
+                <div className="flex gap-1">
+                    {BORDER_WIDTH_OPTIONS.map((opt) => (
+                        <button
+                            key={opt.value}
+                            onClick={() => onUpdate('borderWidth', opt.value)}
+                            className={`flex-1 py-1.5 text-xs font-mono cursor-pointer rounded-md border transition-all duration-150 ${
+                                config.borderWidth === opt.value
+                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
+                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
+                            }`}
+                        >
+                            {opt.label}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div className="flex items-center justify-between mb-2.5">

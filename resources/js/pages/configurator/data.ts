@@ -148,6 +148,12 @@ export const COLOR_PRESETS = [
     { label: 'Rose', value: '#fecdd3' },
 ] as const;
 
+export const BORDER_WIDTH_OPTIONS = [
+    { value: 0, label: '0' },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+];
+
 export const RADIUS_OPTIONS = [
     { value: 0, label: '0' },
     { value: 4, label: '4' },
@@ -171,7 +177,7 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     bodyFontMeta: { category: 'sans-serif', weights: '400;500;700' },
     typeScale: 'regular',
     iconLibrary: 'heroicons',
-    borderEnabled: true,
+    borderWidth: 1,
     shadowEnabled: true,
     radius: 8,
 };
