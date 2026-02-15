@@ -4,33 +4,20 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
-import { LogIn, Save, Trash2 } from 'lucide-react';
+import type { StyleGuideConfig, StyleGuideData } from '@/types';
+import { Save, Trash2 } from 'lucide-react';
 
 type Props = {
-    user: User | null;
     styleGuides: StyleGuideData[];
     config: StyleGuideConfig;
     activeGuideId: number | null;
     onLoadGuide: (guide: StyleGuideData) => void;
 };
 
-export function SaveLoadControls({ user, styleGuides, config, activeGuideId, onLoadGuide }: Props) {
+export function SaveLoadControls({ styleGuides, config, activeGuideId, onLoadGuide }: Props) {
     const [saveDialogOpen, setSaveDialogOpen] = useState(false);
     const [guideName, setGuideName] = useState('');
     const [saving, setSaving] = useState(false);
-
-    if (!user) {
-        return (
-            <a
-                href="/login"
-                className="flex items-center justify-center gap-1.5 w-full py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
-            >
-                <LogIn className="size-4" />
-                Log in to save guides
-            </a>
-        );
-    }
 
     const handleSave = () => {
         if (!guideName.trim()) {

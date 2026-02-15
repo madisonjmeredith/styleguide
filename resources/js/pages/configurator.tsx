@@ -13,9 +13,21 @@ type Props = {
 
 export default function Configurator({ styleGuides }: Props) {
     const { auth } = usePage().props;
-    const [config, setConfig] = useState<StyleGuideConfig>(DEFAULT_CONFIG);
+    const [config, setConfig] = useState<StyleGuideConfig>(() => {
+        try {
+            const saved = sessionStorage.getItem('styleguide:draft-config');
+            return saved ? { ...DEFAULT_CONFIG, ...JSON.parse(saved) } : DEFAULT_CONFIG;
+        } catch {
+            return DEFAULT_CONFIG;
+        }
+    });
     const [activeGuideId, setActiveGuideId] = useState<number | null>(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    // Persist config to localStorage so it survives the login round-trip
+    useEffect(() => {
+        sessionStorage.setItem('styleguide:draft-config', JSON.stringify(config));
+    }, [config]);
 
     const handleUpdate = useCallback(<K extends keyof StyleGuideConfig>(key: K, value: StyleGuideConfig[K]) => {
         setConfig((prev) => ({ ...prev, [key]: value }));

@@ -1,3 +1,7 @@
+import { Link } from '@inertiajs/react';
+import TextLink from '@/components/text-link';
+import { Button } from '@/components/ui/button';
+import { login, register } from '@/routes';
 import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
 import { ExportDialog } from './export-dialog';
 import { SaveLoadControls } from './save-load-controls';
@@ -39,17 +43,46 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
 
             {/* Save & Export */}
             <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
-                <SaveLoadControls
-                    user={user}
-                    styleGuides={styleGuides}
-                    config={config}
-                    activeGuideId={activeGuideId}
-                    onLoadGuide={onLoadGuide}
-                />
-                <ExportDialog config={config} />
-                <div className="text-xs text-gray-400 text-center">
-                    Downloads a self-contained style guide
-                </div>
+                {user ? (
+                    <>
+                        <SaveLoadControls
+                            styleGuides={styleGuides}
+                            config={config}
+                            activeGuideId={activeGuideId}
+                            onLoadGuide={onLoadGuide}
+                        />
+                        <ExportDialog config={config} />
+                        <div className="text-xs text-gray-400 text-center">
+                            Downloads a self-contained style guide
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <ExportDialog config={config} />
+
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-gray-200" />
+                            </div>
+                            <div className="relative flex justify-center text-xs">
+                                <span className="bg-white px-2 text-gray-400">or</span>
+                            </div>
+                        </div>
+
+                        <p className="text-center text-sm text-gray-500">
+                            Create an account to save your style guides and access them anytime.
+                        </p>
+
+                        <Button asChild className="w-full">
+                            <Link href={register()}>Create an account</Link>
+                        </Button>
+
+                        <p className="text-center text-sm text-gray-500">
+                            Already have an account?{' '}
+                            <TextLink href={login()}>Log in</TextLink>
+                        </p>
+                    </>
+                )}
             </div>
         </div>
     );
