@@ -156,10 +156,12 @@ export const BORDER_WIDTH_OPTIONS = [
 
 export const RADIUS_OPTIONS = [
     { value: 0, label: '0' },
+    { value: 3, label: '3' },
     { value: 4, label: '4' },
     { value: 8, label: '8' },
     { value: 12, label: '12' },
     { value: 16, label: '16' },
+    { value: 32, label: '32' },
 ];
 
 export const ALL_STATIC_FONTS = [
