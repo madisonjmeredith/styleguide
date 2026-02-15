@@ -128,6 +128,26 @@ export const TYPE_SCALE_SIZES: Record<TypeScale, TypeScaleSizes> = {
     'extra-large': { h1: 42, h2: 32, h3: 25, body: 20, secondary: 18, small: 16 },
 };
 
+export const COLOR_PRESETS = [
+    { label: 'Red', value: '#ef4444' },
+    { label: 'Orange', value: '#fb923c' },
+    { label: 'Amber', value: '#fcd34d' },
+    { label: 'Yellow', value: '#fef08a' },
+    { label: 'Lime', value: '#bef264' },
+    { label: 'Green', value: '#16a34a' },
+    { label: 'Emerald', value: '#34d399' },
+    { label: 'Teal', value: '#14b8a6' },
+    { label: 'Cyan', value: '#67e8f9' },
+    { label: 'Sky', value: '#38bdf8' },
+    { label: 'Blue', value: '#3b82f6' },
+    { label: 'Indigo', value: '#4338ca' },
+    { label: 'Violet', value: '#7c3aed' },
+    { label: 'Purple', value: '#c084fc' },
+    { label: 'Fuchsia', value: '#c026d3' },
+    { label: 'Pink', value: '#f9a8d4' },
+    { label: 'Rose', value: '#fecdd3' },
+] as const;
+
 export const RADIUS_OPTIONS = [
     { value: 0, label: '0' },
     { value: 4, label: '4' },
