@@ -96,6 +96,8 @@ export function PreviewPane({ config }: Props) {
     const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[config.bodyLineHeight ?? 'comfortable'];
     const headingTextTransform = (config.headingTextTransform ?? 'none') as React.CSSProperties['textTransform'];
     const buttonTextTransform = (config.buttonTextTransform ?? 'none') as React.CSSProperties['textTransform'];
+    const isOutlineStyle = (config.buttonStyle ?? 'filled') === 'outline';
+    const outlineBorderWidth = Math.max(config.borderWidth, 1);
 
     const linkColor = config.linkColor === 'secondary' ? secondary : primary;
     const linkHoverColor =
@@ -132,13 +134,13 @@ export function PreviewPane({ config }: Props) {
                         .preview-btn {
                             transition: all ${config.transitionDuration}ms ease;
                         }
-                        .preview-btn-primary { background: ${primary}; }
-                        .preview-btn-secondary { background: ${secondary}; }
+                        .preview-btn-primary { background: ${isOutlineStyle ? 'transparent' : primary}; color: ${isOutlineStyle ? primary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${primary}` : 'none'}; }
+                        .preview-btn-secondary { background: ${isOutlineStyle ? 'transparent' : secondary}; color: ${isOutlineStyle ? secondary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${secondary}` : 'none'}; }
                         .preview-btn-outline { background: transparent; }
-                        ${config.buttonHoverStyle === 'darker' ? `.preview-btn-primary:hover { background: ${shade(primary, 0.15)}; } .preview-btn-secondary:hover { background: ${shade(secondary, 0.15)}; } .preview-btn-outline:hover { background: ${n[100]}; }` : ''}
-                        ${config.buttonHoverStyle === 'lighter' ? `.preview-btn-primary:hover { background: ${tint(primary, 0.2)}; } .preview-btn-secondary:hover { background: ${tint(secondary, 0.2)}; } .preview-btn-outline:hover { background: ${n[50]}; }` : ''}
-                        ${config.buttonHoverStyle === 'glow' ? `.preview-btn-primary:hover { box-shadow: 0 0 0 4px ${tint(primary, 0.65)}; } .preview-btn-secondary:hover { box-shadow: 0 0 0 4px ${tint(secondary, 0.65)}; } .preview-btn-outline:hover { box-shadow: 0 0 0 4px ${n[200]}; }` : ''}
-                        ${config.buttonHoverStyle === 'lift' ? `.preview-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
+                        ${config.buttonHoverStyle === 'darker' ? `.preview-btn-primary:hover { background: ${shade(primary, 0.15)};${isOutlineStyle ? ` color: #fff; border-color: ${shade(primary, 0.15)};` : ''} } .preview-btn-secondary:hover { background: ${shade(secondary, 0.15)};${isOutlineStyle ? ` color: #fff; border-color: ${shade(secondary, 0.15)};` : ''} } .preview-btn-outline:hover { background: ${n[100]}; }` : ''}
+                        ${config.buttonHoverStyle === 'lighter' ? `.preview-btn-primary:hover { background: ${tint(primary, 0.2)};${isOutlineStyle ? ` color: #fff; border-color: ${tint(primary, 0.2)};` : ''} } .preview-btn-secondary:hover { background: ${tint(secondary, 0.2)};${isOutlineStyle ? ` color: #fff; border-color: ${tint(secondary, 0.2)};` : ''} } .preview-btn-outline:hover { background: ${n[50]}; }` : ''}
+                        ${config.buttonHoverStyle === 'glow' ? `.preview-btn-primary:hover {${isOutlineStyle ? ` background: ${primary}; color: #fff; border-color: ${primary};` : ''} box-shadow: 0 0 0 4px ${tint(primary, 0.65)}; } .preview-btn-secondary:hover {${isOutlineStyle ? ` background: ${secondary}; color: #fff; border-color: ${secondary};` : ''} box-shadow: 0 0 0 4px ${tint(secondary, 0.65)}; } .preview-btn-outline:hover { box-shadow: 0 0 0 4px ${n[200]}; }` : ''}
+                        ${config.buttonHoverStyle === 'lift' ? `${isOutlineStyle ? `.preview-btn-primary:hover { background: ${primary}; color: #fff; border-color: ${primary}; } .preview-btn-secondary:hover { background: ${secondary}; color: #fff; border-color: ${secondary}; } ` : ''}.preview-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
                     `}</style>
                     <div
                         style={{
@@ -251,8 +253,6 @@ export function PreviewPane({ config }: Props) {
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        color: '#fff',
-                                        border: 'none',
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         cursor: 'pointer',
@@ -267,8 +267,6 @@ export function PreviewPane({ config }: Props) {
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        color: '#fff',
-                                        border: 'none',
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         cursor: 'pointer',
@@ -553,8 +551,6 @@ export function PreviewPane({ config }: Props) {
                                                 padding: '4px 12px',
                                                 fontSize: ts.small,
                                                 fontFamily: bodyFont,
-                                                color: '#fff',
-                                                border: 'none',
                                                 borderRadius: radius,
                                                 textTransform: buttonTextTransform,
                                                 cursor: 'pointer',
@@ -625,8 +621,6 @@ export function PreviewPane({ config }: Props) {
                                         fontSize: ts.secondary,
                                         fontWeight: 500,
                                         fontFamily: bodyFont,
-                                        color: '#fff',
-                                        border: 'none',
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         cursor: 'pointer',

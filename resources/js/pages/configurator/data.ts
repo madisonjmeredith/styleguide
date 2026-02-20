@@ -1,4 +1,4 @@
-import type { BodyLineHeight, ButtonHoverStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TypeScale } from '@/types';
+import type { BodyLineHeight, ButtonHoverStyle, ButtonStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -158,6 +158,11 @@ export const RADIUS_MIN = 0;
 export const RADIUS_MAX = 32;
 export const RADIUS_STEP = 1;
 
+export const BUTTON_STYLE_OPTIONS: Array<{ id: ButtonStyle; label: string; description: string }> = [
+    { id: 'filled', label: 'Filled', description: 'Solid background' },
+    { id: 'outline', label: 'Outline', description: 'Bordered, fills on hover' },
+];
+
 export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string }> = [
     { id: 'darker', label: 'Darker' },
     { id: 'lighter', label: 'Lighter' },
@@ -216,6 +221,7 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     bodyFontWeight: 400,
     headingLetterSpacing: 'normal',
     bodyLineHeight: 'comfortable',
+    buttonStyle: 'filled',
     buttonTextTransform: 'none',
     headingTextTransform: 'none',
     iconLibrary: 'heroicons',

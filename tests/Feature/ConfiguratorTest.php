@@ -238,6 +238,32 @@ test('users cannot view other users style guides', function () {
         ->assertForbidden();
 });
 
+test('style guide accepts valid buttonStyle values', function () use ($validConfig) {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->post(route('configurator.store'), [
+            'name' => 'Outline Buttons Guide',
+            'configuration' => array_merge($validConfig, ['buttonStyle' => 'outline']),
+        ])
+        ->assertRedirect()
+        ->assertSessionMissing('errors');
+
+    $guide = $user->styleGuides()->latest('id')->first();
+    expect($guide->configuration['buttonStyle'])->toBe('outline');
+});
+
+test('style guide rejects invalid buttonStyle values', function () use ($validConfig) {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->post(route('configurator.store'), [
+            'name' => 'Invalid Guide',
+            'configuration' => array_merge($validConfig, ['buttonStyle' => 'ghost']),
+        ])
+        ->assertSessionHasErrors(['configuration.buttonStyle']);
+});
+
 test('guests cannot view style guides', function () {
     $guide = StyleGuide::factory()->create();
 

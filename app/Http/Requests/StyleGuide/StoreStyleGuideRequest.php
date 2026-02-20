@@ -36,6 +36,7 @@ class StoreStyleGuideRequest extends FormRequest
             'configuration.bodyFontWeight' => ['required', 'integer', 'in:300,400,500,600,700,800,900'],
             'configuration.headingLetterSpacing' => ['required', 'string', 'in:tight,normal,wide'],
             'configuration.bodyLineHeight' => ['required', 'string', 'in:compact,comfortable,spacious'],
+            'configuration.buttonStyle' => ['sometimes', 'string', 'in:filled,outline'],
             'configuration.buttonTextTransform' => ['required', 'string', 'in:none,uppercase'],
             'configuration.headingTextTransform' => ['required', 'string', 'in:none,uppercase'],
             'configuration.borderWidth' => ['required', 'integer', 'in:0,1,2'],

@@ -4,6 +4,7 @@ export type TypeScale = 'small' | 'regular' | 'large' | 'extra-large';
 export type LinkColor = 'primary' | 'secondary';
 export type LinkHoverColor = 'darker' | 'lighter' | 'none';
 export type LinkUnderlineOnHover = 'show' | 'remove' | 'none';
+export type ButtonStyle = 'filled' | 'outline';
 export type ButtonHoverStyle = 'darker' | 'lighter' | 'glow' | 'lift';
 export type TransitionDuration = number;
 export type HeadingLetterSpacing = 'tight' | 'normal' | 'wide';
@@ -34,6 +35,7 @@ export type StyleGuideConfig = {
     bodyFontWeight: number;
     headingLetterSpacing: HeadingLetterSpacing;
     bodyLineHeight: BodyLineHeight;
+    buttonStyle: ButtonStyle;
     buttonTextTransform: TextTransform;
     headingTextTransform: TextTransform;
     buttonHoverStyle: ButtonHoverStyle;

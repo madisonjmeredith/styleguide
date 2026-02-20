@@ -1,7 +1,7 @@
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import type { ButtonHoverStyle, StyleGuideConfig } from '@/types';
-import { BUTTON_HOVER_STYLE_OPTIONS } from '../data';
+import type { ButtonHoverStyle, ButtonStyle, StyleGuideConfig } from '@/types';
+import { BUTTON_HOVER_STYLE_OPTIONS, BUTTON_STYLE_OPTIONS } from '../data';
 
 type Props = {
     config: StyleGuideConfig;
@@ -9,9 +9,47 @@ type Props = {
 };
 
 export function ButtonSection({ config, onUpdate }: Props) {
+    const buttonStyle = config.buttonStyle ?? 'filled';
+
     return (
         <div className="py-6">
             <Label className="text-base font-semibold text-gray-900 mb-4 block">Buttons</Label>
+
+            <div className="mb-3">
+                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Style</div>
+                <div className="flex flex-col gap-1">
+                    {BUTTON_STYLE_OPTIONS.map((opt) => (
+                        <label
+                            key={opt.id}
+                            className={`flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer transition-all duration-150 ${
+                                buttonStyle === opt.id
+                                    ? 'bg-gray-50 border border-gray-200'
+                                    : 'border border-transparent hover:bg-gray-50'
+                            }`}
+                        >
+                            <div
+                                className={`size-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                                    buttonStyle === opt.id ? 'border-green-600' : 'border-gray-300'
+                                }`}
+                            >
+                                {buttonStyle === opt.id && <div className="size-2 rounded-full bg-green-600" />}
+                            </div>
+                            <div>
+                                <div className="text-sm/6 font-medium text-gray-700">{opt.label}</div>
+                                <div className="text-xs text-gray-400">{opt.description}</div>
+                            </div>
+                            <input
+                                type="radio"
+                                name="buttonStyle"
+                                value={opt.id}
+                                checked={buttonStyle === opt.id}
+                                onChange={() => onUpdate('buttonStyle', opt.id as ButtonStyle)}
+                                className="sr-only"
+                            />
+                        </label>
+                    ))}
+                </div>
+            </div>
 
             <div>
                 <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Hover Style</div>

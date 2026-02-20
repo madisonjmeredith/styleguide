@@ -129,8 +129,9 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 ## Component Patterns
 
 ### Buttons
-- **Primary**: Background \`--color-primary\`, white text, \`--radius\` corners
-- **Secondary**: Background \`--color-secondary\`, white text
+- **Button style**: ${(config.buttonStyle ?? 'filled') === 'outline' ? 'Outline — transparent background with colored border, fills with color on hover' : 'Filled — solid background with white text'}
+- **Primary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.primaryColor}\` border and text, fills on hover` : `Background \`--color-primary\`, white text`}, \`--radius\` corners
+- **Secondary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.secondaryColor}\` border and text, fills on hover` : `Background \`--color-secondary\`, white text`}
 - **Outline**: Transparent background, neutral-700 text, border from \`--border\`
 - **Text/Link**: No background, link color text, uses link decoration settings
 - **Disabled**: Background neutral-200, neutral-400 text, \`cursor: not-allowed\`
