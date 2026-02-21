@@ -665,21 +665,19 @@ export function PreviewPane({ config }: Props) {
                         {/* Table */}
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Table</div>
-                            <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden' }}>
-                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.secondary }}>
+                            <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden', boxShadow: shadow }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.small }}>
                                     <thead>
                                         <tr>
-                                            {['Name', 'Role', 'Status'].map((th) => (
+                                            {['Name', 'Title', 'Email', 'Role', ''].map((th, i) => (
                                                 <th
-                                                    key={th}
+                                                    key={i}
                                                     style={{
                                                         textAlign: 'left',
-                                                        padding: '8px 14px',
-                                                        fontSize: ts.small - 1,
+                                                        padding: '12px 12px',
+                                                        fontSize: ts.small,
                                                         fontWeight: 600,
-                                                        textTransform: 'uppercase',
-                                                        letterSpacing: '0.05em',
-                                                        color: n[500],
+                                                        color: n[900],
                                                         background: n[50],
                                                         borderBottom: `1px solid ${n[300]}`,
                                                     }}
@@ -690,68 +688,70 @@ export function PreviewPane({ config }: Props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {(
-                                            [
-                                                ['Alice Chen', 'Engineer', 'Success'],
-                                                ['Bob Rivera', 'Designer', 'Warning'],
-                                                ['Cara Okafor', 'PM', 'Danger'],
-                                            ] as const
-                                        ).map(([name, role, status], i) => (
-                                            <tr key={i}>
+                                        {([
+                                            { name: 'Maya Johnson', title: 'Software Engineer', email: 'maya.johnson@example.com', role: 'Admin' },
+                                            { name: 'James Park', title: 'Product Manager', email: 'james.park@example.com', role: 'Member' },
+                                            { name: 'Sara Nilsson', title: 'UX Designer', email: 'sara.nilsson@example.com', role: 'Member' },
+                                            { name: 'David Chen', title: 'Data Analyst', email: 'david.chen@example.com', role: 'Owner' },
+                                        ] as const).map((person, i, arr) => (
+                                            <tr key={person.email}>
                                                 <td
                                                     style={{
-                                                        padding: '10px 14px',
+                                                        padding: '14px 12px',
                                                         fontWeight: 500,
                                                         color: n[900],
-                                                        borderBottom: i < 2 ? `1px solid ${n[100]}` : 'none',
+                                                        whiteSpace: 'nowrap',
+                                                        borderBottom: i < arr.length - 1 ? `1px solid ${n[200]}` : 'none',
                                                     }}
                                                 >
-                                                    {name}
+                                                    {person.name}
                                                 </td>
                                                 <td
                                                     style={{
-                                                        padding: '10px 14px',
-                                                        color: n[700],
-                                                        borderBottom: i < 2 ? `1px solid ${n[100]}` : 'none',
+                                                        padding: '14px 12px',
+                                                        color: n[500],
+                                                        whiteSpace: 'nowrap',
+                                                        borderBottom: i < arr.length - 1 ? `1px solid ${n[200]}` : 'none',
                                                     }}
                                                 >
-                                                    {role}
+                                                    {person.title}
                                                 </td>
                                                 <td
                                                     style={{
-                                                        padding: '10px 14px',
-                                                        borderBottom: i < 2 ? `1px solid ${n[100]}` : 'none',
+                                                        padding: '14px 12px',
+                                                        color: n[500],
+                                                        whiteSpace: 'nowrap',
+                                                        borderBottom: i < arr.length - 1 ? `1px solid ${n[200]}` : 'none',
                                                     }}
                                                 >
-                                                    <span
-                                                        style={{
-                                                            display: 'inline-flex',
-                                                            alignItems: 'center',
-                                                            padding: '2px 8px',
-                                                            fontSize: ts.small - 1,
-                                                            fontWeight: 500,
-                                                            fontFamily: bodyFont,
-                                                            borderRadius: radius,
-                                                            background:
-                                                                status === 'Success'
-                                                                    ? '#dcfce7'
-                                                                    : status === 'Warning'
-                                                                      ? '#fef9c3'
-                                                                      : '#fee2e2',
-                                                            color:
-                                                                status === 'Success'
-                                                                    ? '#15803d'
-                                                                    : status === 'Warning'
-                                                                      ? '#854d0e'
-                                                                      : '#b91c1c',
-                                                        }}
+                                                    {person.email}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        padding: '14px 12px',
+                                                        color: n[500],
+                                                        whiteSpace: 'nowrap',
+                                                        borderBottom: i < arr.length - 1 ? `1px solid ${n[200]}` : 'none',
+                                                    }}
+                                                >
+                                                    {person.role}
+                                                </td>
+                                                <td
+                                                    style={{
+                                                        padding: '14px 12px',
+                                                        textAlign: 'right',
+                                                        whiteSpace: 'nowrap',
+                                                        borderBottom: i < arr.length - 1 ? `1px solid ${n[200]}` : 'none',
+                                                    }}
+                                                >
+                                                    <a
+                                                        href="#"
+                                                        onClick={(e) => e.preventDefault()}
+                                                        className="preview-link"
+                                                        style={{ fontWeight: 500 }}
                                                     >
-                                                        {status === 'Success'
-                                                            ? 'Active'
-                                                            : status === 'Warning'
-                                                              ? 'Review'
-                                                              : 'Inactive'}
-                                                    </span>
+                                                        Edit
+                                                    </a>
                                                 </td>
                                             </tr>
                                         ))}
