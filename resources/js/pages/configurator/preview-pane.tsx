@@ -492,71 +492,173 @@ export function PreviewPane({ config }: Props) {
                             </div>
                         </div>
 
-                        {/* Form */}
+                        {/* Sign In Card */}
                         <div style={{ marginBottom: 32 }}>
-                            <div style={labelStyle}>Form Fields</div>
-                            <div style={{ background: '#fff', border, borderRadius: radius, padding: 20, maxWidth: 360 }}>
-                                <div style={{ marginBottom: 12 }}>
-                                    <label
-                                        style={{ display: 'block', fontSize: ts.small, fontWeight: 600, color: n[700], marginBottom: 4 }}
-                                    >
-                                        Email
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="jane@example.com"
-                                        readOnly
+                            <div style={labelStyle}>Form</div>
+                            <div style={{ background: '#fff', border, borderRadius: radius, boxShadow: shadow, padding: 32, maxWidth: 400 }}>
+                                <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                                    <div>
+                                        <label
+                                            style={{ display: 'block', fontSize: ts.small, fontWeight: 500, color: n[900], marginBottom: 6 }}
+                                        >
+                                            Email address
+                                        </label>
+                                        <input
+                                            type="email"
+                                            placeholder=""
+                                            style={{
+                                                width: '100%',
+                                                padding: '8px 12px',
+                                                fontSize: ts.small,
+                                                fontFamily: bodyFont,
+                                                color: n[800],
+                                                background: '#fff',
+                                                border,
+                                                borderRadius: radius,
+                                                outline: 'none',
+                                                boxSizing: 'border-box',
+                                            }}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            style={{ display: 'block', fontSize: ts.small, fontWeight: 500, color: n[900], marginBottom: 6 }}
+                                        >
+                                            Password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            placeholder=""
+                                            style={{
+                                                width: '100%',
+                                                padding: '8px 12px',
+                                                fontSize: ts.small,
+                                                fontFamily: bodyFont,
+                                                color: n[800],
+                                                background: '#fff',
+                                                border,
+                                                borderRadius: radius,
+                                                outline: 'none',
+                                                boxSizing: 'border-box',
+                                            }}
+                                        />
+                                    </div>
+                                    <button
+                                        className="preview-btn preview-btn-primary"
                                         style={{
                                             width: '100%',
-                                            padding: '8px 10px',
-                                            fontSize: ts.secondary,
+                                            padding: '9px 18px',
+                                            fontSize: ts.small,
+                                            fontWeight: 600,
                                             fontFamily: bodyFont,
-                                            color: n[800],
-                                            background: '#fff',
-                                            border,
                                             borderRadius: radius,
-                                            outline: 'none',
+                                            textTransform: buttonTextTransform,
+                                            cursor: 'pointer',
                                         }}
-                                    />
-                                    <div style={{ fontSize: ts.small - 1, color: n[400], marginTop: 3 }}>We'll never share your email.</div>
-                                </div>
-                                <div style={{ marginBottom: 12 }}>
-                                    <label
-                                        style={{ display: 'block', fontSize: ts.small, fontWeight: 600, color: n[700], marginBottom: 4 }}
                                     >
-                                        Category
-                                    </label>
-                                    <select
+                                        Sign in
+                                    </button>
+                                </form>
+                                <p style={{ marginTop: 24, textAlign: 'center', fontSize: ts.small, marginBottom: 0 }}>
+                                    <a
+                                        href="#"
+                                        onClick={(e) => e.preventDefault()}
+                                        className="preview-link"
+                                        style={{ fontWeight: 600 }}
+                                    >
+                                        Start a 14 day free trial
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Modal */}
+                        <div style={{ marginBottom: 32 }}>
+                            <div style={labelStyle}>Modal</div>
+                            <div
+                                style={{
+                                    background: '#fff',
+                                    border,
+                                    borderRadius: radius,
+                                    boxShadow: config.shadowEnabled ? '0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)' : 'none',
+                                    padding: 24,
+                                    maxWidth: 480,
+                                }}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                    <div
                                         style={{
-                                            width: '100%',
-                                            padding: '8px 10px',
-                                            fontSize: ts.secondary,
-                                            fontFamily: bodyFont,
-                                            color: n[800],
-                                            background: '#fff',
-                                            border,
-                                            borderRadius: radius,
-                                            outline: 'none',
+                                            flexShrink: 0,
+                                            width: 40,
+                                            height: 40,
+                                            borderRadius: 9999,
+                                            background: tint(primary, 0.85),
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
                                         }}
                                     >
-                                        <option>Select an option…</option>
-                                    </select>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke={primary} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M12 16v-4m0-4h.01M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div style={{ marginLeft: 16, flex: 1 }}>
+                                        <h3
+                                            style={{
+                                                fontSize: ts.body,
+                                                fontWeight: 600,
+                                                fontFamily: bodyFont,
+                                                color: n[900],
+                                                margin: 0,
+                                            }}
+                                        >
+                                            Publish changes
+                                        </h3>
+                                        <p
+                                            style={{
+                                                marginTop: 8,
+                                                fontSize: ts.small,
+                                                fontFamily: bodyFont,
+                                                color: n[500],
+                                                lineHeight: 1.5,
+                                                margin: 0,
+                                                marginBottom: 0,
+                                            }}
+                                        >
+                                            Your updates will be visible to all team members once published. You can review changes before they go live.
+                                        </p>
+                                    </div>
                                 </div>
-                                <button
-                                    className="preview-btn preview-btn-primary"
-                                    style={{
-                                        width: '100%',
-                                        padding: '9px 18px',
-                                        fontSize: ts.secondary,
-                                        fontWeight: 500,
-                                        fontFamily: bodyFont,
-                                        borderRadius: radius,
-                                        textTransform: buttonTextTransform,
-                                        cursor: 'pointer',
-                                    }}
-                                >
-                                    Submit
-                                </button>
+                                <div style={{ marginTop: 20, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 12 }}>
+                                    <button
+                                        className="preview-link"
+                                        style={{
+                                            padding: '6px 8px',
+                                            fontSize: ts.small,
+                                            fontWeight: 600,
+                                            fontFamily: bodyFont,
+                                            background: 'transparent',
+                                            border: 'none',
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        className="preview-btn preview-btn-primary"
+                                        style={{
+                                            padding: '8px 16px',
+                                            fontSize: ts.small,
+                                            fontWeight: 600,
+                                            fontFamily: bodyFont,
+                                            borderRadius: radius,
+                                            textTransform: buttonTextTransform,
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        Publish
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
