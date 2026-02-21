@@ -158,10 +158,12 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - Danger: red-50 bg, red-800 text
 
 ### Alerts
-- \`--radius\` corners, 4px left border
-- Success: green-50 bg, green border, green-800 text
-- Warning: amber-50 bg, amber border, amber-800 text
-- Danger: red-50 bg, red border, red-800 text
+- Layout: icon (20px) on left, title + description on right, \`--radius\` corners
+- Success: green-50 bg (\`#f0fdf4\`), green-400 icon, green-800 title, green-700 body
+- Warning: yellow-50 bg (\`#fefce8\`), yellow-400 icon, yellow-800 title, yellow-700 body
+- Danger: red-50 bg (\`#fef2f2\`), red-400 icon, red-800 title, red-700 body
+- Title: font-weight 500, body font
+- Icon: use the selected icon library's check-circle, warning-triangle, and x-circle variants
 
 ### Tables
 - Full-width, collapse borders

@@ -195,11 +195,22 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
     .badge-warning { background: #fffbeb; color: #92400e; }
     .badge-danger { background: #fef2f2; color: #991b1b; }
 
-    .alert { padding: 14px 18px; border-radius: var(--radius); font-size: 0.875rem; line-height: 1.5; border-left: 4px solid; }
-    .alert-success { background: #f0fdf4; border-color: #22c55e; color: #166534; }
-    .alert-warning { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
-    .alert-danger { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
-    .alert-title { font-weight: 700; margin-bottom: 2px; }
+    .alert { display: flex; gap: 12px; padding: 16px; border-radius: var(--radius); font-size: 0.875rem; line-height: 1.5; }
+    .alert-icon { flex-shrink: 0; width: 20px; height: 20px; }
+    .alert-success { background: #f0fdf4; }
+    .alert-success .alert-icon { color: #4ade80; }
+    .alert-success .alert-title { color: #166534; }
+    .alert-success .alert-body { color: #15803d; }
+    .alert-warning { background: #fefce8; }
+    .alert-warning .alert-icon { color: #facc15; }
+    .alert-warning .alert-title { color: #854d0e; }
+    .alert-warning .alert-body { color: #a16207; }
+    .alert-danger { background: #fef2f2; }
+    .alert-danger .alert-icon { color: #f87171; }
+    .alert-danger .alert-title { color: #991b1b; }
+    .alert-danger .alert-body { color: #b91c1c; }
+    .alert-title { font-weight: 500; margin-bottom: 4px; }
+    .alert-body { font-size: 0.875rem; }
 
     .table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     .table th { text-align: left; padding: 10px 16px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-neutral-500); background: var(--color-neutral-50); border-bottom: 1px solid var(--color-neutral-300); }
@@ -401,9 +412,18 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
           </div>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div class="alert alert-success"><div class="alert-title">Success</div>Your changes have been saved.</div>
-          <div class="alert alert-warning"><div class="alert-title">Warning</div>Your trial expires in 3 days.</div>
-          <div class="alert alert-danger"><div class="alert-title">Error</div>Something went wrong. Please try again.</div>
+          <div class="alert alert-success">
+            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" /></svg>
+            <div><div class="alert-title">Changes saved</div><div class="alert-body">Your changes have been saved successfully.</div></div>
+          </div>
+          <div class="alert alert-warning">
+            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" /></svg>
+            <div><div class="alert-title">Attention needed</div><div class="alert-body">Your trial is expiring in 3 days.</div></div>
+          </div>
+          <div class="alert alert-danger">
+            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z" clip-rule="evenodd" /></svg>
+            <div><div class="alert-title">Something went wrong</div><div class="alert-body">There was a problem processing your request.</div></div>
+          </div>
         </div>
       </div>
 
