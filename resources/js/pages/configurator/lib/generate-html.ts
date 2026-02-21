@@ -151,20 +151,17 @@ ${allNeutralComments} */
     .component-stage { background: var(--color-white); border: 1px solid var(--color-neutral-200); border-radius: 8px; padding: 32px; margin-bottom: 16px; }
     .component-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; text-transform: ${buttonTextTransform}; transition: all var(--transition-duration) var(--transition-easing); text-decoration: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 20px; font-family: var(--font-body); font-size: 0.875rem; font-weight: 500; border: none; border-radius: var(--radius); cursor: pointer; text-transform: ${buttonTextTransform};${buttonTextTransform === 'uppercase' ? ' letter-spacing: 0.05em;' : ''} transition: all var(--transition-duration) var(--transition-easing); text-decoration: none; }
 ${isOutlineStyle ? `    .btn-primary { background: transparent; color: var(--color-primary); border: ${outlineBorderWidth}px solid var(--color-primary); }
     .btn-secondary { background: transparent; color: var(--color-secondary); border: ${outlineBorderWidth}px solid var(--color-secondary); }` : `    .btn-primary { background: var(--color-primary); color: var(--color-white); }
     .btn-secondary { background: var(--color-secondary); color: var(--color-white); }`}
-    .btn-outline { background: transparent; color: var(--color-neutral-700); border: var(--border); }
-${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: ${shade(config.primaryColor, 0.15)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${shade(config.primaryColor, 0.15)};` : ''} }
-    .btn-secondary:hover { background: ${shade(config.secondaryColor, 0.15)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${shade(config.secondaryColor, 0.15)};` : ''} }
-    .btn-outline:hover { background: var(--color-neutral-100); }` : ''}${config.buttonHoverStyle === 'lighter' ? `    .btn-primary:hover { background: ${tint(config.primaryColor, 0.2)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${tint(config.primaryColor, 0.2)};` : ''} }
-    .btn-secondary:hover { background: ${tint(config.secondaryColor, 0.2)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${tint(config.secondaryColor, 0.2)};` : ''} }
-    .btn-outline:hover { background: var(--color-neutral-50); }` : ''}${config.buttonHoverStyle === 'glow' ? `    .btn-primary:hover {${isOutlineStyle ? ` background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary);` : ''} box-shadow: 0 0 0 4px ${tint(config.primaryColor, 0.65)}; }
-    .btn-secondary:hover {${isOutlineStyle ? ` background: var(--color-secondary); color: var(--color-white); border-color: var(--color-secondary);` : ''} box-shadow: 0 0 0 4px ${tint(config.secondaryColor, 0.65)}; }
-    .btn-outline:hover { box-shadow: 0 0 0 4px ${n[200]}; }` : ''}${config.buttonHoverStyle === 'lift' ? `${isOutlineStyle ? `    .btn-primary:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
+${config.buttonHoverStyle === 'fill' && isOutlineStyle ? `    .btn-primary:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
+    .btn-secondary:hover { background: var(--color-secondary); color: var(--color-white); border-color: var(--color-secondary); }` : ''}${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: ${shade(config.primaryColor, 0.15)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${shade(config.primaryColor, 0.15)};` : ''} }
+    .btn-secondary:hover { background: ${shade(config.secondaryColor, 0.15)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${shade(config.secondaryColor, 0.15)};` : ''} }` : ''}${config.buttonHoverStyle === 'lighter' ? `    .btn-primary:hover { background: ${tint(config.primaryColor, 0.2)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${tint(config.primaryColor, 0.2)};` : ''} }
+    .btn-secondary:hover { background: ${tint(config.secondaryColor, 0.2)};${isOutlineStyle ? ` color: var(--color-white); border-color: ${tint(config.secondaryColor, 0.2)};` : ''} }` : ''}${config.buttonHoverStyle === 'glow' ? `    .btn-primary:hover {${isOutlineStyle ? ` background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary);` : ''} box-shadow: 0 0 0 4px ${tint(config.primaryColor, 0.65)}; }
+    .btn-secondary:hover {${isOutlineStyle ? ` background: var(--color-secondary); color: var(--color-white); border-color: var(--color-secondary);` : ''} box-shadow: 0 0 0 4px ${tint(config.secondaryColor, 0.65)}; }` : ''}${config.buttonHoverStyle === 'lift' ? `${isOutlineStyle ? `    .btn-primary:hover { background: var(--color-primary); color: var(--color-white); border-color: var(--color-primary); }
     .btn-secondary:hover { background: var(--color-secondary); color: var(--color-white); border-color: var(--color-secondary); }
-` : ''}    .btn-primary:hover, .btn-secondary:hover, .btn-outline:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
+` : ''}    .btn-primary:hover, .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }` : ''}
     a { color: var(--link-color); text-decoration: var(--link-decoration); text-underline-offset: 2px; transition: color var(--transition-duration) var(--transition-easing); }
     a:hover { color: var(--link-hover-color); text-decoration: var(--link-hover-decoration); }
     .btn-text { background: transparent; color: var(--link-color); padding: 10px 8px; text-decoration: var(--link-decoration); text-underline-offset: 2px; }
@@ -341,7 +338,6 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
           <div class="component-row" style="margin-bottom: 16px;">
             <button class="btn btn-primary">Primary</button>
             <button class="btn btn-secondary">Secondary</button>
-            <button class="btn btn-outline">Outline</button>
             <button class="btn btn-text">Text link</button>
             <button class="btn btn-disabled" disabled>Disabled</button>
           </div>

@@ -164,6 +164,7 @@ export const BUTTON_STYLE_OPTIONS: Array<{ id: ButtonStyle; label: string; descr
 ];
 
 export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string }> = [
+    { id: 'fill', label: 'Fill' },
     { id: 'darker', label: 'Darker' },
     { id: 'lighter', label: 'Lighter' },
     { id: 'glow', label: 'Glow' },

@@ -130,13 +130,12 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 
 ### Buttons
 - **Button style**: ${(config.buttonStyle ?? 'filled') === 'outline' ? 'Outline — transparent background with colored border, fills with color on hover' : 'Filled — solid background with white text'}
-- **Primary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.primaryColor}\` border and text, fills on hover` : `Background \`--color-primary\`, white text`}, \`--radius\` corners
-- **Secondary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.secondaryColor}\` border and text, fills on hover` : `Background \`--color-secondary\`, white text`}
-- **Outline**: Transparent background, neutral-700 text, border from \`--border\`
+- **Primary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.primaryColor}\` border and text` : `Background \`--color-primary\`, white text`}, \`--radius\` corners
+- **Secondary**: ${(config.buttonStyle ?? 'filled') === 'outline' ? `Transparent background, \`${config.secondaryColor}\` border and text` : `Background \`--color-secondary\`, white text`}
 - **Text/Link**: No background, link color text, uses link decoration settings
 - **Disabled**: Background neutral-200, neutral-400 text, \`cursor: not-allowed\`
-- **Text transform**: \`${buttonTextTransform}\`
-- **Hover style**: ${config.buttonHoverStyle === 'darker' ? `Darken — primary hover: \`${shade(config.primaryColor, 0.15)}\`, secondary hover: \`${shade(config.secondaryColor, 0.15)}\`` : config.buttonHoverStyle === 'lighter' ? `Lighten — primary hover: \`${tint(config.primaryColor, 0.2)}\`, secondary hover: \`${tint(config.secondaryColor, 0.2)}\`` : config.buttonHoverStyle === 'glow' ? `Glow — colored \`box-shadow: 0 0 0 4px\` ring using tinted variant of button color` : `Lift — \`transform: translateY(-2px)\` with \`box-shadow: 0 4px 12px rgba(0,0,0,0.15)\``}
+- **Text transform**: \`${buttonTextTransform}\`${buttonTextTransform === 'uppercase' ? ` with \`letter-spacing: 0.05em\`` : ''}
+- **Hover style**: ${config.buttonHoverStyle === 'fill' ? `Fill — ${(config.buttonStyle ?? 'filled') === 'outline' ? 'fills background with button color on hover' : 'no visible change (already filled)'}` : config.buttonHoverStyle === 'darker' ? `Darken — primary hover: \`${shade(config.primaryColor, 0.15)}\`, secondary hover: \`${shade(config.secondaryColor, 0.15)}\`` : config.buttonHoverStyle === 'lighter' ? `Lighten — primary hover: \`${tint(config.primaryColor, 0.2)}\`, secondary hover: \`${tint(config.secondaryColor, 0.2)}\`` : config.buttonHoverStyle === 'glow' ? `Glow — colored \`box-shadow: 0 0 0 4px\` ring using tinted variant of button color` : `Lift — \`transform: translateY(-2px)\` with \`box-shadow: 0 4px 12px rgba(0,0,0,0.15)\``}
 - Sizes: sm (6px 14px), default (10px 20px), lg (14px 28px)
 
 ### Cards
