@@ -350,16 +350,39 @@ export function PreviewPane({ config }: Props) {
                                     <div style={{ padding: 16 }}>
                                         <div
                                             style={{
-                                                fontFamily: headingFont,
-                                                fontSize: ts.secondary + 2,
-                                                fontWeight: headingFontWeight,
-                                                color: n[900],
-                                                letterSpacing: headingLetterSpacing,
-                                                textTransform: headingTextTransform,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 8,
                                                 marginBottom: 4,
                                             }}
                                         >
-                                            Basic Card
+                                            <span
+                                                style={{
+                                                    fontFamily: headingFont,
+                                                    fontSize: ts.secondary + 2,
+                                                    fontWeight: headingFontWeight,
+                                                    color: n[900],
+                                                    letterSpacing: headingLetterSpacing,
+                                                    textTransform: headingTextTransform,
+                                                }}
+                                            >
+                                                Basic Card
+                                            </span>
+                                            <span
+                                                style={{
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    padding: '2px 8px',
+                                                    fontSize: ts.small - 1,
+                                                    fontWeight: 500,
+                                                    fontFamily: bodyFont,
+                                                    borderRadius: radius,
+                                                    background: tint(primary, 0.85),
+                                                    color: primary,
+                                                }}
+                                            >
+                                                New
+                                            </span>
                                         </div>
                                         <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>
                                             A simple card with title and body text.
@@ -456,6 +479,87 @@ export function PreviewPane({ config }: Props) {
                                     </div>
                                 </div>
                             </div>
+                            <div style={{ textAlign: 'center', marginTop: 24 }}>
+                            <nav style={{ display: 'inline-flex', borderRadius: radius, boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}>
+                                {([
+                                    { type: 'prev' },
+                                    { type: 'page', value: 1, active: true },
+                                    { type: 'page', value: 2 },
+                                    { type: 'page', value: 3 },
+                                    { type: 'ellipsis' },
+                                    { type: 'page', value: 8 },
+                                    { type: 'page', value: 9 },
+                                    { type: 'page', value: 10 },
+                                    { type: 'next' },
+                                ] as const).map((item, i, arr) => {
+                                    const isFirst = i === 0;
+                                    const isLast = i === arr.length - 1;
+                                    const baseStyle: React.CSSProperties = {
+                                        position: 'relative',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: ts.small,
+                                        fontWeight: 600,
+                                        fontFamily: bodyFont,
+                                        marginLeft: i > 0 ? -1 : 0,
+                                        boxShadow: `inset 0 0 0 1px ${n[300]}`,
+                                        borderTopLeftRadius: isFirst ? radius : 0,
+                                        borderBottomLeftRadius: isFirst ? radius : 0,
+                                        borderTopRightRadius: isLast ? radius : 0,
+                                        borderBottomRightRadius: isLast ? radius : 0,
+                                        textDecoration: 'none',
+                                        cursor: item.type === 'ellipsis' ? 'default' : 'pointer',
+                                    };
+
+                                    if (item.type === 'prev' || item.type === 'next') {
+                                        return (
+                                            <a
+                                                key={item.type}
+                                                href="#"
+                                                onClick={(e) => e.preventDefault()}
+                                                style={{ ...baseStyle, padding: 8, color: n[400] }}
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20" fill="currentColor">
+                                                    {item.type === 'prev' ? (
+                                                        <path fillRule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clipRule="evenodd" />
+                                                    ) : (
+                                                        <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                                                    )}
+                                                </svg>
+                                            </a>
+                                        );
+                                    }
+
+                                    if (item.type === 'ellipsis') {
+                                        return (
+                                            <span key="ellipsis" style={{ ...baseStyle, padding: '8px 14px', color: n[500] }}>
+                                                &hellip;
+                                            </span>
+                                        );
+                                    }
+
+                                    const isActive = 'active' in item && item.active;
+                                    return (
+                                        <a
+                                            key={item.value}
+                                            href="#"
+                                            onClick={(e) => e.preventDefault()}
+                                            style={{
+                                                ...baseStyle,
+                                                padding: '8px 14px',
+                                                zIndex: isActive ? 10 : 0,
+                                                background: isActive ? primary : 'transparent',
+                                                color: isActive ? '#fff' : n[900],
+                                                boxShadow: isActive ? 'none' : baseStyle.boxShadow,
+                                            }}
+                                        >
+                                            {item.value}
+                                        </a>
+                                    );
+                                })}
+                            </nav>
+                            </div>
                         </div>
 
                         {/* Form */}
@@ -526,45 +630,6 @@ export function PreviewPane({ config }: Props) {
                             </div>
                         </div>
 
-                        {/* Badges */}
-                        <div style={{ marginBottom: 32 }}>
-                            <div style={labelStyle}>Badges</div>
-                            <div
-                                style={{
-                                    background: '#fff',
-                                    border,
-                                    borderRadius: radius,
-                                    padding: 16,
-                                    display: 'flex',
-                                    gap: 6,
-                                    flexWrap: 'wrap',
-                                }}
-                            >
-                                {([
-                                    { label: 'Success', bg: '#dcfce7', color: '#15803d' },
-                                    { label: 'Warning', bg: '#fef9c3', color: '#854d0e' },
-                                    { label: 'Error', bg: '#fee2e2', color: '#b91c1c' },
-                                ] as const).map((badge) => (
-                                    <span
-                                        key={badge.label}
-                                        style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            padding: '2px 8px',
-                                            fontSize: ts.small - 1,
-                                            fontWeight: 500,
-                                            fontFamily: bodyFont,
-                                            borderRadius: radius,
-                                            background: badge.bg,
-                                            color: badge.color,
-                                        }}
-                                    >
-                                        {badge.label}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
                         {/* Alerts */}
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Alerts</div>
@@ -614,7 +679,7 @@ export function PreviewPane({ config }: Props) {
                         </div>
 
                         {/* Table */}
-                        <div>
+                        <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Table</div>
                             <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden' }}>
                                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.secondary }}>

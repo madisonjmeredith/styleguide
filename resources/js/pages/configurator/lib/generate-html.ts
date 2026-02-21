@@ -217,6 +217,16 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
     .table td { padding: 12px 16px; color: var(--color-neutral-700); border-bottom: 1px solid var(--color-neutral-100); }
     .table tr:last-child td { border-bottom: none; }
     .table tr:hover td { background: var(--color-neutral-50); }
+
+    .pagination { display: inline-flex; border-radius: var(--radius); box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); }
+    .pagination a, .pagination span { position: relative; display: inline-flex; align-items: center; justify-content: center; font-size: var(--font-size-small); font-weight: 600; text-decoration: none; box-shadow: inset 0 0 0 1px var(--color-neutral-300); margin-left: -1px; padding: 8px 14px; color: var(--color-neutral-900); }
+    .pagination a:first-child { margin-left: 0; border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+    .pagination a:last-child { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+    .pagination a:hover { background: var(--color-neutral-50); }
+    .pagination .page-active { z-index: 10; background: var(--color-primary); color: var(--color-white); box-shadow: none; }
+    .pagination .page-active:hover { background: var(--color-primary); }
+    .pagination .page-arrow { padding: 8px; color: var(--color-neutral-400); }
+    .pagination .page-ellipsis { color: var(--color-neutral-500); cursor: default; }
   </style>
 </head>
 <body>
@@ -440,6 +450,23 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
               <tr><td style="font-weight: 500; color: var(--color-neutral-900);">Cara Okafor</td><td>PM</td><td><span class="badge badge-danger">Inactive</span></td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Pagination</h3>
+        <div class="component-stage">
+          <nav class="pagination">
+            <a href="#" class="page-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" /></svg></a>
+            <a href="#" class="page-active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <span class="page-ellipsis">&hellip;</span>
+            <a href="#">8</a>
+            <a href="#">9</a>
+            <a href="#">10</a>
+            <a href="#" class="page-arrow"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg></a>
+          </nav>
         </div>
       </div>
     </section>

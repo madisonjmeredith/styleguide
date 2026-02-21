@@ -169,5 +169,12 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - Full-width, collapse borders
 - Header: neutral-50 bg, uppercase 0.75rem labels, neutral-500 text
 - Rows: neutral-100 bottom border, hover shows neutral-50 bg
+
+### Pagination
+- Inline-flex nav with \`--radius\` on outer corners, \`box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05)\`
+- Page links: \`inset 0 0 0 1px neutral-300\` ring, \`margin-left: -1px\` for overlap, font-weight 600, small font size
+- Active page: primary color background, white text, no inset ring
+- Prev/next arrows: neutral-400, 20px SVG chevrons
+- Ellipsis: neutral-500 text, non-interactive
 `;
 }
