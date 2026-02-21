@@ -152,10 +152,10 @@ ${config.iconLibrary === 'fontawesome-solid' ? '- Use CSS classes: `fa-solid fa-
 - Hints: 0.75rem, neutral-400
 
 ### Badges
-- Pill-shaped (9999px radius), 0.75rem, weight 600
-- Success: green-50 bg, green-800 text
-- Warning: amber-50 bg, amber-800 text
-- Danger: red-50 bg, red-800 text
+- \`--radius\` corners, 0.75rem, font-weight 500, padding \`2px 8px\`
+- Success: green-100 bg (\`#dcfce7\`), green-700 text (\`#15803d\`)
+- Warning: yellow-100 bg (\`#fef9c3\`), yellow-800 text (\`#854d0e\`)
+- Danger: red-100 bg (\`#fee2e2\`), red-700 text (\`#b91c1c\`)
 
 ### Alerts
 - Layout: icon (20px) on left, title + description on right, \`--radius\` corners

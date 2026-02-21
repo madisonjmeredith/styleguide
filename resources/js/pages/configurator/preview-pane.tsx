@@ -540,42 +540,28 @@ export function PreviewPane({ config }: Props) {
                                     flexWrap: 'wrap',
                                 }}
                             >
-                                <span
-                                    style={{
-                                        padding: '2px 10px',
-                                        fontSize: ts.small,
-                                        fontWeight: 600,
-                                        borderRadius: 9999,
-                                        background: '#f0fdf4',
-                                        color: '#166534',
-                                    }}
-                                >
-                                    Success
-                                </span>
-                                <span
-                                    style={{
-                                        padding: '2px 10px',
-                                        fontSize: ts.small,
-                                        fontWeight: 600,
-                                        borderRadius: 9999,
-                                        background: '#fffbeb',
-                                        color: '#92400e',
-                                    }}
-                                >
-                                    Warning
-                                </span>
-                                <span
-                                    style={{
-                                        padding: '2px 10px',
-                                        fontSize: ts.small,
-                                        fontWeight: 600,
-                                        borderRadius: 9999,
-                                        background: '#fef2f2',
-                                        color: '#991b1b',
-                                    }}
-                                >
-                                    Danger
-                                </span>
+                                {([
+                                    { label: 'Success', bg: '#dcfce7', color: '#15803d' },
+                                    { label: 'Warning', bg: '#fef9c3', color: '#854d0e' },
+                                    { label: 'Error', bg: '#fee2e2', color: '#b91c1c' },
+                                ] as const).map((badge) => (
+                                    <span
+                                        key={badge.label}
+                                        style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            padding: '2px 8px',
+                                            fontSize: ts.small - 1,
+                                            fontWeight: 500,
+                                            fontFamily: bodyFont,
+                                            borderRadius: radius,
+                                            background: badge.bg,
+                                            color: badge.color,
+                                        }}
+                                    >
+                                        {badge.label}
+                                    </span>
+                                ))}
                             </div>
                         </div>
 
@@ -690,22 +676,25 @@ export function PreviewPane({ config }: Props) {
                                                 >
                                                     <span
                                                         style={{
-                                                            padding: '2px 10px',
+                                                            display: 'inline-flex',
+                                                            alignItems: 'center',
+                                                            padding: '2px 8px',
                                                             fontSize: ts.small - 1,
-                                                            fontWeight: 600,
-                                                            borderRadius: 9999,
+                                                            fontWeight: 500,
+                                                            fontFamily: bodyFont,
+                                                            borderRadius: radius,
                                                             background:
                                                                 status === 'Success'
-                                                                    ? '#f0fdf4'
+                                                                    ? '#dcfce7'
                                                                     : status === 'Warning'
-                                                                      ? '#fffbeb'
-                                                                      : '#fef2f2',
+                                                                      ? '#fef9c3'
+                                                                      : '#fee2e2',
                                                             color:
                                                                 status === 'Success'
-                                                                    ? '#166534'
+                                                                    ? '#15803d'
                                                                     : status === 'Warning'
-                                                                      ? '#92400e'
-                                                                      : '#991b1b',
+                                                                      ? '#854d0e'
+                                                                      : '#b91c1c',
                                                         }}
                                                     >
                                                         {status === 'Success'

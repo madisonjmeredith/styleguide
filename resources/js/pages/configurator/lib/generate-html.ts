@@ -190,10 +190,10 @@ ${config.buttonHoverStyle === 'darker' ? `    .btn-primary:hover { background: $
     .form-hint { font-size: 0.75rem; color: var(--color-neutral-400); margin-top: 4px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-    .badge { display: inline-flex; align-items: center; padding: 3px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 9999px; line-height: 1.4; }
-    .badge-success { background: #f0fdf4; color: #166534; }
-    .badge-warning { background: #fffbeb; color: #92400e; }
-    .badge-danger { background: #fef2f2; color: #991b1b; }
+    .badge { display: inline-flex; align-items: center; padding: 2px 8px; font-size: 0.75rem; font-weight: 500; border-radius: var(--radius); line-height: 1.4; }
+    .badge-success { background: #dcfce7; color: #15803d; }
+    .badge-warning { background: #fef9c3; color: #854d0e; }
+    .badge-danger { background: #fee2e2; color: #b91c1c; }
 
     .alert { display: flex; gap: 12px; padding: 16px; border-radius: var(--radius); font-size: 0.875rem; line-height: 1.5; }
     .alert-icon { flex-shrink: 0; width: 20px; height: 20px; }
