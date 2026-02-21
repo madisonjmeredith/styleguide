@@ -342,142 +342,62 @@ export function PreviewPane({ config }: Props) {
                             </div>
                         </div>
 
-                        {/* Cards */}
+                        {/* Products */}
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Cards</div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                                <div style={{ background: '#fff', border, borderRadius: radius, boxShadow: shadow, overflow: 'hidden' }}>
-                                    <div style={{ padding: 16 }}>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                gap: 8,
-                                                marginBottom: 4,
-                                            }}
-                                        >
-                                            <span
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 16 }}>
+                                {([
+                                    { name: 'Basic Tee', price: '$35', color: 'Black', badge: 'New' },
+                                    { name: 'Basic Tee', price: '$35', color: 'Aspen White' },
+                                    { name: 'Basic Tee', price: '$35', color: 'Charcoal' },
+                                    { name: 'Artwork Tee', price: '$35', color: 'Iso Dots' },
+                                ] as const).map((product, i) => (
+                                    <div key={i}>
+                                        <div style={{ position: 'relative' }}>
+                                            <div
                                                 style={{
-                                                    fontFamily: headingFont,
-                                                    fontSize: ts.secondary + 2,
-                                                    fontWeight: headingFontWeight,
-                                                    color: n[900],
-                                                    letterSpacing: headingLetterSpacing,
-                                                    textTransform: headingTextTransform,
-                                                }}
-                                            >
-                                                Basic Card
-                                            </span>
-                                            <span
-                                                style={{
-                                                    display: 'inline-flex',
-                                                    alignItems: 'center',
-                                                    padding: '2px 8px',
-                                                    fontSize: ts.small - 1,
-                                                    fontWeight: 500,
-                                                    fontFamily: bodyFont,
+                                                    aspectRatio: '1 / 1',
+                                                    width: '100%',
                                                     borderRadius: radius,
-                                                    background: tint(primary, 0.85),
-                                                    color: primary,
+                                                    background: n[200],
                                                 }}
-                                            >
-                                                New
-                                            </span>
+                                            />
+                                            {product.badge && (
+                                                <span
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: 8,
+                                                        left: 8,
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        padding: '2px 8px',
+                                                        fontSize: ts.small - 1,
+                                                        fontWeight: 500,
+                                                        fontFamily: bodyFont,
+                                                        borderRadius: radius,
+                                                        background: tint(primary, 0.85),
+                                                        color: primary,
+                                                    }}
+                                                >
+                                                    {product.badge}
+                                                </span>
+                                            )}
                                         </div>
-                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>
-                                            A simple card with title and body text.
+                                        <div style={{ marginTop: 12, display: 'flex', justifyContent: 'space-between' }}>
+                                            <div>
+                                                <h3 style={{ fontSize: ts.small, fontFamily: bodyFont, color: n[700], margin: 0 }}>
+                                                    {product.name}
+                                                </h3>
+                                                <p style={{ marginTop: 2, fontSize: ts.small, fontFamily: bodyFont, color: n[500], margin: 0 }}>
+                                                    {product.color}
+                                                </p>
+                                            </div>
+                                            <p style={{ fontSize: ts.small, fontWeight: 500, fontFamily: bodyFont, color: n[900], margin: 0 }}>
+                                                {product.price}
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                                <div style={{ background: '#fff', border, borderRadius: radius, boxShadow: shadow, overflow: 'hidden' }}>
-                                    <div
-                                        style={{
-                                            height: 80,
-                                            background: `linear-gradient(135deg, ${tint(primary, 0.7)}, ${tint(secondary, 0.7)})`,
-                                        }}
-                                    />
-                                    <div style={{ padding: 16 }}>
-                                        <div
-                                            style={{
-                                                fontFamily: headingFont,
-                                                fontSize: ts.secondary + 2,
-                                                fontWeight: headingFontWeight,
-                                                color: n[900],
-                                                letterSpacing: headingLetterSpacing,
-                                                textTransform: headingTextTransform,
-                                                marginBottom: 4,
-                                            }}
-                                        >
-                                            With Image
-                                        </div>
-                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>
-                                            Card with a header image area.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    style={{
-                                        background: '#fff',
-                                        border,
-                                        borderRadius: radius,
-                                        boxShadow: shadow,
-                                        overflow: 'hidden',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                    }}
-                                >
-                                    <div style={{ padding: 16, flex: 1 }}>
-                                        <div
-                                            style={{
-                                                fontFamily: headingFont,
-                                                fontSize: ts.secondary + 2,
-                                                fontWeight: headingFontWeight,
-                                                color: n[900],
-                                                letterSpacing: headingLetterSpacing,
-                                                textTransform: headingTextTransform,
-                                                marginBottom: 4,
-                                            }}
-                                        >
-                                            With Actions
-                                        </div>
-                                        <div style={{ fontSize: ts.small, color: n[600], lineHeight: 1.5 }}>Card with footer actions.</div>
-                                    </div>
-                                    <div
-                                        style={{
-                                            padding: '8px 16px',
-                                            borderTop: border,
-                                            display: 'flex',
-                                            justifyContent: 'flex-end',
-                                            gap: 6,
-                                        }}
-                                    >
-                                        <button className="preview-link"
-                                            style={{
-                                                padding: '4px 6px',
-                                                fontSize: ts.small,
-                                                fontFamily: bodyFont,
-                                                background: 'transparent',
-                                                border: 'none',
-                                                cursor: 'pointer',
-                                            }}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            className="preview-btn preview-btn-primary"
-                                            style={{
-                                                padding: '4px 12px',
-                                                fontSize: ts.small,
-                                                fontFamily: bodyFont,
-                                                borderRadius: radius,
-                                                textTransform: buttonTextTransform,
-                                                cursor: 'pointer',
-                                            }}
-                                        >
-                                            Confirm
-                                        </button>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                             <div style={{ textAlign: 'center', marginTop: 24 }}>
                             <nav style={{ display: 'inline-flex', borderRadius: radius, boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}>
