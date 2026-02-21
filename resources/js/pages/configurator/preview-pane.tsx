@@ -149,6 +149,16 @@ export function PreviewPane({ config }: Props) {
                             color: ${linkHoverColor};
                             ${linkHoverUnderline ? `text-decoration: ${linkHoverUnderline}; text-underline-offset: 2px;` : ''}
                         }
+                        .preview-breadcrumb-link {
+                            color: ${n[500]};
+                            text-decoration: ${linkUnderline ? 'underline' : 'none'};
+                            text-underline-offset: 2px;
+                            transition: color ${config.transitionDuration}ms ease;
+                        }
+                        .preview-breadcrumb-link:hover {
+                            color: ${n[700]};
+                            ${linkHoverUnderline ? `text-decoration: ${linkHoverUnderline}; text-underline-offset: 2px;` : ''}
+                        }
                         .preview-btn {
                             transition: all ${config.transitionDuration}ms ease;
                         }
@@ -596,6 +606,60 @@ export function PreviewPane({ config }: Props) {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+
+                        {/* Breadcrumbs */}
+                        <div style={{ marginBottom: 32 }}>
+                            <div style={labelStyle}>Breadcrumbs</div>
+                            <nav style={{ display: 'flex' }}>
+                                <ol style={{ display: 'flex', alignItems: 'center', gap: 16, listStyle: 'none', margin: 0, padding: 0 }}>
+                                    <li>
+                                        <a
+                                            href="#"
+                                            onClick={(e) => e.preventDefault()}
+                                            className="preview-breadcrumb-link"
+                                            style={{ fontSize: ts.small, fontFamily: bodyFont, fontWeight: 500 }}
+                                        >
+                                            Home
+                                        </a>
+                                    </li>
+                                    {([
+                                        { name: 'Dashboard', current: false },
+                                        { name: 'Settings', current: true },
+                                    ] as const).map((page) => (
+                                        <li key={page.name} style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 20 20" fill={n[400]} style={{ flexShrink: 0 }}>
+                                                <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+                                            </svg>
+                                            {page.current ? (
+                                                <span
+                                                    style={{
+                                                        fontSize: ts.small,
+                                                        fontFamily: bodyFont,
+                                                        fontWeight: 500,
+                                                        color: n[700],
+                                                    }}
+                                                >
+                                                    {page.name}
+                                                </span>
+                                            ) : (
+                                                <a
+                                                    href="#"
+                                                    onClick={(e) => e.preventDefault()}
+                                                    className="preview-breadcrumb-link"
+                                                    style={{
+                                                        fontSize: ts.small,
+                                                        fontFamily: bodyFont,
+                                                        fontWeight: 500,
+                                                    }}
+                                                >
+                                                    {page.name}
+                                                </a>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ol>
+                            </nav>
                         </div>
 
                         {/* Table */}
