@@ -5,6 +5,7 @@ import {
     faTriangleExclamation,
     faCircleXmark,
     faCircleInfo,
+    faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import {
     faCircleCheck as farCircleCheck,
@@ -15,12 +16,14 @@ import {
     ExclamationTriangleIcon as ExclamationTriangleIconMini,
     XCircleIcon as XCircleIconMini,
     InformationCircleIcon as InformationCircleIconMini,
+    PlusIcon as PlusIconMini,
 } from '@heroicons/react/20/solid';
 import {
     CircleCheck as LucideCircleCheck,
     TriangleAlert as LucideTriangleAlert,
     CircleX as LucideCircleX,
     Info as LucideInfo,
+    Plus as LucidePlus,
 } from 'lucide-react';
 import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
 
@@ -29,6 +32,7 @@ const MATERIAL_SYMBOL_PATHS: Record<string, string> = {
     'warning-triangle': 'M92-120q-9 0-15.65-4.13Q69.7-128.25 66-135q-4.17-6.6-4.58-14.3Q61-157 66-165l388-670q5-8 11.5-11.5T480-850q8 0 14.5 3.5T506-835l388 670q5 8 4.58 15.7-.41 7.7-4.58 14.3-3.7 6.75-10.35 10.87Q877-120 868-120H92Zm392.18-117q12.82 0 21.32-8.68 8.5-8.67 8.5-21.5 0-12.82-8.68-21.32-8.67-8.5-21.5-8.5-12.82 0-21.32 8.68-8.5 8.67-8.5 21.5 0 12.82 8.68 21.32 8.67 8.5 21.5 8.5Zm0-111q12.82 0 21.32-8.63 8.5-8.62 8.5-21.37v-164q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82 0-21.32 8.62-8.5 8.63-8.5 21.38v164q0 12.75 8.68 21.37 8.67 8.63 21.5 8.63Z',
     'x-circle': 'm480-438 129 129q9 9 21 9t21-9q9-9 9-21t-9-21L522-480l129-129q9-9 9-21t-9-21q-9-9-21-9t-21 9L480-522 351-651q-9-9-21-9t-21 9q-9 9-9 21t9 21l129 129-129 129q-9 9-9 21t9 21q9 9 21 9t21-9l129-129Zm0 358q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Z',
     'info-circle': 'M483.18-280q12.82 0 21.32-8.63 8.5-8.62 8.5-21.37v-180q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82 0-21.32 8.62-8.5 8.63-8.5 21.38v180q0 12.75 8.68 21.37 8.67 8.63 21.5 8.63Zm-3.2-314q14.02 0 23.52-9.2T513-626q0-14.45-9.48-24.22-9.48-9.78-23.5-9.78t-23.52 9.78Q447-640.45 447-626q0 13.6 9.48 22.8 9.48 9.2 23.5 9.2Zm.29 514q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Z',
+    'plus': 'M450-450H230q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h220v-220q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v220h220q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H510v220q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37v-220Z',
 };
 
 const ALERT_VARIANTS = [
@@ -148,6 +152,27 @@ export function PreviewPane({ config }: Props) {
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 -960 960 960" fill={color}>
                     <path d={MATERIAL_SYMBOL_PATHS['info-circle'] ?? ''} />
+                </svg>
+            );
+        }
+        return null;
+    };
+
+    const renderButtonIcon = (color: string, size = 20) => {
+        const faSize = size * 0.85;
+        if (config.iconLibrary === 'fontawesome-solid' || config.iconLibrary === 'fontawesome-regular') {
+            return <FontAwesomeIcon icon={faPlus} style={{ width: faSize, height: faSize, color }} />;
+        }
+        if (config.iconLibrary === 'heroicons') {
+            return <PlusIconMini style={{ width: size, height: size, color }} />;
+        }
+        if (config.iconLibrary === 'lucide') {
+            return <LucidePlus size={size} strokeWidth={2} color={color} />;
+        }
+        if (config.iconLibrary === 'material-symbols') {
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 -960 960 960" fill={color}>
+                    <path d={MATERIAL_SYMBOL_PATHS['plus'] ?? ''} />
                 </svg>
             );
         }
@@ -333,6 +358,19 @@ export function PreviewPane({ config }: Props) {
                                     }}
                                 >
                                     Secondary
+                                </button>
+                                <button
+                                    className="preview-btn preview-btn-primary"
+                                    style={{
+                                        padding: 8,
+                                        borderRadius: 9999,
+                                        cursor: 'pointer',
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    {renderButtonIcon('currentColor', 20)}
                                 </button>
                                 <button className="preview-link"
                                     style={{
