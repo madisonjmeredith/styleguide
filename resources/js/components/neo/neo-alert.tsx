@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { neo } from './neo-utils';
 
-const neoAlertVariants = cva(cn('flex items-center gap-2.5 px-4 py-3 text-sm font-medium', neo.border, neo.radius), {
+const neoAlertVariants = cva(cn('flex items-center gap-2.5 px-4 py-3 text-sm font-medium [&_a]:text-current', neo.border, neo.radius), {
     variants: {
         variant: {
             default: 'bg-white text-gray-900',

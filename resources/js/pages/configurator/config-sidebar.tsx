@@ -48,7 +48,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
             {/* Saved guide banner */}
             {isEditing && (
                 <div className="-mx-6 border-b-2 border-neo">
-                    <NeoAlert variant="success" className="rounded-none border-x-0 border-t-0">
+                    <NeoAlert variant="success" className="rounded-none border-0">
                         <CheckCircle className="size-4 shrink-0" />
                         <div className="min-w-0">
                             <p className="text-sm font-semibold">
@@ -64,7 +64,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
             {/* Unsaved warn banner */}
             {!isEditing && (
                 <div className="-mx-6 border-b-2 border-neo">
-                    <NeoAlert variant="warning" className="rounded-none border-x-0 border-t-0">
+                    <NeoAlert variant="warning" className="rounded-none border-0">
                         <TriangleAlert className="size-4 shrink-0" />
                         <div className="min-w-0">
                             <p className="text-sm font-semibold">Style guide not saved</p>
