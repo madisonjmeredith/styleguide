@@ -1,5 +1,6 @@
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
+import { NeoAccordion } from '@/components/neo/neo-accordion';
+import { NeoRadioButton } from '@/components/neo/neo-radio-button';
+import { NeoToggle } from '@/components/neo/neo-toggle';
 import type { ButtonHoverStyle, ButtonStyle, StyleGuideConfig } from '@/types';
 import { BUTTON_HOVER_STYLE_OPTIONS, BUTTON_STYLE_OPTIONS } from '../data';
 
@@ -11,86 +12,46 @@ type Props = {
 export function ButtonSection({ config, onUpdate }: Props) {
     const buttonStyle = config.buttonStyle ?? 'filled';
 
-    return (
-        <div className="py-6">
-            <Label className="text-base font-semibold text-gray-900 mb-4 block">Buttons</Label>
+    const styleOptions = BUTTON_STYLE_OPTIONS.map((opt) => ({
+        id: opt.id as ButtonStyle,
+        label: opt.label,
+        description: opt.description,
+    }));
 
+    const hoverOptions = BUTTON_HOVER_STYLE_OPTIONS.map((opt) => ({
+        id: opt.id as ButtonHoverStyle,
+        label: opt.label,
+    }));
+
+    return (
+        <NeoAccordion title="Buttons">
             <div className="mb-3">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Style</div>
-                <div className="flex flex-col gap-1">
-                    {BUTTON_STYLE_OPTIONS.map((opt) => (
-                        <label
-                            key={opt.id}
-                            className={`flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer transition-all duration-150 ${
-                                buttonStyle === opt.id
-                                    ? 'bg-gray-50 border border-gray-200'
-                                    : 'border border-transparent hover:bg-gray-50'
-                            }`}
-                        >
-                            <div
-                                className={`size-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                                    buttonStyle === opt.id ? 'border-green-600' : 'border-gray-300'
-                                }`}
-                            >
-                                {buttonStyle === opt.id && <div className="size-2 rounded-full bg-green-600" />}
-                            </div>
-                            <div>
-                                <div className="text-sm/6 font-medium text-gray-700">{opt.label}</div>
-                                <div className="text-xs text-gray-400">{opt.description}</div>
-                            </div>
-                            <input
-                                type="radio"
-                                name="buttonStyle"
-                                value={opt.id}
-                                checked={buttonStyle === opt.id}
-                                onChange={() => onUpdate('buttonStyle', opt.id as ButtonStyle)}
-                                className="sr-only"
-                            />
-                        </label>
-                    ))}
-                </div>
+                <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Style</div>
+                <NeoRadioButton
+                    name="buttonStyle"
+                    options={styleOptions}
+                    value={buttonStyle}
+                    onChange={(v) => onUpdate('buttonStyle', v)}
+                />
             </div>
 
             <div>
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Hover Style</div>
-                <div className="flex flex-col gap-1">
-                    {BUTTON_HOVER_STYLE_OPTIONS.map((opt) => (
-                        <label
-                            key={opt.id}
-                            className={`flex items-center gap-3 py-2.5 px-3 rounded-md cursor-pointer transition-all duration-150 ${
-                                config.buttonHoverStyle === opt.id
-                                    ? 'bg-gray-50 border border-gray-200'
-                                    : 'border border-transparent hover:bg-gray-50'
-                            }`}
-                        >
-                            <div
-                                className={`size-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                                    config.buttonHoverStyle === opt.id ? 'border-green-600' : 'border-gray-300'
-                                }`}
-                            >
-                                {config.buttonHoverStyle === opt.id && <div className="size-2 rounded-full bg-green-600" />}
-                            </div>
-                            <div className="text-sm/6 font-medium text-gray-700">{opt.label}</div>
-                            <input
-                                type="radio"
-                                name="buttonHoverStyle"
-                                value={opt.id}
-                                checked={config.buttonHoverStyle === opt.id}
-                                onChange={() => onUpdate('buttonHoverStyle', opt.id as ButtonHoverStyle)}
-                                className="sr-only"
-                            />
-                        </label>
-                    ))}
-                </div>
+                <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Hover Style</div>
+                <NeoRadioButton
+                    name="buttonHoverStyle"
+                    options={hoverOptions}
+                    value={config.buttonHoverStyle}
+                    onChange={(v) => onUpdate('buttonHoverStyle', v)}
+                />
             </div>
 
             <div className="mt-3 flex items-center justify-between">
-                <span className="text-sm/6 font-medium text-gray-700">All-caps buttons</span>
-                <Switch
+                <span className="text-sm/6 font-semibold text-gray-700">All-caps buttons</span>
+                <NeoToggle
                     checked={config.buttonTextTransform === 'uppercase'}
                     onCheckedChange={(v) => onUpdate('buttonTextTransform', v ? 'uppercase' : 'none')}
                 />
             </div>
-        </div>
+        </NeoAccordion>
     );
 }

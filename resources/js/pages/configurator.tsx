@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Head, router, usePage } from '@inertiajs/react';
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
 import { CheckCircle, X } from 'lucide-react';
+import { NeoAlert } from '@/components/neo/neo-alert';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
 import { ConfigSidebar } from './configurator/config-sidebar';
 import { DEFAULT_CONFIG, googleFontsUrl, lookupFontMeta } from './configurator/data';
@@ -133,9 +134,11 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
             <div className="flex h-screen flex-col">
                 {/* Success toast */}
                 {showSuccess && (
-                    <div className="fixed top-4 right-4 z-[100] flex items-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-medium text-white shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
-                        <CheckCircle className="size-4 shrink-0" />
-                        {flash.success}
+                    <div className="fixed top-4 right-4 z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+                        <NeoAlert variant="success">
+                            <CheckCircle className="size-4 shrink-0" />
+                            {flash.success}
+                        </NeoAlert>
                     </div>
                 )}
 
@@ -166,12 +169,12 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
                 </Dialog>
 
                 {/* Desktop static sidebar */}
-                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-96 lg:flex-col">
+                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-[440px] lg:flex-col">
                     <ConfigSidebar {...sidebarProps} />
                 </div>
 
                 {/* Main content */}
-                <div className="flex flex-1 flex-col overflow-hidden lg:pl-96">
+                <div className="flex flex-1 flex-col overflow-hidden lg:pl-[440px]">
                     <PreviewHeader config={config} user={auth.user} isEditing={isEditing} onOpenSidebar={() => setSidebarOpen(true)} />
                     <PreviewPane config={config} />
                 </div>

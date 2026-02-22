@@ -1,5 +1,5 @@
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
+import { NeoAccordion } from '@/components/neo/neo-accordion';
+import { NeoSlider } from '@/components/neo/neo-slider';
 import type { StyleGuideConfig } from '@/types';
 import { TRANSITION_DURATION_MAX, TRANSITION_DURATION_MIN, TRANSITION_DURATION_STEP } from '../data';
 
@@ -10,17 +10,15 @@ type Props = {
 
 export function TransitionSection({ config, onUpdate }: Props) {
     return (
-        <div className="py-6">
-            <Label className="text-base font-semibold text-gray-900 mb-4 block">Transitions</Label>
-
+        <NeoAccordion title="Transitions">
             <div>
-                <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm/6 font-medium text-gray-700">Duration</span>
-                    <span className="text-sm font-mono text-gray-500">
+                <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-sm/6 font-semibold text-gray-700">Duration</span>
+                    <span className="font-mono text-sm font-bold text-gray-500">
                         {config.transitionDuration === 0 ? 'None' : `${config.transitionDuration}ms`}
                     </span>
                 </div>
-                <Slider
+                <NeoSlider
                     min={TRANSITION_DURATION_MIN}
                     max={TRANSITION_DURATION_MAX}
                     step={TRANSITION_DURATION_STEP}
@@ -28,6 +26,6 @@ export function TransitionSection({ config, onUpdate }: Props) {
                     onValueChange={([v]) => onUpdate('transitionDuration', v)}
                 />
             </div>
-        </div>
+        </NeoAccordion>
     );
 }

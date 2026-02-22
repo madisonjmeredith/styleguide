@@ -1,6 +1,7 @@
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
+import { NeoAccordion } from '@/components/neo/neo-accordion';
+import { NeoRadioCards } from '@/components/neo/neo-radio-cards';
+import { NeoSlider } from '@/components/neo/neo-slider';
+import { NeoToggle } from '@/components/neo/neo-toggle';
 import type { StyleGuideConfig } from '@/types';
 import { BORDER_WIDTH_OPTIONS, RADIUS_MAX, RADIUS_MIN, RADIUS_STEP } from '../data';
 
@@ -11,36 +12,22 @@ type Props = {
 
 export function SurfaceSection({ config, onUpdate }: Props) {
     return (
-        <div className="py-6">
-            <Label className="text-base font-semibold text-gray-900 mb-4 block">
-                Surface & Shape
-            </Label>
-
+        <NeoAccordion title="Surface & Shape">
             <div className="mb-2.5">
-                <div className="text-sm/6 font-medium text-gray-700 mb-1.5">Border Width</div>
-                <div className="flex gap-1">
-                    {BORDER_WIDTH_OPTIONS.map((opt) => (
-                        <button
-                            key={opt.value}
-                            onClick={() => onUpdate('borderWidth', opt.value)}
-                            className={`flex-1 py-2 text-sm font-mono cursor-pointer rounded-md border transition-all duration-150 ${
-                                config.borderWidth === opt.value
-                                    ? 'bg-green-50 border-green-600 text-green-600 font-medium'
-                                    : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'
-                            }`}
-                        >
-                            {opt.label}
-                        </button>
-                    ))}
-                </div>
+                <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Border Width</div>
+                <NeoRadioCards
+                    options={BORDER_WIDTH_OPTIONS.map((opt) => ({ id: String(opt.value), label: opt.label }))}
+                    value={String(config.borderWidth)}
+                    onChange={(v) => onUpdate('borderWidth', Number(v))}
+                />
             </div>
 
             <div className="mb-4">
-                <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-sm/6 font-medium text-gray-700">Border Radius</span>
-                    <span className="text-sm font-mono text-gray-500">{config.radius}px</span>
+                <div className="mb-1.5 flex items-center justify-between">
+                    <span className="text-sm/6 font-semibold text-gray-700">Border Radius</span>
+                    <span className="font-mono text-sm font-bold text-gray-500">{config.radius}px</span>
                 </div>
-                <Slider
+                <NeoSlider
                     min={RADIUS_MIN}
                     max={RADIUS_MAX}
                     step={RADIUS_STEP}
@@ -50,9 +37,9 @@ export function SurfaceSection({ config, onUpdate }: Props) {
             </div>
 
             <div className="flex items-center justify-between">
-                <span className="text-sm/6 font-medium text-gray-700">Shadows</span>
-                <Switch checked={config.shadowEnabled} onCheckedChange={(v) => onUpdate('shadowEnabled', v)} />
+                <span className="text-sm/6 font-semibold text-gray-700">Shadows</span>
+                <NeoToggle checked={config.shadowEnabled} onCheckedChange={(v) => onUpdate('shadowEnabled', v)} />
             </div>
-        </div>
+        </NeoAccordion>
     );
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, router } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
+import { NeoButton } from '@/components/neo/neo-button';
 import { show as guidesShow } from '@/routes/guides';
 import type { StyleGuideConfig, StyleGuideData } from '@/types';
 import { Trash2 } from 'lucide-react';
@@ -31,33 +31,31 @@ export function SaveLoadControls({ styleGuides, config, activeGuideId }: Props) 
 
     return (
         <div className="space-y-2">
-            <Button onClick={handleSave} disabled={saving} className="w-full">
+            <NeoButton onClick={handleSave} disabled={saving} className="w-full">
                 {saving ? 'Saving...' : 'Save Style Guide'}
-            </Button>
+            </NeoButton>
 
             {styleGuides.length > 0 && (
                 <div className="space-y-1">
-                    <div className="text-sm font-semibold text-gray-900 mt-2">
-                        Saved Guides
-                    </div>
+                    <div className="mt-2 text-xs font-bold uppercase tracking-wide text-gray-900">Saved Guides</div>
                     {styleGuides.map((guide) => (
                         <div
                             key={guide.id}
-                            className={`flex items-center gap-2 py-1.5 px-2.5 rounded-md text-sm group ${
+                            className={`group flex items-center gap-2 rounded-[5px] border-2 px-2.5 py-1.5 text-sm ${
                                 activeGuideId === guide.id
-                                    ? 'bg-green-50 border border-green-200'
-                                    : 'hover:bg-gray-50 border border-transparent'
+                                    ? 'border-neo bg-neo-light font-semibold'
+                                    : 'border-transparent hover:border-gray-300 hover:bg-gray-50'
                             }`}
                         >
                             <Link
                                 href={guidesShow(guide.id).url}
-                                className="flex-1 text-left text-gray-700 truncate text-sm no-underline hover:text-gray-900"
+                                className="flex-1 truncate text-left text-sm text-gray-700 no-underline hover:text-gray-900"
                             >
                                 {guide.name}
                             </Link>
                             <button
                                 onClick={() => handleDelete(guide.id)}
-                                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 cursor-pointer bg-transparent border-none p-0.5 transition-opacity"
+                                className="cursor-pointer border-none bg-transparent p-0.5 text-gray-400 opacity-0 transition-opacity hover:text-red-500 group-hover:opacity-100"
                             >
                                 <Trash2 className="size-3.5" />
                             </button>
