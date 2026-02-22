@@ -100,18 +100,6 @@ export function TypographySection({ config, onUpdate }: Props) {
     return (
         <NeoAccordion title="Typography">
             <div className="mb-3">
-                <div className="mb-1 text-sm/6 font-semibold text-gray-700">Heading Font</div>
-                <NeoCombobox
-                    items={fonts}
-                    value={config.headingFont}
-                    onChange={handleHeadingChange}
-                    displayValue={(f) => f.family}
-                    filterKey={(f) => f.family}
-                    placeholder="Search fonts..."
-                />
-            </div>
-
-            <div className="mb-3">
                 <div className="mb-1 text-sm/6 font-semibold text-gray-700">Body Font</div>
                 <NeoCombobox
                     items={fonts}
@@ -123,13 +111,52 @@ export function TypographySection({ config, onUpdate }: Props) {
                 />
             </div>
 
-            <div className="mt-2">
+            <div className="mt-4">
+                <div className="mb-1 text-sm/6 font-semibold text-gray-700">Body Font Weight</div>
+                <NeoSelect value={String(config.bodyFontWeight)} onValueChange={(v) => onUpdate('bodyFontWeight', Number(v))}>
+                    <NeoSelectTrigger className="h-9 text-sm">
+                        <NeoSelectValue />
+                    </NeoSelectTrigger>
+                    <NeoSelectContent>
+                        {bodyWeights.map((w) => (
+                            <NeoSelectItem key={w} value={String(w)}>
+                                {w} — {WEIGHT_LABELS[w] ?? w}
+                            </NeoSelectItem>
+                        ))}
+                    </NeoSelectContent>
+                </NeoSelect>
+            </div>
+
+            <div className="mt-4">
                 <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Type Scale</div>
                 <NeoRadioButton
                     name="typeScale"
                     options={typeScaleOptions}
                     value={config.typeScale}
                     onChange={(v) => onUpdate('typeScale', v)}
+                />
+            </div>
+
+            <div className="mt-4">
+                <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Line Height</div>
+                <NeoRadioCards
+                    options={BODY_LINE_HEIGHT_OPTIONS.map((opt) => ({ id: opt.id, label: opt.label }))}
+                    value={config.bodyLineHeight}
+                    onChange={(v) => onUpdate('bodyLineHeight', v)}
+                />
+            </div>
+
+            <hr className="my-4 border-gray-200" />
+
+            <div className="mt-4">
+                <div className="mb-1 text-sm/6 font-semibold text-gray-700">Heading Font</div>
+                <NeoCombobox
+                    items={fonts}
+                    value={config.headingFont}
+                    onChange={handleHeadingChange}
+                    displayValue={(f) => f.family}
+                    filterKey={(f) => f.family}
+                    placeholder="Search fonts..."
                 />
             </div>
 
@@ -150,36 +177,11 @@ export function TypographySection({ config, onUpdate }: Props) {
             </div>
 
             <div className="mt-4">
-                <div className="mb-1 text-sm/6 font-semibold text-gray-700">Body Font Weight</div>
-                <NeoSelect value={String(config.bodyFontWeight)} onValueChange={(v) => onUpdate('bodyFontWeight', Number(v))}>
-                    <NeoSelectTrigger className="h-9 text-sm">
-                        <NeoSelectValue />
-                    </NeoSelectTrigger>
-                    <NeoSelectContent>
-                        {bodyWeights.map((w) => (
-                            <NeoSelectItem key={w} value={String(w)}>
-                                {w} — {WEIGHT_LABELS[w] ?? w}
-                            </NeoSelectItem>
-                        ))}
-                    </NeoSelectContent>
-                </NeoSelect>
-            </div>
-
-            <div className="mt-4">
                 <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Heading Letter Spacing</div>
                 <NeoRadioCards
                     options={HEADING_LETTER_SPACING_OPTIONS.map((opt) => ({ id: opt.id, label: opt.label }))}
                     value={config.headingLetterSpacing}
                     onChange={(v) => onUpdate('headingLetterSpacing', v)}
-                />
-            </div>
-
-            <div className="mt-4">
-                <div className="mb-1.5 text-sm/6 font-semibold text-gray-700">Body Line Height</div>
-                <NeoRadioCards
-                    options={BODY_LINE_HEIGHT_OPTIONS.map((opt) => ({ id: opt.id, label: opt.label }))}
-                    value={config.bodyLineHeight}
-                    onChange={(v) => onUpdate('bodyLineHeight', v)}
                 />
             </div>
 

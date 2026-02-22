@@ -100,9 +100,9 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
             <nav className="flex flex-1 flex-col divide-y-2 divide-neo/10">
                 <ColorSection config={config} onUpdate={onUpdate} />
                 <TypographySection config={config} onUpdate={onUpdate} />
-                <IconSection config={config} onUpdate={onUpdate} />
-                <SurfaceSection config={config} onUpdate={onUpdate} />
                 <ButtonSection config={config} onUpdate={onUpdate} />
+                <SurfaceSection config={config} onUpdate={onUpdate} />
+                <IconSection config={config} onUpdate={onUpdate} />
                 <LinkSection config={config} onUpdate={onUpdate} />
                 <TransitionSection config={config} onUpdate={onUpdate} />
             </nav>

@@ -15,7 +15,7 @@ export function IconSection({ config, onUpdate }: Props) {
     }));
 
     return (
-        <NeoAccordion title="Icon Library">
+        <NeoAccordion title="Icons">
             <NeoRadioButton
                 name="iconLibrary"
                 options={options}
