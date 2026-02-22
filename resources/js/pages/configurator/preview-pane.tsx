@@ -339,6 +339,7 @@ export function PreviewPane({ config }: Props) {
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
+                                        boxShadow: shadow,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -354,6 +355,7 @@ export function PreviewPane({ config }: Props) {
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
+                                        boxShadow: shadow,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -368,6 +370,7 @@ export function PreviewPane({ config }: Props) {
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
+                                        boxShadow: shadow,
                                     }}
                                 >
                                     {renderButtonIcon('currentColor', 20)}
@@ -465,7 +468,7 @@ export function PreviewPane({ config }: Props) {
                                 ))}
                             </div>
                             <div style={{ textAlign: 'center', marginTop: 24 }}>
-                            <nav style={{ display: 'inline-flex', borderRadius: radius, boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)' }}>
+                            <nav style={{ display: 'inline-flex', borderRadius: radius, boxShadow: shadow }}>
                                 {([
                                     { type: 'prev' },
                                     { type: 'page', value: 1, active: true },
@@ -820,7 +823,7 @@ export function PreviewPane({ config }: Props) {
                         {/* Table */}
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Table</div>
-                            <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden', boxShadow: shadow }}>
+                            <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden' }}>
                                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.small }}>
                                     <thead>
                                         <tr>
