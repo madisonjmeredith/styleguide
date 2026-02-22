@@ -228,6 +228,8 @@ export function PreviewPane({ config }: Props) {
                     <div
                         style={{
                             fontFamily: bodyFont,
+                            fontWeight: bodyFontWeight,
+                            lineHeight: bodyLineHeight,
                             color: n[800],
                             background: n[50],
                             padding: 32,
@@ -436,7 +438,7 @@ export function PreviewPane({ config }: Props) {
                                                         display: 'inline-flex',
                                                         alignItems: 'center',
                                                         padding: '2px 8px',
-                                                        fontSize: ts.small - 1,
+                                                        fontSize: ts.secondary - 1,
                                                         fontWeight: 500,
                                                         fontFamily: bodyFont,
                                                         borderRadius: radius,
@@ -450,14 +452,14 @@ export function PreviewPane({ config }: Props) {
                                         </div>
                                         <div style={{ marginTop: 12, display: 'flex', justifyContent: 'space-between' }}>
                                             <div>
-                                                <h3 style={{ fontSize: ts.small, fontFamily: bodyFont, color: n[700], margin: 0 }}>
+                                                <h3 style={{ fontSize: ts.secondary, fontFamily: bodyFont, color: n[700], margin: 0 }}>
                                                     {product.name}
                                                 </h3>
-                                                <p style={{ marginTop: 2, fontSize: ts.small, fontFamily: bodyFont, color: n[500], margin: 0 }}>
+                                                <p style={{ marginTop: 2, fontSize: ts.secondary, fontFamily: bodyFont, color: n[500], margin: 0 }}>
                                                     {product.color}
                                                 </p>
                                             </div>
-                                            <p style={{ fontSize: ts.small, fontWeight: 500, fontFamily: bodyFont, color: n[900], margin: 0 }}>
+                                            <p style={{ fontSize: ts.secondary, fontWeight: 500, fontFamily: bodyFont, color: n[900], margin: 0 }}>
                                                 {product.price}
                                             </p>
                                         </div>
@@ -484,7 +486,7 @@ export function PreviewPane({ config }: Props) {
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        fontSize: ts.small,
+                                        fontSize: ts.secondary,
                                         fontWeight: 600,
                                         fontFamily: bodyFont,
                                         marginLeft: i > 0 ? -1 : 0,
@@ -554,7 +556,7 @@ export function PreviewPane({ config }: Props) {
                                 <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                                     <div>
                                         <label
-                                            style={{ display: 'block', fontSize: ts.small, fontWeight: 500, color: n[900], marginBottom: 6 }}
+                                            style={{ display: 'block', fontSize: ts.secondary, fontWeight: 500, color: n[900], marginBottom: 6 }}
                                         >
                                             Email address
                                         </label>
@@ -564,7 +566,7 @@ export function PreviewPane({ config }: Props) {
                                             style={{
                                                 width: '100%',
                                                 padding: '8px 12px',
-                                                fontSize: ts.small,
+                                                fontSize: ts.secondary,
                                                 fontFamily: bodyFont,
                                                 color: n[800],
                                                 background: '#fff',
@@ -577,7 +579,7 @@ export function PreviewPane({ config }: Props) {
                                     </div>
                                     <div>
                                         <label
-                                            style={{ display: 'block', fontSize: ts.small, fontWeight: 500, color: n[900], marginBottom: 6 }}
+                                            style={{ display: 'block', fontSize: ts.secondary, fontWeight: 500, color: n[900], marginBottom: 6 }}
                                         >
                                             Password
                                         </label>
@@ -587,7 +589,7 @@ export function PreviewPane({ config }: Props) {
                                             style={{
                                                 width: '100%',
                                                 padding: '8px 12px',
-                                                fontSize: ts.small,
+                                                fontSize: ts.secondary,
                                                 fontFamily: bodyFont,
                                                 color: n[800],
                                                 background: '#fff',
@@ -603,7 +605,7 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             width: '100%',
                                             padding: '9px 18px',
-                                            fontSize: ts.small,
+                                            fontSize: ts.secondary,
                                             fontWeight: 600,
                                             fontFamily: bodyFont,
                                             borderRadius: radius,
@@ -614,7 +616,7 @@ export function PreviewPane({ config }: Props) {
                                         Sign in
                                     </button>
                                 </form>
-                                <p style={{ marginTop: 24, textAlign: 'center', fontSize: ts.small, marginBottom: 0 }}>
+                                <p style={{ marginTop: 24, textAlign: 'center', fontSize: ts.secondary, marginBottom: 0 }}>
                                     <a
                                         href="#"
                                         onClick={(e) => e.preventDefault()}
@@ -659,8 +661,10 @@ export function PreviewPane({ config }: Props) {
                                         <h3
                                             style={{
                                                 fontSize: ts.body,
-                                                fontWeight: 600,
+                                                fontWeight: headingFontWeight,
                                                 fontFamily: bodyFont,
+                                                letterSpacing: headingLetterSpacing,
+                                                textTransform: headingTextTransform,
                                                 color: n[900],
                                                 margin: 0,
                                             }}
@@ -670,10 +674,10 @@ export function PreviewPane({ config }: Props) {
                                         <p
                                             style={{
                                                 marginTop: 8,
-                                                fontSize: ts.small,
+                                                fontSize: ts.secondary,
                                                 fontFamily: bodyFont,
                                                 color: n[500],
-                                                lineHeight: 1.5,
+                                                lineHeight: bodyLineHeight,
                                                 margin: 0,
                                                 marginBottom: 0,
                                             }}
@@ -687,7 +691,7 @@ export function PreviewPane({ config }: Props) {
                                         className="preview-link"
                                         style={{
                                             padding: '6px 8px',
-                                            fontSize: ts.small,
+                                            fontSize: ts.secondary,
                                             fontWeight: 600,
                                             fontFamily: bodyFont,
                                             background: 'transparent',
@@ -701,7 +705,7 @@ export function PreviewPane({ config }: Props) {
                                         className="preview-btn preview-btn-primary"
                                         style={{
                                             padding: '8px 16px',
-                                            fontSize: ts.small,
+                                            fontSize: ts.secondary,
                                             fontWeight: 600,
                                             fontFamily: bodyFont,
                                             borderRadius: radius,
@@ -735,9 +739,11 @@ export function PreviewPane({ config }: Props) {
                                             <div style={{ marginLeft: 12 }}>
                                                 <h3
                                                     style={{
-                                                        fontSize: ts.small,
-                                                        fontWeight: 500,
+                                                        fontSize: ts.secondary,
+                                                        fontWeight: headingFontWeight,
                                                         fontFamily: bodyFont,
+                                                        letterSpacing: headingLetterSpacing,
+                                                        textTransform: headingTextTransform,
                                                         color: alert.titleColor,
                                                         lineHeight: 1.25,
                                                         margin: 0,
@@ -748,10 +754,10 @@ export function PreviewPane({ config }: Props) {
                                                 <div
                                                     style={{
                                                         marginTop: 4,
-                                                        fontSize: ts.small,
+                                                        fontSize: ts.secondary,
                                                         fontFamily: bodyFont,
                                                         color: alert.bodyColor,
-                                                        lineHeight: 1.5,
+                                                        lineHeight: bodyLineHeight,
                                                     }}
                                                 >
                                                     {alert.description}
@@ -773,7 +779,7 @@ export function PreviewPane({ config }: Props) {
                                             href="#"
                                             onClick={(e) => e.preventDefault()}
                                             className="preview-breadcrumb-link"
-                                            style={{ fontSize: ts.small, fontFamily: bodyFont, fontWeight: 500 }}
+                                            style={{ fontSize: ts.secondary, fontFamily: bodyFont, fontWeight: 500 }}
                                         >
                                             Home
                                         </a>
@@ -789,7 +795,7 @@ export function PreviewPane({ config }: Props) {
                                             {page.current ? (
                                                 <span
                                                     style={{
-                                                        fontSize: ts.small,
+                                                        fontSize: ts.secondary,
                                                         fontFamily: bodyFont,
                                                         fontWeight: 500,
                                                         color: n[700],
@@ -803,7 +809,7 @@ export function PreviewPane({ config }: Props) {
                                                     onClick={(e) => e.preventDefault()}
                                                     className="preview-breadcrumb-link"
                                                     style={{
-                                                        fontSize: ts.small,
+                                                        fontSize: ts.secondary,
                                                         fontFamily: bodyFont,
                                                         fontWeight: 500,
                                                     }}
@@ -821,7 +827,7 @@ export function PreviewPane({ config }: Props) {
                         <div style={{ marginBottom: 32 }}>
                             <div style={labelStyle}>Table</div>
                             <div style={{ background: '#fff', border, borderRadius: radius, overflow: 'hidden' }}>
-                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.small }}>
+                                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: ts.secondary }}>
                                     <thead>
                                         <tr>
                                             {['Name', 'Title', 'Email', 'Role', ''].map((th, i) => (
@@ -830,8 +836,10 @@ export function PreviewPane({ config }: Props) {
                                                     style={{
                                                         textAlign: 'left',
                                                         padding: '12px 12px',
-                                                        fontSize: ts.small,
-                                                        fontWeight: 600,
+                                                        fontSize: ts.secondary,
+                                                        fontWeight: headingFontWeight,
+                                                        letterSpacing: headingLetterSpacing,
+                                                        textTransform: headingTextTransform,
                                                         color: n[900],
                                                         background: n[50],
                                                         borderBottom: `1px solid ${n[300]}`,
