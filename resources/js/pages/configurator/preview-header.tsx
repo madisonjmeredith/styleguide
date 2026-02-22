@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, router } from '@inertiajs/react';
 import { ChevronDown, LayoutGrid, LogIn, LogOut, Menu, UserPlus } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import AppLogoIcon from '@/components/app-logo-icon';
 import { NeoButton } from '@/components/neo/neo-button';
 import { NeoDropdown, NeoDropdownContent, NeoDropdownItem, NeoDropdownSeparator, NeoDropdownTrigger } from '@/components/neo/neo-dropdown';
 import { UserInfo } from '@/components/user-info';
@@ -53,6 +54,12 @@ export function PreviewHeader({ config, user, isEditing, onOpenSidebar }: Props)
 
             {/* Divider (mobile only) */}
             <div className="h-6 w-px bg-neo/20 lg:hidden" aria-hidden="true" />
+
+            {/* Logo + App Name */}
+            <Link href="/" className="flex items-center gap-2 no-underline">
+                <AppLogoIcon className="size-6 fill-current text-slate-800" />
+                <span className="text-sm font-bold tracking-wide text-slate-800">AI Style Guide</span>
+            </Link>
 
             {/* Spacer */}
             <div className="flex flex-1 items-center justify-end gap-x-3">

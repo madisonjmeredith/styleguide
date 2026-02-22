@@ -45,11 +45,6 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
 
     return (
         <div className="flex grow flex-col overflow-y-auto border-r-2 border-neo bg-white px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {/* Header */}
-            <div className="-mx-6 flex shrink-0 items-center justify-between border-b-2 border-neo bg-gray-50 px-6 py-4">
-                <div className="text-sm font-bold tracking-wide uppercase text-gray-900">Style Guide</div>
-            </div>
-
             {/* Saved guide banner */}
             {isEditing && (
                 <div className="-mx-6 border-b-2 border-neo">

@@ -168,15 +168,20 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
                     </div>
                 </Dialog>
 
-                {/* Desktop static sidebar */}
-                <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-[440px] lg:flex-col">
-                    <ConfigSidebar {...sidebarProps} />
-                </div>
+                {/* Full-width header */}
+                <PreviewHeader config={config} user={auth.user} isEditing={isEditing} onOpenSidebar={() => setSidebarOpen(true)} />
 
-                {/* Main content */}
-                <div className="flex flex-1 flex-col overflow-hidden lg:pl-[440px]">
-                    <PreviewHeader config={config} user={auth.user} isEditing={isEditing} onOpenSidebar={() => setSidebarOpen(true)} />
-                    <PreviewPane config={config} />
+                {/* Sidebar + Content below header */}
+                <div className="flex flex-1 overflow-hidden">
+                    {/* Desktop static sidebar */}
+                    <div className="hidden lg:flex lg:w-[440px] lg:shrink-0 lg:flex-col">
+                        <ConfigSidebar {...sidebarProps} />
+                    </div>
+
+                    {/* Main content */}
+                    <div className="flex flex-1 flex-col overflow-hidden">
+                        <PreviewPane config={config} />
+                    </div>
                 </div>
             </div>
         </>
