@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { login, register } from '@/routes';
 import type { StyleGuideConfig, StyleGuideData, User } from '@/types';
 import { CheckCircle, Loader2, TriangleAlert } from 'lucide-react';
-import { ExportDialog } from './export-dialog';
+import { downloadZip } from './lib/download-file';
+import { generateClaudeMd } from './lib/generate-claude-md';
+import { generateHTML } from './lib/generate-html';
 import { SaveLoadControls } from './save-load-controls';
 import { ColorSection } from './sections/color-section';
 import { IconSection } from './sections/icon-section';
@@ -94,10 +96,36 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
             {/* Save & Export */}
             <div className="border-t border-gray-200 pt-4 mt-4 space-y-3">
                 {isEditing ? (
-                    <ExportDialog config={config} />
+                    <button
+                        onClick={() => {
+                            downloadZip(
+                                [
+                                    { name: 'style-guide.html', content: generateHTML(config) },
+                                    { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                ],
+                                'style-guide.zip',
+                            );
+                        }}
+                        className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200"
+                    >
+                        Export Style Guide
+                    </button>
                 ) : user ? (
                     <>
-                        <ExportDialog config={config} />
+                        <button
+                        onClick={() => {
+                            downloadZip(
+                                [
+                                    { name: 'style-guide.html', content: generateHTML(config) },
+                                    { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                ],
+                                'style-guide.zip',
+                            );
+                        }}
+                        className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200"
+                    >
+                        Export Style Guide
+                    </button>
 
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">
@@ -120,7 +148,20 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                     </>
                 ) : (
                     <>
-                        <ExportDialog config={config} />
+                        <button
+                        onClick={() => {
+                            downloadZip(
+                                [
+                                    { name: 'style-guide.html', content: generateHTML(config) },
+                                    { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                ],
+                                'style-guide.zip',
+                            );
+                        }}
+                        className="w-full py-2.5 text-sm/6 font-semibold bg-green-600 hover:bg-green-500 text-white border-none rounded-md cursor-pointer transition-all duration-200"
+                    >
+                        Export Style Guide
+                    </button>
 
                         <div className="relative">
                             <div className="absolute inset-0 flex items-center">

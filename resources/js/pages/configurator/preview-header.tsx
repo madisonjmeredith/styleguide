@@ -13,7 +13,9 @@ import { UserInfo } from '@/components/user-info';
 import { useInitials } from '@/hooks/use-initials';
 import type { StyleGuideConfig, User } from '@/types';
 import { dashboard, login, logout, register } from '@/routes';
-import { ExportDialog } from './export-dialog';
+import { downloadZip } from './lib/download-file';
+import { generateClaudeMd } from './lib/generate-claude-md';
+import { generateHTML } from './lib/generate-html';
 
 type Props = {
     config: StyleGuideConfig;
@@ -68,14 +70,20 @@ export function PreviewHeader({ config, user, isEditing, onOpenSidebar }: Props)
                     </button>
                 )}
 
-                <ExportDialog
-                    config={config}
-                    trigger={
-                        <button className="rounded-md bg-green-600 px-3.5 py-2 text-sm font-semibold text-white border-none cursor-pointer transition-colors hover:bg-green-500">
-                            Export Style Guide
-                        </button>
-                    }
-                />
+                <button
+                    onClick={() => {
+                        downloadZip(
+                            [
+                                { name: 'style-guide.html', content: generateHTML(config) },
+                                { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                            ],
+                            'style-guide.zip',
+                        );
+                    }}
+                    className="rounded-md bg-green-600 px-3.5 py-2 text-sm font-semibold text-white border-none cursor-pointer transition-colors hover:bg-green-500"
+                >
+                    Export Style Guide
+                </button>
 
                 {user ? (
                     <DropdownMenu>
