@@ -217,8 +217,8 @@ export function PreviewPane({ config }: Props) {
                         .preview-btn {
                             transition: all ${config.transitionDuration}ms ease;
                         }
-                        .preview-btn-primary { background: ${isOutlineStyle ? 'transparent' : primary}; color: ${isOutlineStyle ? primary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${primary}` : 'none'}; }
-                        .preview-btn-secondary { background: ${isOutlineStyle ? 'transparent' : secondary}; color: ${isOutlineStyle ? secondary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${secondary}` : 'none'}; }
+                        .preview-btn-primary { background: ${isOutlineStyle ? 'transparent' : primary}; color: ${isOutlineStyle ? primary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${primary}` : 'none'}; box-shadow: ${shadow}; }
+                        .preview-btn-secondary { background: ${isOutlineStyle ? 'transparent' : secondary}; color: ${isOutlineStyle ? secondary : '#fff'}; border: ${isOutlineStyle ? `${outlineBorderWidth}px solid ${secondary}` : 'none'}; box-shadow: ${shadow}; }
                         ${config.buttonHoverStyle === 'fill' && isOutlineStyle ? `.preview-btn-primary:hover { background: ${primary}; color: #fff; border-color: ${primary}; } .preview-btn-secondary:hover { background: ${secondary}; color: #fff; border-color: ${secondary}; }` : ''}
                         ${config.buttonHoverStyle === 'darker' ? `.preview-btn-primary:hover { background: ${shade(primary, 0.15)};${isOutlineStyle ? ` color: #fff; border-color: ${shade(primary, 0.15)};` : ''} } .preview-btn-secondary:hover { background: ${shade(secondary, 0.15)};${isOutlineStyle ? ` color: #fff; border-color: ${shade(secondary, 0.15)};` : ''} }` : ''}
                         ${config.buttonHoverStyle === 'lighter' ? `.preview-btn-primary:hover { background: ${tint(primary, 0.2)};${isOutlineStyle ? ` color: #fff; border-color: ${tint(primary, 0.2)};` : ''} } .preview-btn-secondary:hover { background: ${tint(secondary, 0.2)};${isOutlineStyle ? ` color: #fff; border-color: ${tint(secondary, 0.2)};` : ''} }` : ''}
@@ -339,7 +339,6 @@ export function PreviewPane({ config }: Props) {
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
-                                        boxShadow: shadow,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -355,7 +354,6 @@ export function PreviewPane({ config }: Props) {
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
-                                        boxShadow: shadow,
                                         cursor: 'pointer',
                                     }}
                                 >
@@ -370,7 +368,6 @@ export function PreviewPane({ config }: Props) {
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        boxShadow: shadow,
                                     }}
                                 >
                                     {renderButtonIcon('currentColor', 20)}
