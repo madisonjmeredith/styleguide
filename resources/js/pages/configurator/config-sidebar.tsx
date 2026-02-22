@@ -84,7 +84,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
 
             {/* Name */}
             <div className="py-4">
-                <label htmlFor="styleguide-name" className="mb-1.5 block text-xs font-bold uppercase tracking-wide text-gray-500">
+                <label htmlFor="styleguide-name" className="mb-1.5 block text-sm/6 font-semibold text-gray-700">
                     Name
                 </label>
                 <NeoInput

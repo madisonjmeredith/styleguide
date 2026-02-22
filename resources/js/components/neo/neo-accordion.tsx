@@ -19,7 +19,7 @@ function NeoAccordion({ title, defaultOpen = false, children, className }: Props
                 <ChevronRight
                     className={cn('size-4 shrink-0 text-neo transition-transform duration-200', open && 'rotate-90')}
                 />
-                <span className="text-sm font-bold uppercase tracking-wide text-gray-900">{title}</span>
+                <span className="text-sm font-bold text-gray-900">{title}</span>
             </CollapsiblePrimitive.Trigger>
             <CollapsiblePrimitive.Content className="overflow-hidden data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
                 <div className="pt-3">{children}</div>

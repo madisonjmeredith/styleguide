@@ -58,7 +58,7 @@ export function PreviewHeader({ config, user, isEditing, onOpenSidebar }: Props)
             {/* Logo + App Name */}
             <Link href="/" className="flex items-center gap-2 no-underline">
                 <AppLogoIcon className="size-6 fill-current text-slate-800" />
-                <span className="text-sm font-bold tracking-wide text-slate-800">AI Style Guide</span>
+                <span className="text-base font-bold tracking-wide text-slate-800">AI Style Guide</span>
             </Link>
 
             {/* Spacer */}

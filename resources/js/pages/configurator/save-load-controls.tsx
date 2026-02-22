@@ -37,7 +37,7 @@ export function SaveLoadControls({ styleGuides, config, activeGuideId }: Props) 
 
             {styleGuides.length > 0 && (
                 <div className="space-y-1">
-                    <div className="mt-2 text-xs font-bold uppercase tracking-wide text-gray-900">Saved Guides</div>
+                    <div className="mt-2 text-sm/6 font-semibold text-gray-700">Saved Guides</div>
                     {styleGuides.map((guide) => (
                         <div
                             key={guide.id}
