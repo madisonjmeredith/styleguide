@@ -16,6 +16,7 @@ import { dashboard, login, logout, register } from '@/routes';
 import { downloadZip } from './lib/download-file';
 import { generateClaudeMd } from './lib/generate-claude-md';
 import { generateHTML } from './lib/generate-html';
+import { generateReadme } from './lib/generate-readme';
 
 type Props = {
     config: StyleGuideConfig;
@@ -76,6 +77,7 @@ export function PreviewHeader({ config, user, isEditing, onOpenSidebar }: Props)
                             [
                                 { name: 'style-guide.html', content: generateHTML(config) },
                                 { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                { name: 'README.md', content: generateReadme() },
                             ],
                             'style-guide.zip',
                         );

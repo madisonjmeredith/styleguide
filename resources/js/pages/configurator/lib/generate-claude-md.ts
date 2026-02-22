@@ -1,13 +1,11 @@
 import type { StyleGuideConfig } from '@/types';
 
 export function generateClaudeMd(config: StyleGuideConfig): string {
-    const title = config.name ? config.name : 'Style Guide';
-
-    return `# ${title}
+    return `## Style Guide
 
 This is the design system style guide for this project. Any design implementation should reference the included HTML file for visual inspiration and design token details.
 
-## Reference
+### Reference
 
 Open \`style-guide.html\` (in the same directory as this file) in a browser to see the full visual style guide, including:
 

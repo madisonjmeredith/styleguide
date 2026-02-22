@@ -7,6 +7,7 @@ import { CheckCircle, Loader2, TriangleAlert } from 'lucide-react';
 import { downloadZip } from './lib/download-file';
 import { generateClaudeMd } from './lib/generate-claude-md';
 import { generateHTML } from './lib/generate-html';
+import { generateReadme } from './lib/generate-readme';
 import { SaveLoadControls } from './save-load-controls';
 import { ColorSection } from './sections/color-section';
 import { IconSection } from './sections/icon-section';
@@ -102,6 +103,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                                 [
                                     { name: 'style-guide.html', content: generateHTML(config) },
                                     { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                    { name: 'README.md', content: generateReadme() },
                                 ],
                                 'style-guide.zip',
                             );
@@ -118,6 +120,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                                 [
                                     { name: 'style-guide.html', content: generateHTML(config) },
                                     { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                    { name: 'README.md', content: generateReadme() },
                                 ],
                                 'style-guide.zip',
                             );
@@ -154,6 +157,7 @@ export function ConfigSidebar({ config, onUpdate, user, styleGuides, activeGuide
                                 [
                                     { name: 'style-guide.html', content: generateHTML(config) },
                                     { name: 'STYLE_GUIDE.md', content: generateClaudeMd(config) },
+                                    { name: 'README.md', content: generateReadme() },
                                 ],
                                 'style-guide.zip',
                             );
