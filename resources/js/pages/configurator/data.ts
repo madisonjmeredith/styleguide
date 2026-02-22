@@ -1,4 +1,4 @@
-import type { BodyLineHeight, ButtonHoverStyle, ButtonStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TypeScale } from '@/types';
+import type { BodyLineHeight, ButtonHoverStyle, ButtonLetterSpacing, ButtonStyle, FontMeta, HeadingLetterSpacing, StyleGuideConfig, TypeScale } from '@/types';
 
 export type GoogleFont = {
     family: string;
@@ -163,12 +163,12 @@ export const BUTTON_STYLE_OPTIONS: Array<{ id: ButtonStyle; label: string; descr
     { id: 'outline', label: 'Outline', description: 'Bordered, fills on hover' },
 ];
 
-export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string }> = [
-    { id: 'fill', label: 'Fill' },
-    { id: 'darker', label: 'Darker' },
-    { id: 'lighter', label: 'Lighter' },
-    { id: 'glow', label: 'Glow' },
-    { id: 'lift', label: 'Lift' },
+export const BUTTON_HOVER_STYLE_OPTIONS: Array<{ id: ButtonHoverStyle; label: string; description: string }> = [
+    { id: 'fill', label: 'Fill', description: 'Fills outline buttons on hover' },
+    { id: 'darker', label: 'Darker', description: 'Darkens the background color' },
+    { id: 'lighter', label: 'Lighter', description: 'Lightens the background color' },
+    { id: 'glow', label: 'Glow', description: 'Adds a soft ring around the button' },
+    { id: 'lift', label: 'Lift', description: 'Lifts the button with a shadow' },
 ];
 
 export const TRANSITION_DURATION_MIN = 0;
@@ -186,6 +186,18 @@ export const HEADING_LETTER_SPACING_OPTIONS: Array<{ id: HeadingLetterSpacing; l
 ];
 
 export const HEADING_LETTER_SPACING_VALUES: Record<HeadingLetterSpacing, string> = {
+    tight: '-0.02em',
+    normal: '0',
+    wide: '0.05em',
+};
+
+export const BUTTON_LETTER_SPACING_OPTIONS: Array<{ id: ButtonLetterSpacing; label: string }> = [
+    { id: 'tight', label: 'Tight' },
+    { id: 'normal', label: 'Normal' },
+    { id: 'wide', label: 'Wide' },
+];
+
+export const BUTTON_LETTER_SPACING_VALUES: Record<ButtonLetterSpacing, string> = {
     tight: '-0.02em',
     normal: '0',
     wide: '0.05em',
@@ -223,6 +235,10 @@ export const DEFAULT_CONFIG: StyleGuideConfig = {
     headingLetterSpacing: 'normal',
     bodyLineHeight: 'comfortable',
     buttonStyle: 'filled',
+    buttonFont: 'DM Sans',
+    buttonFontMeta: { category: 'sans-serif', weights: '400;500;700' },
+    buttonFontWeight: 500,
+    buttonLetterSpacing: 'normal',
     buttonTextTransform: 'none',
     headingTextTransform: 'none',
     iconLibrary: 'heroicons',

@@ -1,4 +1,4 @@
-import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta, shade, tint } from '../data';
+import { BODY_LINE_HEIGHT_VALUES, BUTTON_LETTER_SPACING_VALUES, HEADING_LETTER_SPACING_VALUES, ICON_LIBRARIES, NEUTRAL_PRESETS, TYPE_SCALE_OPTIONS, TYPE_SCALE_SIZES, googleFontsUrl, lookupFontMeta, shade, tint } from '../data';
 import type { StyleGuideConfig } from '@/types';
 
 const MATERIAL_SYMBOL_PATHS: Record<string, string> = {
@@ -47,10 +47,15 @@ export function generateHTML(config: StyleGuideConfig): string {
     const n = NEUTRAL_PRESETS[config.neutralFamily].values;
     const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
     const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
-    const fontsUrl = googleFontsUrl([
+    const btnfMeta = lookupFontMeta(config.buttonFont, config.buttonFontMeta);
+    const fontEntries = [
         { name: config.headingFont, weights: hfMeta.weights },
         { name: config.bodyFont, weights: bfMeta.weights },
-    ]);
+    ];
+    if (config.buttonFont !== config.headingFont && config.buttonFont !== config.bodyFont) {
+        fontEntries.push({ name: config.buttonFont, weights: btnfMeta.weights });
+    }
+    const fontsUrl = googleFontsUrl(fontEntries);
     const neutralLabel = NEUTRAL_PRESETS[config.neutralFamily].label;
     const border = config.borderWidth === 0 ? '1px solid transparent' : `${config.borderWidth}px solid ${n[200]}`;
     const shadow = config.shadowEnabled
@@ -64,16 +69,19 @@ export function generateHTML(config: StyleGuideConfig): string {
     const typeScaleLabel = TYPE_SCALE_OPTIONS.find((o) => o.id === (config.typeScale ?? 'regular'))?.label ?? 'Regular';
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const btnfFallback = btnfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const headingFont = `'${config.headingFont}', ${hfFallback}`;
     const bodyFont = `'${config.bodyFont}', ${bfFallback}`;
+    const buttonFont = `'${config.buttonFont}', ${btnfFallback}`;
 
     const headingFontWeight = config.headingFontWeight ?? 700;
     const bodyFontWeight = config.bodyFontWeight ?? 400;
+    const buttonFontWeight = config.buttonFontWeight ?? 500;
     const headingLetterSpacing = HEADING_LETTER_SPACING_VALUES[config.headingLetterSpacing ?? 'normal'];
     const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[config.bodyLineHeight ?? 'comfortable'];
     const headingTextTransform = config.headingTextTransform ?? 'none';
     const buttonTextTransform = config.buttonTextTransform ?? 'none';
-    const buttonLetterSpacing = buttonTextTransform === 'uppercase' ? '0.05em' : 'normal';
+    const buttonLetterSpacing = BUTTON_LETTER_SPACING_VALUES[config.buttonLetterSpacing ?? 'normal'];
 
     const isOutlineStyle = (config.buttonStyle ?? 'filled') === 'outline';
     const outlineBorderWidth = Math.max(config.borderWidth, 1);
@@ -244,6 +252,7 @@ ${allNeutralComments}
      *
      * Heading Font: ${config.headingFont} (weight: ${headingFontWeight}, letter-spacing: ${headingLetterSpacing}, transform: ${headingTextTransform})
      * Body Font:    ${config.bodyFont} (weight: ${bodyFontWeight}, line-height: ${bodyLineHeight})
+     * Button Font:  ${config.buttonFont} (weight: ${buttonFontWeight}, letter-spacing: ${buttonLetterSpacing}, transform: ${buttonTextTransform})
      *
      * Type Scale: ${typeScaleLabel} — h1: ${ts.h1}px, h2: ${ts.h2}px, h3: ${ts.h3}px, body: ${ts.body}px, secondary: ${ts.secondary}px, small: ${ts.small}px
      *
@@ -334,7 +343,7 @@ ${allNeutralComments}
     .btn {
       transition: all ${config.transitionDuration}ms ease;
       cursor: pointer;
-      font-family: ${bodyFont};
+      font-family: ${buttonFont};
     }
     .btn-primary { background: ${btnPrimaryBg}; color: ${btnPrimaryColor}; border: ${btnPrimaryBorder}; box-shadow: ${shadow}; }
     .btn-secondary { background: ${btnSecondaryBg}; color: ${btnSecondaryColor}; border: ${btnSecondaryBorder}; box-shadow: ${shadow}; }
@@ -366,11 +375,11 @@ ${allNeutralComments}
         <div class="section">
           <div class="section-label">Buttons</div>
           <div class="panel" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-            <button class="btn btn-primary" style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: 500; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Primary</button>
-            <button class="btn btn-secondary" style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: 500; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Secondary</button>
+            <button class="btn btn-primary" style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: ${buttonFontWeight}; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Primary</button>
+            <button class="btn btn-secondary" style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: ${buttonFontWeight}; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Secondary</button>
             <button class="btn btn-primary" style="padding: 8px; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center;">${plusIconSvg('currentColor', config.iconLibrary)}</button>
-            <button class="link" style="padding: 9px 8px; font-size: ${ts.secondary}px; font-weight: 500; font-family: ${bodyFont}; background: transparent; border: none; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing}; cursor: pointer;">Text link</button>
-            <button style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: 500; font-family: ${bodyFont}; background: ${n[200]}; color: ${n[400]}; border: none; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; cursor: not-allowed;">Disabled</button>
+            <button class="link" style="padding: 9px 8px; font-size: ${ts.secondary}px; font-weight: ${buttonFontWeight}; font-family: ${buttonFont}; background: transparent; border: none; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing}; cursor: pointer;">Text link</button>
+            <button style="padding: 9px 18px; font-size: ${ts.secondary}px; font-weight: ${buttonFontWeight}; font-family: ${buttonFont}; background: ${n[200]}; color: ${n[400]}; border: none; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; cursor: not-allowed;">Disabled</button>
           </div>
         </div>
 
@@ -400,7 +409,7 @@ ${allNeutralComments}
                 <label style="display: block; font-size: ${ts.small}px; font-weight: 500; color: ${n[900]}; margin-bottom: 6px;">Password</label>
                 <input type="password" style="width: 100%; padding: 8px 12px; font-size: ${ts.small}px; font-family: ${bodyFont}; color: ${n[800]}; background: #fff; border: ${border}; border-radius: ${config.radius}px; outline: none; box-sizing: border-box;">
               </div>
-              <button class="btn btn-primary" style="width: 100%; padding: 9px 18px; font-size: ${ts.small}px; font-weight: 600; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform};">Sign in</button>
+              <button class="btn btn-primary" style="width: 100%; padding: 9px 18px; font-size: ${ts.small}px; font-weight: ${buttonFontWeight}; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Sign in</button>
             </form>
             <p style="margin-top: 24px; text-align: center; font-size: ${ts.small}px; margin-bottom: 0;">
               <a href="#" class="link" style="font-weight: 600;">Start a 14 day free trial</a>
@@ -422,8 +431,8 @@ ${allNeutralComments}
               </div>
             </div>
             <div style="margin-top: 20px; display: flex; justify-content: flex-end; align-items: center; gap: 12px;">
-              <button class="link" style="padding: 6px 8px; font-size: ${ts.small}px; font-weight: 600; font-family: ${bodyFont}; background: transparent; border: none; cursor: pointer;">Cancel</button>
-              <button class="btn btn-primary" style="padding: 8px 16px; font-size: ${ts.small}px; font-weight: 600; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform};">Publish</button>
+              <button class="link" style="padding: 6px 8px; font-size: ${ts.small}px; font-weight: ${buttonFontWeight}; font-family: ${buttonFont}; background: transparent; border: none; cursor: pointer;">Cancel</button>
+              <button class="btn btn-primary" style="padding: 8px 16px; font-size: ${ts.small}px; font-weight: ${buttonFontWeight}; border-radius: ${config.radius}px; text-transform: ${buttonTextTransform}; letter-spacing: ${buttonLetterSpacing};">Publish</button>
             </div>
           </div>
         </div>

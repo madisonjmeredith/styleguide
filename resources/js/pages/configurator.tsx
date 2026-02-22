@@ -103,10 +103,15 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
     useEffect(() => {
         const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
         const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
-        const url = googleFontsUrl([
+        const btnfMeta = lookupFontMeta(config.buttonFont, config.buttonFontMeta);
+        const fontEntries = [
             { name: config.headingFont, weights: hfMeta.weights },
             { name: config.bodyFont, weights: bfMeta.weights },
-        ]);
+        ];
+        if (config.buttonFont !== config.headingFont && config.buttonFont !== config.bodyFont) {
+            fontEntries.push({ name: config.buttonFont, weights: btnfMeta.weights });
+        }
+        const url = googleFontsUrl(fontEntries);
         const id = 'dynamic-fonts';
         let link = document.getElementById(id) as HTMLLinkElement | null;
         if (!link) {
@@ -116,7 +121,7 @@ export default function Configurator({ styleGuides, activeGuide }: Props) {
             document.head.appendChild(link);
         }
         link.href = url;
-    }, [config.headingFont, config.bodyFont, config.headingFontMeta, config.bodyFontMeta]);
+    }, [config.headingFont, config.bodyFont, config.buttonFont, config.headingFontMeta, config.bodyFontMeta, config.buttonFontMeta]);
 
     const sidebarProps = {
         config,

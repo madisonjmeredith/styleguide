@@ -25,7 +25,7 @@ import {
     Info as LucideInfo,
     Plus as LucidePlus,
 } from 'lucide-react';
-import { BODY_LINE_HEIGHT_VALUES, HEADING_LETTER_SPACING_VALUES, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
+import { BODY_LINE_HEIGHT_VALUES, BUTTON_LETTER_SPACING_VALUES, HEADING_LETTER_SPACING_VALUES, NEUTRAL_PRESETS, TYPE_SCALE_SIZES, lookupFontMeta, shade, tint } from './data';
 
 const MATERIAL_SYMBOL_PATHS: Record<string, string> = {
     'check-circle': 'm421-389-98-98q-9-9-22-9t-23 10q-9 9-9 22t9 22l122 123q9 9 21 9t21-9l239-239q10-10 10-23t-10-23q-10-9-23.5-8.5T635-603L421-389Zm59 309q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Z',
@@ -76,10 +76,13 @@ export function PreviewPane({ config }: Props) {
     const shadow = config.shadowEnabled ? '0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05)' : 'none';
     const hfMeta = lookupFontMeta(config.headingFont, config.headingFontMeta);
     const bfMeta = lookupFontMeta(config.bodyFont, config.bodyFontMeta);
+    const btnfMeta = lookupFontMeta(config.buttonFont, config.buttonFontMeta);
     const hfFallback = hfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const bfFallback = bfMeta.category === 'sans-serif' ? 'system-ui, sans-serif' : 'Georgia, serif';
+    const btnfFallback = btnfMeta.category === 'serif' ? 'Georgia, serif' : 'system-ui, sans-serif';
     const headingFont = `'${config.headingFont}', ${hfFallback}`;
     const bodyFont = `'${config.bodyFont}', ${bfFallback}`;
+    const buttonFont = `'${config.buttonFont}', ${btnfFallback}`;
     const ts = TYPE_SCALE_SIZES[config.typeScale ?? 'regular'];
     const primary = config.primaryColor;
     const secondary = config.secondaryColor;
@@ -89,7 +92,8 @@ export function PreviewPane({ config }: Props) {
     const bodyLineHeight = BODY_LINE_HEIGHT_VALUES[config.bodyLineHeight ?? 'comfortable'];
     const headingTextTransform = (config.headingTextTransform ?? 'none') as React.CSSProperties['textTransform'];
     const buttonTextTransform = (config.buttonTextTransform ?? 'none') as React.CSSProperties['textTransform'];
-    const buttonLetterSpacing = buttonTextTransform === 'uppercase' ? '0.05em' : undefined;
+    const buttonFontWeight = config.buttonFontWeight ?? 500;
+    const buttonLetterSpacing = BUTTON_LETTER_SPACING_VALUES[config.buttonLetterSpacing ?? 'normal'];
     const isOutlineStyle = (config.buttonStyle ?? 'filled') === 'outline';
     const outlineBorderWidth = Math.max(config.borderWidth, 1);
 
@@ -336,8 +340,8 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
-                                        fontWeight: 500,
-                                        fontFamily: bodyFont,
+                                        fontWeight: buttonFontWeight,
+                                        fontFamily: buttonFont,
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
@@ -351,8 +355,8 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
-                                        fontWeight: 500,
-                                        fontFamily: bodyFont,
+                                        fontWeight: buttonFontWeight,
+                                        fontFamily: buttonFont,
                                         borderRadius: radius,
                                         textTransform: buttonTextTransform,
                                         letterSpacing: buttonLetterSpacing,
@@ -378,8 +382,8 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         padding: '9px 8px',
                                         fontSize: ts.secondary,
-                                        fontWeight: 500,
-                                        fontFamily: bodyFont,
+                                        fontWeight: buttonFontWeight,
+                                        fontFamily: buttonFont,
                                         background: 'transparent',
                                         border: 'none',
                                         borderRadius: radius,
@@ -394,8 +398,8 @@ export function PreviewPane({ config }: Props) {
                                     style={{
                                         padding: '9px 18px',
                                         fontSize: ts.secondary,
-                                        fontWeight: 500,
-                                        fontFamily: bodyFont,
+                                        fontWeight: buttonFontWeight,
+                                        fontFamily: buttonFont,
                                         background: n[200],
                                         color: n[400],
                                         border: 'none',
@@ -606,10 +610,11 @@ export function PreviewPane({ config }: Props) {
                                             width: '100%',
                                             padding: '9px 18px',
                                             fontSize: ts.secondary,
-                                            fontWeight: 600,
-                                            fontFamily: bodyFont,
+                                            fontWeight: buttonFontWeight,
+                                            fontFamily: buttonFont,
                                             borderRadius: radius,
                                             textTransform: buttonTextTransform,
+                                            letterSpacing: buttonLetterSpacing,
                                             cursor: 'pointer',
                                         }}
                                     >
@@ -692,8 +697,8 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             padding: '6px 8px',
                                             fontSize: ts.secondary,
-                                            fontWeight: 600,
-                                            fontFamily: bodyFont,
+                                            fontWeight: buttonFontWeight,
+                                            fontFamily: buttonFont,
                                             background: 'transparent',
                                             border: 'none',
                                             cursor: 'pointer',
@@ -706,10 +711,11 @@ export function PreviewPane({ config }: Props) {
                                         style={{
                                             padding: '8px 16px',
                                             fontSize: ts.secondary,
-                                            fontWeight: 600,
-                                            fontFamily: bodyFont,
+                                            fontWeight: buttonFontWeight,
+                                            fontFamily: buttonFont,
                                             borderRadius: radius,
                                             textTransform: buttonTextTransform,
+                                            letterSpacing: buttonLetterSpacing,
                                             cursor: 'pointer',
                                         }}
                                     >

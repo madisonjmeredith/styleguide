@@ -8,6 +8,7 @@ export type ButtonStyle = 'filled' | 'outline';
 export type ButtonHoverStyle = 'fill' | 'darker' | 'lighter' | 'glow' | 'lift';
 export type TransitionDuration = number;
 export type HeadingLetterSpacing = 'tight' | 'normal' | 'wide';
+export type ButtonLetterSpacing = 'tight' | 'normal' | 'wide';
 export type BodyLineHeight = 'compact' | 'comfortable' | 'spacious';
 export type TextTransform = 'none' | 'uppercase';
 
@@ -36,6 +37,10 @@ export type StyleGuideConfig = {
     headingLetterSpacing: HeadingLetterSpacing;
     bodyLineHeight: BodyLineHeight;
     buttonStyle: ButtonStyle;
+    buttonFont: string;
+    buttonFontMeta?: FontMeta;
+    buttonFontWeight: number;
+    buttonLetterSpacing: ButtonLetterSpacing;
     buttonTextTransform: TextTransform;
     headingTextTransform: TextTransform;
     buttonHoverStyle: ButtonHoverStyle;
